@@ -13,19 +13,48 @@
 </head>
 
 <body>
-  <button class = "tab">Robots</button> <button class = "tab">Market</button>
-	<p><button onclick="flipCoin(1)">Flip Coin</button>
-	<span id="res heads amount"></span> <span id="res tails amount"></span> <span id="res sides amount"></span> <span id="res intelligence amount"></span> <p><span id ="res art amount"></span> <span id = "things artwork amount"></span> <span id = "things enRobot amount"></span></p></p>
-<p><span id="things robot amount"></span>	<span id="things builder amount"></span> <span id = "things artwork amount"></span></p>
-<p>	<button id='things robot text' onclick='buy("robot", 1)'></button> <span id="things robot price"></span>
+ <div align=center>
+  <button class = "tab">Robots</button>
+  <button class = "tab">Market</button>
+ </div>
+ <p>
+	<button onclick="flipCoin(1)">Flip Coin</button>
+	<span id="res heads amount"></span>
+	<span id="res tails amount"></span>
+	<span id="res sides amount"></span>
+	<span id="res intelligence amount"></span>
+	<p>
+		<span id ="res art amount"></span>
+		<span id = "things artwork amount"></span>
+		<span id = "things enRobot amount"></span>
 	</p>
-	<p><button id='things builder text' onclick='buy("builder", 1)'></button>  <span id="things builder price"></span></p>
-  <p><span id= 'things artwork price'></span>
-  <!--<p><button id = "headsToTails" onclick = "convert('heads','tails',1)"></button> <button id = "tailsToHeads" onclick = "convert('tails','heads',1)"></button></p>-->
-  <p><span id = "outbreakText"></span>
+ </p>
+ <p>
+	<span id="things robot amount"></span>
+	<span id="things builder amount"></span>
+	<span id = "things artwork amount"></span>
+ </p>
+ <p>
+	<button id='things robot text' onclick='buy("robot", 1)'></button>
+	<span id="things robot price"></span>
+ </p>
+ <p>
+	<button id='things builder text' onclick='buy("builder", 1)'></button>
+	<span id="things builder price"></span>
+ </p>
+ <p>
+	<span id= 'things artwork price'></span>
+	<!--<p>		<button id = "headsToTails" onclick = "convert('heads','tails',1)"></button>
+		<button id = "tailsToHeads" onclick = "convert('tails','heads',1)"></button>
+	</p>-->
+
+    <p>
+		<span id = "outbreakText"></span>
+	</p>
+ </p>
 </body>
 <footer align ="center">
-  | <button class = "link"><a href="changelog.html" style="color: #000000; text-decoration: underline;" target="_blank">Changelog</a></button> |
+  <button class = "link"><a href="changelog.html" style="color: #000000; text-decoration: underline;" target="_blank">Changelog</a></button> |
   <button class="link" onclick = "wipe()">Wipe</button> | 
   <button class = "link" id = "export" data-clipboard-text = "filler">Export</button> | 
   <button class = "link" onclick="importt()">Import</button> | 
