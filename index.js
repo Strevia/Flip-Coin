@@ -160,7 +160,7 @@ function onTick() {
         value.res.robot.amount = Infinity
         value.res.robot.total = Infinity
       }
-      if (Math.random() < chanceOfOutbreak  || (value.res.intelligence.owned > 1e2 && !value.events.outbreak.occured)){
+      if (Math.random() < chanceOfOutbreak  || (value.res.intelligence.amount > 1e2 && !value.events.outbreak.occured)){
         value.events.outbreak.run = true
         value.events.outbreak.occured = true
       }
