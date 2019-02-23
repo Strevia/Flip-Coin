@@ -14,6 +14,7 @@ var ValueDefault = {
 }
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot']
+both = ['robot']
 events = ['outbreak']
 resources.forEach(resor => ValueDefault.res[resor] = {
   amount: 0,
@@ -183,7 +184,6 @@ function onTick() {
       }
     })
   }
-  value.things.robot.amount = value.res.robot.amount
   tickCount++;
 }
 function load() {
@@ -238,6 +238,9 @@ function load() {
   }
   value.robotTab = "Robots"
   value.marketTab = "Market"
+  both.forEach(b => {
+	  value.res[b] = value.things[b]
+  });
   requestInterval(onTick, 50)
 }
 function save(){
@@ -314,8 +317,6 @@ function buy(item, times) {
     })
     try {
       if (item != 'builder') {
-        value.things[item].amount += times
-        value.things[item].total += times
         value.res[item].amount += times
         value.res[item].total += times
       }
