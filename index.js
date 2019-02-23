@@ -1,4 +1,4 @@
-//revolutions are called outbreaks
+﻿//revolutions are called outbreaks
 var tickCount = 0;
 const CURRENTVERSION = [0, 3, 9]
 const secondaryPrefixes = [
@@ -370,6 +370,7 @@ function wipe(){
   if (confirm("Are you sure?")){
     value = deepCopy(ValueDefault)
     localStorage.removeItem('flipCoin')
+	window.location.reload(false)
     load()
   }
 }
@@ -379,12 +380,12 @@ function importt(){
   try {
     let tempValue = deepCopy(value)
     localStorage.setItem('flipCoin',atob(x))
-    load()
+    	window.location.reload(false)
   }
   catch {
     value = deepCopy(tempValue)
     localStorage.setItem('flipCoin', tempValue)
-    load()
+    	window.location.reload(false)
   }
 }
 load();
