@@ -1,4 +1,4 @@
- button.link { background:none;border:none; text-decoration:underline; color: "#000000"; cursor: pointer
+button.link { background:none;border:none; text-decoration:underline; color: "#000000"; cursor: pointer
  
  }
  p {
@@ -13,8 +13,8 @@
 	 width: 99%;
 	 
  }
- .tab {
-	 /*visibility:collapse;*/
+ .tablinks {
+	 visibility:collapse;
 	 margin-top:10px;
 	 margin-bottom:20px;
 	 margin-left:0px;
@@ -26,5 +26,9 @@
 	 outline-width:thick;
 	 outline-style:solid;
 	 outline-color:green;
-	 background-color:lime;
+	 background-color:#32cd32;
 	}
+
+body {
+	background-color:#97CCF1 ;
+}
