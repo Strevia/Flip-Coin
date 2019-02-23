@@ -10,3 +10,6 @@ footer {
 	bottom:15px;
 	width: 99%;
 }
+ .tab {
+	 visibility:collapse;
+}
