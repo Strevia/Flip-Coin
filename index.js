@@ -34,6 +34,8 @@ ValueDefault.things.robot.price = {
   tails: 1,
   sides: 1
 }
+ValueDefault.robotTab = "Robots"
+ValueDefault.marketTab = "Market"
 ValueDefault.outbreakText = "A revolution is occuring!"
 ValueDefault.headsToTails = "5 Heads -> 1 Tails"
 ValueDefault.tailsToHeads = "5 Tails -> 1 Heads"
@@ -91,6 +93,8 @@ UIUpdate = [
   ['res art amount', 'value.res.art.total > 0', 'Art: '],
   ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
   ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at '],
+  ['robotTab', 'value.things.artwork.total > 0', ''],
+  ['marketTab', 'value.things.artwork.total > 0', '']
   //['save', 'value.exportOpen', '']
   //['things enRobot amount', 'value.things.enRobot.total > 0', 'Enlightened Robots: '],
   //['things enRobot price', ]
@@ -232,6 +236,8 @@ function load() {
   else {
   value = deepCopy(ValueDefault);
   }
+  value.robotTab = "Robots"
+  value.marketTab = "Market"
   requestInterval(onTick, 50)
 }
 function save(){
