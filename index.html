@@ -13,11 +13,11 @@
 </head>
 
 <body>
- <div align=center>
-  <button class = "tab">Robots</button>
-  <button class = "tab">Market</button>
- </div>
- <p>
+<div class = "tab" align = center>
+  <button class = "tablinks" onclick = "openTab(event, 'robot')">Robots</button> <button class = "tablinks" onclick = "openTab(event, 'market')">Market</button>
+  </div>
+  <div id = "robot" class = "tabcontent">
+	<p>
 <button onclick="flipCoin(1)">Flip Coin</button>
 </p>	
  <p>
@@ -34,7 +34,6 @@
 		<span id = "things artwork amount"></span>
 		<span id = "things enRobot amount"></span>
 	</p>
- </p>
  <p>
 	<span id="things robot amount"></span>
 	<span id="things builder amount"></span>
@@ -58,12 +57,14 @@
 		<button id = "tailsToHeads" onclick = "convert('tails','heads',1)"></button>
 	</p>-->
 
-    <p>
+    </p>
 		<span id = "outbreakText"></span>
 	</p>
- </p>
+  </div>
+  <div id = "market" class = "tabcontent"></div>
+ 
 </body>
-<footer align ="center">
+<footer align =center>
   <button class = "link"><a href="changelog.html" style="color: #000000; text-decoration: underline;" target="_blank">Changelog</a></button> |
   <button class="link" onclick = "wipe()">Wipe</button> | 
   <button class = "link" id = "export" data-clipboard-text = "filler">Export</button> | 
