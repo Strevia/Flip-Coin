@@ -1,1 +1,12 @@
- button.link { background:none;border:none; text-decoration:underline; color: "#000000"; cursor: pointer}
+button.link {
+  background:none;
+  border:none; 
+  text-decoration:underline; 
+  color: "#000000";
+  cursor: pointer;
+}
+footer {
+	position: fixed;
+	bottom:15px;
+	width: 99%;
+}
