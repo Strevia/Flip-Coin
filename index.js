@@ -81,11 +81,11 @@ UIUpdate = [
   ['res heads amount', 'value.res.heads.total > 0', 'Heads: ']
   , ['res tails amount', 'value.res.tails.total > 0', 'Tails: '],
   ['res sides amount', 'value.res.sides.total > 0', 'Sides: '],
-  ['things robot text', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', ''],
-  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', ''],
+  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping Robot '],
+  //['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', ''],
   ['things robot amount', 'value.things.robot.total > 0', 'Robots: '],
-  ['things builder text', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', ''],
-  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', ''],
+  //['things builder text', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy Builder Bot '],
+  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy Builder Bot '],
   ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: '],
   ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: '],
   //['headsToTails', 'value.res.intelligence.total > 0', ''],
@@ -123,10 +123,22 @@ function updateUI() {
         y = format(y)
       }
       tempEl.innerHTML = element[2] + String(y)
+			  
     } else {
       tempEl.style.display = 'none';
     }
   });
+	let pricesHTML = [].slice.call(document.getElementsByClassName("prices"));
+  	pricesHTML.forEach(tempEl => {
+		x = tempEl.getAttribute('id')
+		  let t = x.split(' ')[1]
+		  if (buy(t, 1, false)){
+			  tempEl.style.color = "#006400"
+		  } else {
+			  tempEl.style.color = "#ff0000"
+		  }
+				  
+	})
 }
 
 function onTick() {
@@ -294,7 +306,7 @@ function flipCoin(times) {
     }
   }
 }
-function buy(item, times) {
+function buy(item, times, actualBuy = true) {
   if (times == Infinity && value.things[item].amount == Infinity){
     return
   }
@@ -306,6 +318,9 @@ function buy(item, times) {
       afford = false
     }
   })
+  if (!actualBuy){
+	return afford
+  }
   if (afford) {
     resNeeded.forEach(r => {
       if (times != Infinity){
