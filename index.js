@@ -123,10 +123,24 @@ function updateUI() {
         y = format(y)
       }
       tempEl.innerHTML = element[2] + String(y)
+			  
     } else {
       tempEl.style.display = 'none';
     }
   });
+	let pricesHTML = [].slice.call(document.getElementsByClassName("prices"));
+  	pricesHTML.forEach(tempEl => {
+		x = tempEl.getAttribute('id')
+		  let t = x.split(' ')[1]
+		  console.log(t)
+		  console.log(buy(t, 1, false))
+		  if (buy(t, 1, false)){
+			  tempEl.style.color = "#7fff00"
+		  } else {
+			  tempEl.style.color = "#ff0000"
+		  }
+				  
+	})
 }
 
 function onTick() {
@@ -294,7 +308,7 @@ function flipCoin(times) {
     }
   }
 }
-function buy(item, times) {
+function buy(item, times, actualBuy = true) {
   if (times == Infinity && value.things[item].amount == Infinity){
     return
   }
@@ -306,6 +320,9 @@ function buy(item, times) {
       afford = false
     }
   })
+  if (!actualBuy){
+	return afford
+  }
   if (afford) {
     resNeeded.forEach(r => {
       if (times != Infinity){
