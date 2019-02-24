@@ -82,23 +82,16 @@ UIUpdate = [
   , ['res tails amount', 'value.res.tails.total > 0', 'Tails: '],
   ['res sides amount', 'value.res.sides.total > 0', 'Sides: '],
   ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping Robot '],
-  //['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', ''],
   ['things robot amount', 'value.things.robot.total > 0', 'Robots: '],
-  //['things builder text', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy Builder Bot '],
   ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy Builder Bot '],
   ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: '],
   ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: '],
-  //['headsToTails', 'value.res.intelligence.total > 0', ''],
-  //['tailsToHeads', 'value.res.intelligence.total > 0', ''],
   ['outbreakText', 'value.events.outbreak.run', ''],
   ['res art amount', 'value.res.art.total > 0', 'Art: '],
   ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
   ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at '],
   ['robotTab', 'value.things.artwork.total > 0', ''],
   ['marketTab', 'value.things.artwork.total > 0', '']
-  //['save', 'value.exportOpen', '']
-  //['things enRobot amount', 'value.things.enRobot.total > 0', 'Enlightened Robots: '],
-  //['things enRobot price', ]
 ]
 function updateUI() {
   document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(value)))
@@ -244,6 +237,9 @@ function load() {
     if (updated){
       console.log('Updated to v' + String(value.version[0] + '.' + String(value.version[1] + '.' + String(value.version[2]))))
     }
+	if (value.things.builder.amount > 0){
+		UIUpdate[5][2] = "Double Builder Bots "
+	}
   }
   else {
   value = deepCopy(ValueDefault);
@@ -343,7 +339,7 @@ function buy(item, times, actualBuy = true) {
         else {
           value.things[item].amount += times
           value.things[item].total += times
-          value.things.builder.text = 'Double Builder Bots'
+          UIUpdate[5][2] = 'Double Builder Bots '
         }
       }
     }
