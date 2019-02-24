@@ -132,8 +132,6 @@ function updateUI() {
   	pricesHTML.forEach(tempEl => {
 		x = tempEl.getAttribute('id')
 		  let t = x.split(' ')[1]
-		  console.log(t)
-		  console.log(buy(t, 1, false))
 		  if (buy(t, 1, false)){
 			  tempEl.style.color = "#7fff00"
 		  } else {
