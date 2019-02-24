@@ -1,11 +1,6 @@
 button.link { background:none;border:none; text-decoration:underline; color: "#000000"; cursor: pointer
  
  }
- p {
-	 border:10px;
-	 color:blue;
-	 
- }
  footer {
 	 
 	 position: fixed;
