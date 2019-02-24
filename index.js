@@ -1,6 +1,6 @@
-//revolutions are called outbreaks
+﻿//revolutions are called outbreaks
 var tickCount = 0;
-const CURRENTVERSION = [0, 3, 9]
+const CURRENTVERSION = [0, 4, 1]
 const secondaryPrefixes = [
   '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
 ]
@@ -14,6 +14,7 @@ var ValueDefault = {
 }
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot']
+both = ['robot']
 events = ['outbreak']
 resources.forEach(resor => ValueDefault.res[resor] = {
   amount: 0,
@@ -34,6 +35,8 @@ ValueDefault.things.robot.price = {
   tails: 1,
   sides: 1
 }
+ValueDefault.robotTab = "Robots"
+ValueDefault.marketTab = "Market"
 ValueDefault.outbreakText = "A revolution is occuring!"
 ValueDefault.headsToTails = "5 Heads -> 1 Tails"
 ValueDefault.tailsToHeads = "5 Tails -> 1 Heads"
@@ -91,6 +94,8 @@ UIUpdate = [
   ['res art amount', 'value.res.art.total > 0', 'Art: '],
   ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
   ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at '],
+  ['robotTab', 'value.things.artwork.total > 0', ''],
+  ['marketTab', 'value.things.artwork.total > 0', '']
   //['save', 'value.exportOpen', '']
   //['things enRobot amount', 'value.things.enRobot.total > 0', 'Enlightened Robots: '],
   //['things enRobot price', ]
@@ -160,7 +165,7 @@ function onTick() {
         value.res.robot.amount = Infinity
         value.res.robot.total = Infinity
       }
-      if (Math.random() < chanceOfOutbreak  || (value.res.intelligence > 1e2 && !value.events.outbreak.occured)){
+      if (Math.random() < chanceOfOutbreak  || (value.res.intelligence.amount > 1e2 && !value.events.outbreak.occured)){
         value.events.outbreak.run = true
         value.events.outbreak.occured = true
       }
@@ -179,7 +184,6 @@ function onTick() {
       }
     })
   }
-  value.things.robot.amount = value.res.robot.amount
   tickCount++;
 }
 function load() {
@@ -232,6 +236,11 @@ function load() {
   else {
   value = deepCopy(ValueDefault);
   }
+  value.robotTab = "Robots"
+  value.marketTab = "Market"
+  both.forEach(b => {
+	  value.res[b] = value.things[b]
+  });
   requestInterval(onTick, 50)
 }
 function save(){
@@ -308,8 +317,6 @@ function buy(item, times) {
     })
     try {
       if (item != 'builder') {
-        value.things[item].amount += times
-        value.things[item].total += times
         value.res[item].amount += times
         value.res[item].total += times
       }
@@ -370,6 +377,7 @@ function wipe(){
   if (confirm("Are you sure?")){
     value = deepCopy(ValueDefault)
     localStorage.removeItem('flipCoin')
+	window.location.reload(false)
     load()
   }
 }
@@ -379,12 +387,26 @@ function importt(){
   try {
     let tempValue = deepCopy(value)
     localStorage.setItem('flipCoin',atob(x))
-    load()
+    	window.location.reload(false)
   }
   catch {
     value = deepCopy(tempValue)
     localStorage.setItem('flipCoin', tempValue)
-    load()
+    	window.location.reload(false)
   }
 }
+function openTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementsByClassName("tablinks")[0].click()
 load();
