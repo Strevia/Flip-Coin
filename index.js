@@ -1,4 +1,4 @@
-//revolutions are called outbreaks
+﻿//revolutions are called outbreaks
 var tickCount = 0;
 const CURRENTVERSION = [0, 4, 1]
 const secondaryPrefixes = [
@@ -14,6 +14,7 @@ var ValueDefault = {
 }
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot']
+both = ['robot']
 events = ['outbreak']
 resources.forEach(resor => ValueDefault.res[resor] = {
   amount: 0,
@@ -34,6 +35,8 @@ ValueDefault.things.robot.price = {
   tails: 1,
   sides: 1
 }
+ValueDefault.robotTab = "Robots"
+ValueDefault.marketTab = "Market"
 ValueDefault.outbreakText = "A revolution is occuring!"
 ValueDefault.headsToTails = "5 Heads -> 1 Tails"
 ValueDefault.tailsToHeads = "5 Tails -> 1 Heads"
@@ -91,6 +94,8 @@ UIUpdate = [
   ['res art amount', 'value.res.art.total > 0', 'Art: '],
   ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
   ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at '],
+  ['robotTab', 'value.things.artwork.total > 0', ''],
+  ['marketTab', 'value.things.artwork.total > 0', '']
   //['save', 'value.exportOpen', '']
   //['things enRobot amount', 'value.things.enRobot.total > 0', 'Enlightened Robots: '],
   //['things enRobot price', ]
@@ -179,7 +184,6 @@ function onTick() {
       }
     })
   }
-  value.things.robot.amount = value.res.robot.amount
   tickCount++;
 }
 function load() {
@@ -232,6 +236,11 @@ function load() {
   else {
   value = deepCopy(ValueDefault);
   }
+  value.robotTab = "Robots"
+  value.marketTab = "Market"
+  both.forEach(b => {
+	  value.res[b] = value.things[b]
+  });
   requestInterval(onTick, 50)
 }
 function save(){
@@ -308,8 +317,6 @@ function buy(item, times) {
     })
     try {
       if (item != 'builder') {
-        value.things[item].amount += times
-        value.things[item].total += times
         value.res[item].amount += times
         value.res[item].total += times
       }
