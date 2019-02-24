@@ -133,7 +133,7 @@ function updateUI() {
 		x = tempEl.getAttribute('id')
 		  let t = x.split(' ')[1]
 		  if (buy(t, 1, false)){
-			  tempEl.style.color = "#7fff00"
+			  tempEl.style.color = "#006400"
 		  } else {
 			  tempEl.style.color = "#ff0000"
 		  }
