@@ -395,12 +395,15 @@ function wipe(){
 new ClipboardJS(document.getElementById("export"));
 function importt(){
   let x = prompt("Save to import: ")
+     let tempValue = deepCopy(value)
   try {
-    let tempValue = deepCopy(value)
+	value = deepCopy(atob(x))
+	JSON.parse(atob(x))
     localStorage.setItem('flipCoin',atob(x))
     	window.location.reload(false)
   }
   catch {
+	  console.log(tempValue)
     value = deepCopy(tempValue)
     localStorage.setItem('flipCoin', tempValue)
     	window.location.reload(false)
