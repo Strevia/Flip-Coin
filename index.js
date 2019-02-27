@@ -77,6 +77,9 @@ ValueDefault.things.enRobot = {
     heads: 1e300
   },
 }
+ValueDefault.market = {
+	selling: 1
+}
 UIUpdate = [
   ['res heads amount', 'value.res.heads.total > 0', 'Heads: ']
   , ['res tails amount', 'value.res.tails.total > 0', 'Tails: '],
@@ -95,6 +98,7 @@ UIUpdate = [
   ['res artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
   ['res money amount', 'value.res.money.total > 0', '$'],
   ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: '],
+  ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $'],
   
 ]
 function updateUI() {
@@ -142,6 +146,9 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
+	  if (value.res.artwork.amount > 0){
+		  value.market.selling = marketPrice()
+	  }
     if (value.res.robot.amount > 100) {
       if (value.events.outbreak.run == false) {
         value.res.intelligence.amount += (0.001 * value.res.robot.amount * 2**value.things.artwork.amount)
@@ -205,6 +212,7 @@ function load() {
 		value.res.creat = ValueDefault.res.creat
 		value.res.money = ValueDefault.res.money
 		value.res.artwork = value.things.artwork
+		value.market = ValueDefault.market
 	}
     resources.forEach(r => {
       if (value.res[r].amount == null){
@@ -431,7 +439,19 @@ function openTab(evt, tabName) {
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
 function marketPrice(){
+	let c = value.res.creat.amount
+	let deviation = getRandomArbitrary(0.5, 1.5)
+	price = Math.log2(c)*deviation
+	if (price > 0){
+		return price
+	}
+	else {
+		return deviation
+	}
 }
 document.getElementsByClassName("tablinks")[0].click()
 load();
