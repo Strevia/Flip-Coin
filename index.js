@@ -1,6 +1,6 @@
 ﻿//revolutions are called outbreaks
 var tickCount = 0;
-const CURRENTVERSION = [0, 4, 1]
+const CURRENTVERSION = [0, 5, 0]
 const secondaryPrefixes = [
   '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
 ]
@@ -12,9 +12,9 @@ var ValueDefault = {
   things: {},
   events: {}
 }
-resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art'],
+resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot']
-both = ['robot']
+both = ['robot', 'artwork']
 events = ['outbreak']
 resources.forEach(resor => ValueDefault.res[resor] = {
   amount: 0,
@@ -91,7 +91,11 @@ UIUpdate = [
   ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
   ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at '],
   ['robotTab', 'value.things.artwork.total > 0', ''],
-  ['marketTab', 'value.things.artwork.total > 0', '']
+  ['marketTab', 'value.things.artwork.total > 0', ''],
+  ['res artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
+  ['res money amount', 'value.res.money.total > 0', '$'],
+  ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: '],
+  
 ]
 function updateUI() {
   document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(value)))
@@ -194,6 +198,14 @@ function onTick() {
 function load() {
   if (localStorage.getItem('flipCoin') != null){
     value = JSON.parse(localStorage.getItem('flipCoin'))
+		  both.forEach(b => {
+	  value.res[b] = value.things[b]
+  });
+  if (value.version[0] < 1){
+		value.res.creat = ValueDefault.res.creat
+		value.res.money = ValueDefault.res.money
+		value.res.artwork = value.things.artwork
+	}
     resources.forEach(r => {
       if (value.res[r].amount == null){
         value.res[r].amount = Infinity
@@ -246,9 +258,6 @@ function load() {
   }
   value.robotTab = "Robots"
   value.marketTab = "Market"
-  both.forEach(b => {
-	  value.res[b] = value.things[b]
-  });
   requestInterval(onTick, 50)
 }
 function save(){
@@ -421,6 +430,8 @@ function openTab(evt, tabName) {
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
+}
+function marketPrice(){
 }
 document.getElementsByClassName("tablinks")[0].click()
 load();
