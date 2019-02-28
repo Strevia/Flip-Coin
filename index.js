@@ -208,9 +208,6 @@ function load() {
 	      if (value.version == undefined){
       value.version = [0,0,0]
     }
-		  both.forEach(b => {
-	  value.res[b] = value.things[b]
-  });
   if (value.version[0] < 1){
 		value.res.creat = ValueDefault.res.creat
 		value.res.money = ValueDefault.res.money
@@ -260,6 +257,9 @@ function load() {
 	if (value.things.builder.amount > 0){
 		UIUpdate[5][2] = "Double Builder Bots "
 	}
+	  		  both.forEach(b => {
+	  value.res[b] = value.things[b]
+  });
   }
   else {
   value = deepCopy(ValueDefault);
