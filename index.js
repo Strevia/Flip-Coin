@@ -194,6 +194,9 @@ function onTick() {
 function load() {
   if (localStorage.getItem('flipCoin') != null){
     value = JSON.parse(localStorage.getItem('flipCoin'))
+	     if (value.version == undefined){
+      value.version = [0,0,0]
+    }
     resources.forEach(r => {
       if (value.res[r].amount == null){
         value.res[r].amount = Infinity
@@ -218,9 +221,6 @@ function load() {
       })
     })
     let updated = false
-    if (value.version == undefined){
-      value.version = [0,0,0]
-    }
     if (value.version[2] != CURRENTVERSION[2]){
       value.version[2] = CURRENTVERSION[2]
       updated = true
