@@ -1,4 +1,4 @@
-﻿//revolutions are called outbreaks
+//revolutions are called outbreaks
 var tickCount = 0;
 const CURRENTVERSION = [0, 4, 1]
 const secondaryPrefixes = [
@@ -81,11 +81,11 @@ UIUpdate = [
   ['res heads amount', 'value.res.heads.total > 0', 'Heads: ']
   , ['res tails amount', 'value.res.tails.total > 0', 'Tails: '],
   ['res sides amount', 'value.res.sides.total > 0', 'Sides: '],
-  ['things robot text', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', ''],
-  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', ''],
+  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping Robot<br>'],
+  //['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', ''],
   ['things robot amount', 'value.things.robot.total > 0', 'Robots: '],
-  ['things builder text', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', ''],
-  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', ''],
+  //['things builder text', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy Builder Bot '],
+  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy Builder Bot<br>'],
   ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: '],
   ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: '],
   //['headsToTails', 'value.res.intelligence.total > 0', ''],

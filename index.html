@@ -18,49 +18,47 @@
    <button class = "tablinks" onclick = "openTab(event, 'market')" id ="marketTab">Market</button>
   </div>
   <div id = "robot" class = "tabcontent">
-	  <p>
-      <button onclick="flipCoin(1)">Flip Coin</button>
-    </p>	
-    <p>
-    	<span id="res heads amount"></span>
-	    <span id="res tails amount"></span>
-	    <span id="res sides amount"></span>
-	    <span id="res intelligence amount"></span>
-	    <span id ="res art amount"></span>
+ <div class="stuffOnRight">	
+    <p class="resorses">
+    	<span id="res heads amount"></span><br>
+	    <span id="res tails amount"></span><br>
+	    <span id="res sides amount"></span><br>
+	    <span id="res intelligence amount"></span><br>
+	    <span id ="res art amount"></span><br>
      </p>
      <p>
-	  	<span id = "things artwork amount"></span>
-		  <span id = "things enRobot amount"></span>
+	  	<span id = "things enRobot amount"></span>
 	   </p>
+     <p class="things">
+	    <span id="things robot amount"></span><br>
+	    <span id="things builder amount"></span><br>
+		<span id = "things artwork amount"></span>
+	 </p>
+</div>
+<p>
+      <button onclick="flipCoin(1)" class="MAIN_BUTTON">Flip Coin</button>
+    </p>
      <p>
-	    <span id="things robot amount"></span>
-	    <span id="things builder amount"></span>
-	    <span id = "things artwork amount"></span>
+	    <button id='things robot price' class="prices SubMAIN_BUTTON" onclick='buy("robot", 1)'></button>
      </p>
      <p>
-	    <button id='things robot text' onclick='buy("robot", 1)'></button>
+	    <button id='things builder price' class="prices SubMAIN_BUTTON" onclick='buy("builder", 1)'></button>
      </p>
      <p>
-	    <span id="things robot price" class="prices"></span>
-     </p>
-     <p>
-	    <button id='things builder text' onclick='buy("builder", 1)'></button>
-     </p>
-     <p>
-	    <span id="things builder price" class="prices"></span>
-     </p>
-     <p>
-	    <span id= 'things artwork price'></span>
 	<!--<p>		<button id = "headsToTails" onclick = "convert('heads','tails',1)"></button>
 		<button id = "tailsToHeads" onclick = "convert('tails','heads',1)"></button>
 	</p>-->
         
      </p>
-		 <p>   
+		<p>   
       <span id = "outbreakText"></span>
 	   </p>
     </div>
-    <div id = "market" class = "tabcontent">No one's at the market yet...</div>
+    <div id = "market" class = "tabcontent">
+		<p>No one's at the market yet...</p>
+		<span id = "things artwork amount"></span>	
+		<span id= 'things artwork price'></span>
+	</div>
  
 </body>
 <footer align =center>
