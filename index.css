@@ -32,13 +32,15 @@ p {
 .prices {
 		
 	}
+.res{
+	style-display:block
+}
 .resorses{
 	outline-style:solid;
 	outline-width:5px;
 	margin:2px;
 	padding:5px;
-	line-height:300%;
-	font-size:110;
+	line-height:280%;
 	text-align:center;
 }
 .things{
@@ -46,8 +48,7 @@ p {
 	outline-width:5px;
 	margin:2px;
 	padding:5px;
-	line-height:300%;
-	font-size:110;
+	line-height:280%;
 	text-align:center;
 }
 .stuffOnRight {
@@ -59,7 +60,7 @@ p {
 	margin-right:10px;
 	background-color:#EEE868;
 	position:relative;
-	font-size:135%;	
+	font-size:125%;	
 }
 .MAIN_BUTTON{
 	padding-left:23%;

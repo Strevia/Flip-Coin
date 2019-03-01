@@ -1,6 +1,7 @@
 //revolutions are called outbreaks
 var tickCount = 0;
 const CURRENTVERSION = [0, 5, 0]
+const UPDATEDBUILDER =  'Double <b><i>B</b></i>uilder Bots<br>'
 const secondaryPrefixes = [
   '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
 ]
@@ -107,7 +108,7 @@ function updateUI() {
     let x = element[0].split(' ')
     let tempEl = document.getElementById(element[0])
     if (eval(element[1])) {
-      tempEl.style.display = 'inline-block';
+      tempEl.style.display = 'block';
       y = deepCopy(value);
       x.forEach(layer => {
         y = y[layer]
@@ -255,7 +256,8 @@ function load() {
       console.log('Updated to v' + String(value.version[0] + '.' + String(value.version[1] + '.' + String(value.version[2]))))
     }
 	if (value.things.builder.amount > 0){
-		UIUpdate[5][2] = "Double <b><i>B</b></i>uilder Bots<br>"
+		UIUpdate[5][2] = UPDATEDBUILDER
+		value.things.builder.text = UPDATEDBUILDER
 	}
 	  		  both.forEach(b => {
 	  value.res[b] = value.things[b]
@@ -356,7 +358,8 @@ function buy(item, times, actualBuy = true) {
         else {
           value.things[item].amount += times
           value.things[item].total += times
-          UIUpdate[5][2] = 'Double <b><i>B</b></i>uilder Bots<br>'
+          value.res.builder.text = UPDATEDBUILDER
+		  UIUpdate[5][2] = value.res.builder.text
         }
       }
     }
