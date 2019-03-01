@@ -84,9 +84,9 @@ UIUpdate = [
   ['res heads amount', 'value.res.heads.total > 0', 'Heads: ']
   , ['res tails amount', 'value.res.tails.total > 0', 'Tails: '],
   ['res sides amount', 'value.res.sides.total > 0', 'Sides: '],
-  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping <b><i>R</b></i>obot '],
+  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping <b><i>R</b></i>obot<br>'],
   ['things robot amount', 'value.things.robot.total > 0', 'Robots: '],
-  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy <b><i>B</b></i>uilder Bot '],
+  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy <b><i>B</b></i>uilder Bot<br>'],
   ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: '],
   ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: '],
   ['outbreakText', 'value.events.outbreak.run', ''],
@@ -255,7 +255,7 @@ function load() {
       console.log('Updated to v' + String(value.version[0] + '.' + String(value.version[1] + '.' + String(value.version[2]))))
     }
 	if (value.things.builder.amount > 0){
-		UIUpdate[5][2] = "Double <b><i>B</b></i>uilder Bots "
+		UIUpdate[5][2] = "Double <b><i>B</b></i>uilder Bots<br>"
 	}
 	  		  both.forEach(b => {
 	  value.res[b] = value.things[b]
@@ -356,7 +356,7 @@ function buy(item, times, actualBuy = true) {
         else {
           value.things[item].amount += times
           value.things[item].total += times
-          UIUpdate[5][2] = 'Double <b><i>B</b></i>uilder Bots '
+          UIUpdate[5][2] = 'Double <b><i>B</b></i>uilder Bots<br>'
         }
       }
     }
