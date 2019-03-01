@@ -82,24 +82,24 @@ ValueDefault.market = {
 	selling: 1
 }
 UIUpdate = [
-  ['res heads amount', 'value.res.heads.total > 0', 'Heads: ']
-  , ['res tails amount', 'value.res.tails.total > 0', 'Tails: '],
-  ['res sides amount', 'value.res.sides.total > 0', 'Sides: '],
-  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping <b><i>R</b></i>obot<br>'],
-  ['things robot amount', 'value.things.robot.total > 0', 'Robots: '],
-  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy <b><i>B</b></i>uilder Bot<br>'],
-  ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: '],
-  ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: '],
-  ['outbreakText', 'value.events.outbreak.run', ''],
-  ['res art amount', 'value.res.art.total > 0', 'Art: '],
-  ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
-  ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at '],
-  ['robotTab', 'value.things.artwork.total > 0', ''],
-  ['marketTab', 'value.things.artwork.total > 0', ''],
-  ['res artwork amount', 'value.things.artwork.total > 0', 'Artwork: '],
-  ['res money amount', 'value.res.money.total > 0', '$'],
-  ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: '],
-  ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $'],
+  ['res heads amount', 'value.res.heads.total > 0', 'Heads: ', false]
+  , ['res tails amount', 'value.res.tails.total > 0', 'Tails: ', false],
+  ['res sides amount', 'value.res.sides.total > 0', 'Sides: ', false],
+  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping <b><i>R</b></i>obot<br>', false],
+  ['things robot amount', 'value.things.robot.total > 0', 'Robots: ', false],
+  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy <b><i>B</b></i>uilder Bot<br>', false],
+  ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: ', false],
+  ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: ', false],
+  ['outbreakText', 'value.events.outbreak.run', '', false],
+  ['res art amount', 'value.res.art.total > 0', 'Art: ', false],
+  ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: ', false],
+  ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at ', false],
+  ['robotTab', 'value.things.artwork.total > 0', '', true],
+  ['marketTab', 'value.things.artwork.total > 0', '', true],
+  ['res artwork amount', 'value.things.artwork.total > 0', 'Artwork: ', false],
+  ['res money amount', 'value.res.money.total > 0', '$', false],
+  ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
+  ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $', false],
   
 ]
 function updateUI() {
@@ -108,7 +108,12 @@ function updateUI() {
     let x = element[0].split(' ')
     let tempEl = document.getElementById(element[0])
     if (eval(element[1])) {
+		if (!element[3]){
       tempEl.style.display = 'block';
+		}
+		else {
+			tempEl.style.display = "inline-block"
+		}
       y = deepCopy(value);
       x.forEach(layer => {
         y = y[layer]
