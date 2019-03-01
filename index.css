@@ -10,4 +10,72 @@ button.link { background:none;border:none; text-decoration:underline; color: "#0
 body {
 	background-color:#97CCF1 ;
 }
-.tablinks {}
+p {
+	 border:10px;
+	color:;
+ }
+  .tablinks {
+	 margin-top:10px;
+	 margin-bottom:20px;
+	 margin-left:0px;
+	 margin-right:0px;
+	 padding-top:10px;
+	 padding-bottom:10px;
+	 padding-left:8.2%;
+	 padding-right:8.2%;
+	 outline-width:thick;
+	 outline-style:solid;
+	 outline-color:green;
+	 background-color:#32cd32;
+	}
+
+.prices {
+		
+	}
+.resorses{
+	outline-style:solid;
+	outline-width:5px;
+	margin:2px;
+	padding:5px;
+	line-height:300%;
+	font-size:110;
+	text-align:center;
+}
+.things{
+	outline-style:solid;
+	outline-width:5px;
+	margin:2px;
+	padding:5px;
+	line-height:300%;
+	font-size:110;
+	text-align:center;
+}
+.stuffOnRight {
+	float:right;
+	width:15%;
+	outline-width:5px;
+	outline-style:solid;
+	padding:10px;
+	margin-right:10px;
+	background-color:#EEE868;
+	position:relative;
+	font-size:135%;	
+}
+.MAIN_BUTTON{
+	padding-left:23%;
+	padding-right:23%;
+	padding-bottom:4.5%;
+	padding-top:4.5%;
+	font-size:720%;
+	margin-left:10px;
+}
+.SubMAIN_BUTTON {
+
+	padding-bottom:2.5%;
+	padding-top:2.5%;
+	font-size:140%;
+	margin-left:10px;
+	min-width:49%;
+	
+}
+	
