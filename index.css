@@ -60,11 +60,11 @@ p {
 	font-size:125%;	
 }
 .MAIN_BUTTON{
-	padding-left:23%;
-	padding-right:23%;
+	padding-left:24.5%;
+	padding-right:24.5%;
 	padding-bottom:4.5%;
 	padding-top:4.5%;
-	font-size:720%;
+	font-size:700%;
 	margin-left:10px;
 }
 .SubMAIN_BUTTON {
@@ -76,4 +76,16 @@ p {
 	min-width:49%;
 	
 }
-	
+.OUTBREAK{
+	border:solid;
+	border-color:black;
+	border-width:5px;
+	padding:2%;
+	padding-bottom:6.5%;
+	padding-top:6.5%;
+	margin-right:4.1%;
+	margin-top:1%;
+	float:right;
+	font-size:200%;
+	background-color:#BF0A30;
+	}
