@@ -103,7 +103,7 @@ UIUpdate = [
   ['res money amount', 'value.res.money.total > 0', '$', false],
   ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
   ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $', false],
-  ['sell art', 'value.things.artwork.total > 0', 'Sell an Artwork', false]
+  ['sell art', 'value.things.artwork.amount > value.things.enRobot.amount', 'Sell an Artwork', false]
   
 ]
 function updateUI() {
