@@ -227,7 +227,7 @@ function load() {
 		value.res.money = ValueDefault.res.money
 		value.res.artwork = value.things.artwork
 		value.market = ValueDefault.market
-		value.book = ValueDefault.book
+		value.things.book = ValueDefault.things.book
 	}
     resources.forEach(r => {
       if (value.res[r].amount == null){
