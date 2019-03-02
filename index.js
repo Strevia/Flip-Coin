@@ -88,9 +88,9 @@ UIUpdate = [
   ['res heads amount', 'value.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'value.res.tails.total > 0', 'Tails: ', false],
   ['res sides amount', 'value.res.sides.total > 0', 'Sides: ', false],
-  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0 && value.res.robot.amount < Infinity', 'Buy Coin Flipping <b><i>R</b></i>obot<br>', false],
+  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0', 'Buy Coin Flipping <b><i>R</b></i>obot<br>', false],
   ['things robot amount', 'value.things.robot.total > 0', 'Robots: ', false],
-  ['things builder price', 'value.things.robot.total > 1 && value.things.builder.price.heads != Infinity', 'Buy <b><i>B</b></i>uilder Bot<br>', false],
+  ['things builder price', 'value.things.robot.total > 1', 'Buy <b><i>B</b></i>uilder Bot<br>', false],
   ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: ', false],
   ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: ', false],
   ['outbreakText', 'value.events.outbreak.run', '', false],
@@ -103,7 +103,8 @@ UIUpdate = [
   ['res money amount', 'value.res.money.total > 0', '$', false],
   ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
   ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $', false],
-  ['sell art', 'value.things.artwork.amount > value.things.enRobot.amount', 'Sell an Artwork', false]
+  ['sell art', 'value.things.artwork.amount > value.things.enRobot.amount', 'Sell an Artwork', false],
+  ['res creat amount', 'value.res.creat.amount > 0', 'Creativity: ', false]
   
 ]
 function updateUI() {
@@ -490,7 +491,7 @@ function sellArtwork(times){
 		value.res.money.amount += times*value.market.selling
 		value.res.money.total += times*value.market.selling
 		value.res.artwork.amount -= times
-		value.res.creat += times
+		value.res.creat.amount += times
 	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
