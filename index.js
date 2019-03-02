@@ -380,8 +380,8 @@ function buy(item, times, actualBuy = true) {
         else {
           value.things[item].amount += times
           value.things[item].total += times
-          value.res.builder.text = UPDATEDBUILDER
-		  UIUpdate[5][2] = value.res.builder.text
+          value.things.builder.text = UPDATEDBUILDER
+		  UIUpdate[5][2] = UPDATEDBUILDER
         }
       }
     }
