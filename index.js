@@ -270,6 +270,9 @@ function load() {
   }
   else {
   value = deepCopy(ValueDefault);
+  both.forEach(b => {
+	  value.res[b] = value.things[b]
+  });
   }
   value.robotTab = "Robots"
   value.marketTab = "Market"
