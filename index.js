@@ -68,8 +68,9 @@ ValueDefault.things.book = {
   amount: 0,
   total: 0,
   price: {
-    heads: 1e300
+    money: 100,
   },
+  increase: 10
 }
 ValueDefault.things.enRobot = {
   amount: 0,
@@ -104,7 +105,9 @@ UIUpdate = [
   ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
   ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $', false],
   ['sell art', 'value.things.artwork.amount > value.things.enRobot.amount', 'Sell an Artwork', false],
-  ['res creat amount', 'value.res.creat.amount > 0', 'Creativity: ', false]
+  ['res creat amount', 'value.res.creat.amount > 0', 'Creativity: ', false],
+  ['things book amount', 'value.things.book.amount > 0', 'Books: ', false],
+  ['things book price', 'value.res.money.total > 0', 'Write Book of Knowledge<br>', false]
   
 ]
 function updateUI() {
@@ -224,6 +227,7 @@ function load() {
 		value.res.money = ValueDefault.res.money
 		value.res.artwork = value.things.artwork
 		value.market = ValueDefault.market
+		value.book = ValueDefault.book
 	}
     resources.forEach(r => {
       if (value.res[r].amount == null){
@@ -363,8 +367,8 @@ function buy(item, times, actualBuy = true) {
     })
     try {
       if (item != 'builder') {
-        value.res[item].amount += times
-        value.res[item].total += times
+        value.things[item].amount += times
+        value.things[item].total += times
       }
       else {
         if (value.things.builder.amount > 0) {
