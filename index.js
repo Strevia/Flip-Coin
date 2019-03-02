@@ -481,6 +481,9 @@ function doc_keyDown(e) {
 	if (e.keyCode == 66 || e.keyCode == 98) {
 		document.getElementById("things builder price").click()
 	}
+	if (e.keyCode == 83 || e.keyCode == 115) {
+		document.getElementById("sell art").click()
+	}
 }
 function sellArtwork(times){
 	if (value.res.artwork.amount >= times){
