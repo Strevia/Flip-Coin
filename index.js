@@ -81,6 +81,9 @@ ValueDefault.things.enRobot = {
 ValueDefault.market = {
 	selling: 1
 }
+ValueDefault.sell = {
+	art: '',
+}
 UIUpdate = [
   ['res heads amount', 'value.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'value.res.tails.total > 0', 'Tails: ', false],
@@ -100,6 +103,7 @@ UIUpdate = [
   ['res money amount', 'value.res.money.total > 0', '$', false],
   ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
   ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $', false],
+  ['sell art', 'value.things.artwork.total > 0', 'Sell an Artwork', false]
   
 ]
 function updateUI() {
@@ -267,6 +271,9 @@ function load() {
 	  		  both.forEach(b => {
 	  value.res[b] = value.things[b]
   });
+  value.sell = {
+	art: '',
+}
   }
   else {
   value = deepCopy(ValueDefault);
@@ -473,6 +480,13 @@ function doc_keyDown(e) {
 	}
 	if (e.keyCode == 66 || e.keyCode == 98) {
 		document.getElementById("things builder price").click()
+	}
+}
+function sellArtwork(times){
+	if (value.res.artwork.amount >= times){
+		value.res.money.amount += times*value.market.selling
+		value.res.money.total += times*value.market.selling
+		value.res.artwork.amount -= times
 	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
