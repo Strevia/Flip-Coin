@@ -174,8 +174,8 @@ function onTick() {
          let artworkPrice = (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
         if (value.res.art.amount >= artworkPrice){
           value.res.art.amount -= value.things.artwork.price.art
-          value.things.artwork.amount++
-          value.things.artwork.total++
+          value.things.artwork.amount+= value.things.enRobot.amount
+          value.things.artwork.total+= value.things.enRobot.amount
           value.things.artwork.price.art = (value.things.artwork.amount+2+r)**2 
         }
 
@@ -490,6 +490,7 @@ function sellArtwork(times){
 		value.res.money.amount += times*value.market.selling
 		value.res.money.total += times*value.market.selling
 		value.res.artwork.amount -= times
+		value.res.creat += times
 	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
