@@ -225,13 +225,13 @@ function load() {
     }
   if (value.version[0] < 1){
 		if (value.res.creat.total == 0){
-		value.res.creat = ValueDefault.res.creat}
+		value.res.creat = deepCopy(ValueDefault.res.creat)}
 		if (value.res.money.total == 0){
-		value.res.money = ValueDefault.res.money}
+		value.res.money = deepCopy(ValueDefault.res.money)}
 		value.res.artwork = value.things.artwork
-		value.market = ValueDefault.market
+		value.market = deepCopy(ValueDefault.market)
 		if (value.things.book.price.heads == 1e300){
-		value.things.book = ValueDefault.things.book
+		value.things.book = deepCopy(ValueDefault.things.book)
 		}
 		value.debug = false
 		value.market.range = ''
@@ -433,10 +433,8 @@ function place(no){
 }
 function wipe(){
   if (confirm("Are you sure?")){
-    value = deepCopy(ValueDefault)
-    localStorage.removeItem('flipCoin')
-	window.location.reload(false)
-    load()
+	 value = deepCopy(ValueDefault)
+	localStorage.setItem('flipCoin', JSON.stringify(ValueDefault))
   }
 }
 new ClipboardJS(document.getElementById("export"));
