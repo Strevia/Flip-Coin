@@ -178,7 +178,7 @@ function onTick() {
          let a = value.things.artwork.total
          let artworkPrice = (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
         if (value.res.art.amount >= artworkPrice){
-          value.res.art.amount -= value.things.artwork.price.art
+          value.res.art.amount -= artworkPrice
           value.things.artwork.amount+= value.things.enRobot.amount+1
           value.things.artwork.total+= value.things.enRobot.amount+1
           value.things.artwork.price.art = (value.things.artwork.total+2+r)**2 
