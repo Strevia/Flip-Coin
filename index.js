@@ -442,16 +442,16 @@ function importt(){
   let x = prompt("Save to import: ")
      let tempValue = deepCopy(value)
   try {
-	value = deepCopy(atob(x))
+	value = JSON.parse(deepCopy(atob(x)))
 	JSON.parse(atob(x))
     localStorage.setItem('flipCoin',atob(x))
-    	window.location.reload(false)
+    	//window.location.reload(false)
   }
   catch {
 	  console.log(tempValue)
     value = deepCopy(tempValue)
     localStorage.setItem('flipCoin', tempValue)
-    	window.location.reload(false)
+    	//window.location.reload(false)
   }
 }
 function openTab(evt, tabName) {
