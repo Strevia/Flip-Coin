@@ -103,10 +103,10 @@ UIUpdate = [
   ['res artwork amount', 'value.things.artwork.total > 0', 'Artwork: ', false],
   ['res money amount', 'value.res.money.total > 0', '$', false],
   ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
-  ['market selling', 'value.things.artwork.amount > 0', 'Artwork selling for $', false],
-  ['sell art', 'value.things.artwork.amount > 0', 'Sell an Artwork', false],
-  ['res creat amount', 'value.res.creat.amount > 0', 'Creativity: ', false],
-  ['things book amount', 'value.things.book.amount > 0', 'Books: ', false],
+  ['market selling', 'value.things.artwork.total > 0', 'Artwork selling for $', false],
+  ['sell art', 'value.things.artwork.total > 0', 'Sell an Artwork', false],
+  ['res creat amount', 'value.res.creat.total > 0', 'Creativity: ', false],
+  ['things book amount', 'value.things.book.total > 0', 'Books: ', false],
   ['things book price', 'value.res.money.total > 0', 'Write Book of Knowledge<br>', false],
   ['market range', 'value.debug', '', false]
   
@@ -161,7 +161,7 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
-	  if (value.res.artwork.amount > 0){
+	  if (value.res.artwork.total > 0){
 		  value.market.selling = marketPrice()
 	  }
     if (value.res.robot.amount > 100) {
