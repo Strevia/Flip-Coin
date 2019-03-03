@@ -180,7 +180,7 @@ function onTick() {
           value.res.art.amount -= value.things.artwork.price.art
           value.things.artwork.amount+= value.things.enRobot.amount+1
           value.things.artwork.total+= value.things.enRobot.amount+1
-          value.things.artwork.price.art = (value.things.artwork.amount+2+r)**2 
+          value.things.artwork.price.art = (value.things.artwork.total+2+r)**2 
         }
 
       }
