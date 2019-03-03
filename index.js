@@ -107,7 +107,8 @@ UIUpdate = [
   ['sell art', 'value.things.artwork.amount > 0', 'Sell an Artwork', false],
   ['res creat amount', 'value.res.creat.amount > 0', 'Creativity: ', false],
   ['things book amount', 'value.things.book.amount > 0', 'Books: ', false],
-  ['things book price', 'value.res.money.total > 0', 'Write Book of Knowledge<br>', false]
+  ['things book price', 'value.res.money.total > 0', 'Write Book of Knowledge<br>', false],
+  ['market range', 'value.debug', '', false]
   
 ]
 function updateUI() {
@@ -232,6 +233,8 @@ function load() {
 		if (value.things.book.price.heads != 1e300){
 		value.things.book = ValueDefault.things.book
 		}
+		value.debug = false
+		value.market.range = ''
 	}
     resources.forEach(r => {
       if (value.res[r].amount == null){
@@ -474,9 +477,11 @@ function marketPrice(){
 	let deviation = getRandomArbitrary(0.5, 1.5)
 	price = Math.log2(c)*deviation
 	if (price > 0){
+		value.market.range = format(Math.log2(c)*0.5) + ' ' + format(Math.log2(c)*1.5)
 		return price
 	}
 	else {
+		value.market.range = '0.500 1.50'
 		return deviation
 	}
 }
