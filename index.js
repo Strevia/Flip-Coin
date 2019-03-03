@@ -223,8 +223,10 @@ function load() {
       value.version = [0,0,0]
     }
   if (value.version[0] < 1){
-		value.res.creat = ValueDefault.res.creat
-		value.res.money = ValueDefault.res.money
+		if (value.res.creat.total == 0){
+		value.res.creat = ValueDefault.res.creat}
+		if (value.res.money.total == 0){
+		value.res.money = ValueDefault.res.money}
 		value.res.artwork = value.things.artwork
 		value.market = ValueDefault.market
 		if (value.things.book.price.heads != 1e300){
