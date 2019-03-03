@@ -435,6 +435,7 @@ function wipe(){
   if (confirm("Are you sure?")){
 	 value = deepCopy(ValueDefault)
 	localStorage.setItem('flipCoin', JSON.stringify(ValueDefault))
+	window.location.reload(false)
   }
 }
 new ClipboardJS(document.getElementById("export"));
@@ -442,16 +443,15 @@ function importt(){
   let x = prompt("Save to import: ")
      let tempValue = deepCopy(value)
   try {
-	value = JSON.parse(deepCopy(atob(x)))
+	value = JSON.parse(atob(x))
 	JSON.parse(atob(x))
     localStorage.setItem('flipCoin',atob(x))
-    	//window.location.reload(false)
+    	window.location.reload(false)
   }
   catch {
-	  console.log(tempValue)
     value = deepCopy(tempValue)
     localStorage.setItem('flipCoin', tempValue)
-    	//window.location.reload(false)
+    	window.location.reload(false)
   }
 }
 function openTab(evt, tabName) {
