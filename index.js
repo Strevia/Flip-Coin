@@ -500,6 +500,7 @@ function sellArtwork(times){
 		value.res.money.total += times*value.market.selling
 		value.res.artwork.amount -= times
 		value.res.creat.amount += times
+		value.res.creat.total += times
 	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
