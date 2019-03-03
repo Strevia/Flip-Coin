@@ -230,7 +230,7 @@ function load() {
 		value.res.money = ValueDefault.res.money}
 		value.res.artwork = value.things.artwork
 		value.market = ValueDefault.market
-		if (value.things.book.price.heads != 1e300){
+		if (value.things.book.price.heads == 1e300){
 		value.things.book = ValueDefault.things.book
 		}
 		value.debug = false
