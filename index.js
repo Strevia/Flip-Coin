@@ -169,8 +169,8 @@ function updateUI() {
 }
 function gainResources(outb){
 	if (!outb){
-	coin.res.intelligence.amount += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)
-    coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)
+	coin.res.intelligence.amount += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);
+    coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);
 	things.forEach(t => {
       if (coin.things[t].amount > 0 && !coin.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
         if (coin.res.intelligence.amount < 1) {
@@ -187,8 +187,8 @@ function gainResources(outb){
 	}
 }
 function onOutbreak(){
-	coin.res.intelligence.amount += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount)
-        coin.res.intelligence.total += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount)
+	coin.res.intelligence.amount += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount);
+        coin.res.intelligence.total += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount);
         coin.res.art.amount += 1 * coin.things.builder.amount
         coin.res.art.total += 1 * coin.things.builder.amount
         let r = coin.things.enRobot.amount
