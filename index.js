@@ -8,44 +8,44 @@ const secondaryPrefixes = [
 const primaryPrefixes = [
   '', 'D', 'V', 'Tr', 'Qa', 'Qu', 'Sx', 'Sp', 'O', 'N', 'C'
 ]
-var ValueDefault = {
+var coinDefault = {
   res: {},
   things: {},
   events: {}
 }
-ValueDefault.version =  CURRENTVERSION
+coinDefault.version =  CURRENTVERSION
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot']
 both = ['robot', 'artwork']
 events = ['outbreak']
-resources.forEach(resor => ValueDefault.res[resor] = {
+resources.forEach(resor => coinDefault.res[resor] = {
   amount: 0,
   total: 0,
 });
-things.forEach(thing => ValueDefault.things[thing] = {
+things.forEach(thing => coinDefault.things[thing] = {
   amount: 0,
   total: 0,
   funct: place
 });
-ValueDefault.events.outbreak = {
+coinDefault.events.outbreak = {
   run: false,
   occured: false,
 }
-ValueDefault.things.robot.text = "Buy Coin Flipping Robot"
-ValueDefault.things.robot.price = {
+coinDefault.things.robot.text = "Buy Coin Flipping Robot"
+coinDefault.things.robot.price = {
   heads: 1,
   tails: 1,
   sides: 1
 }
-ValueDefault.robotTab = "Robots"
-ValueDefault.marketTab = "Market"
-ValueDefault.outbreakText = "A revolution is occuring!"
-ValueDefault.headsToTails = "5 Heads -> 1 Tails"
-ValueDefault.tailsToHeads = "5 Tails -> 1 Heads"
-ValueDefault.things.robot.funct = flipCoin
-ValueDefault.things.robot.total = 0
-ValueDefault.things.robot.increase = 1
-ValueDefault.things.builder = {
+coinDefault.robotTab = "Robots"
+coinDefault.marketTab = "Market"
+coinDefault.outbreakText = "A revolution is occuring!"
+coinDefault.headsToTails = "5 Heads -> 1 Tails"
+coinDefault.tailsToHeads = "5 Tails -> 1 Heads"
+coinDefault.things.robot.funct = flipCoin
+coinDefault.things.robot.total = 0
+coinDefault.things.robot.increase = 1
+coinDefault.things.builder = {
   amount: 0,
   text: "Buy Builder Bot",
   price: {
@@ -57,7 +57,7 @@ ValueDefault.things.builder = {
   total: 0,
   increase: 10
 }
-ValueDefault.things.artwork = {
+coinDefault.things.artwork = {
   amount: 0,
   total: 0,
   price: {
@@ -65,7 +65,7 @@ ValueDefault.things.artwork = {
   },
   funct: place,
 }
-ValueDefault.things.book = {
+coinDefault.things.book = {
   amount: 0,
   total: 0,
   price: {
@@ -73,57 +73,57 @@ ValueDefault.things.book = {
   },
   increase: 10
 }
-ValueDefault.things.enRobot = {
+coinDefault.things.enRobot = {
   amount: 0,
   total: 0,
   price: {
     heads: 1e300
   },
 }
-ValueDefault.market = {
+coinDefault.market = {
 	selling: 1
 }
-ValueDefault.sell = {
+coinDefault.sell = {
 	art: '',
 }
 UIUpdate = [
-  ['res heads amount', 'value.res.heads.total > 0', 'Heads: ', false]
-  , ['res tails amount', 'value.res.tails.total > 0', 'Tails: ', false],
-  ['res sides amount', 'value.res.sides.total > 0', 'Sides: ', false],
-  ['things robot price', 'value.res.heads.total > 0 && value.res.tails.total > 0 && value.res.sides.total > 0', 'Buy Coin Flipping <b><i>R</b></i>obot<br>', false],
-  ['things robot amount', 'value.things.robot.total > 0', 'Robots: ', false],
-  ['things builder price', 'value.things.robot.total > 1', 'Buy <b><i>B</b></i>uilder Bot<br>', false],
-  ['things builder amount', 'value.things.builder.amount > 0 ', 'Builders: ', false],
-  ['res intelligence amount', 'value.res.intelligence.total > 0', 'Intelligence: ', false],
-  ['outbreakText', 'value.events.outbreak.run', '', false],
-  ['res art amount', 'value.res.art.total > 0', 'Art: ', false],
-  ['things artwork amount', 'value.things.artwork.total > 0', 'Artwork: ', false],
-  ['things artwork price', 'value.things.artwork.total > 0', 'Next artwork at ', false],
-  ['robotTab', 'value.things.artwork.total > 0', '', true],
-  ['marketTab', 'value.things.artwork.total > 0', '', true],
-  ['res artwork amount', 'value.things.artwork.total > 0', 'Artwork: ', false],
-  ['res money amount', 'value.res.money.total > 0', '$', false],
-  ['things enRobot amount', 'value.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
-  ['market selling', 'value.things.artwork.total > 0', 'Artwork selling for $', false],
-  ['sell art', 'value.things.artwork.total > 0', 'Sell an Artwork', false],
-  ['res creat amount', 'value.res.creat.total > 0', 'Creativity: ', false],
-  ['things book amount', 'value.things.book.total > 0', 'Books: ', false],
-  ['things book price', 'value.res.money.total > 0', 'Write Book of Knowledge<br>', false],
-  ['market range', 'value.debug', '', false],
-  ['singularity', 'value.res.creat.amount > 0', '', false]
+  ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
+  , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
+  ['res sides amount', 'coin.res.sides.total > 0', 'Sides: ', false],
+  ['things robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping <b><i>R</b></i>obot<br>', false],
+  ['things robot amount', 'coin.things.robot.total > 0', 'Robots: ', false],
+  ['things builder price', 'coin.things.robot.total > 1', 'Buy <b><i>B</b></i>uilder Bot<br>', false],
+  ['things builder amount', 'coin.things.builder.amount > 0 ', 'Builders: ', false],
+  ['res intelligence amount', 'coin.res.intelligence.total > 0', 'Intelligence: ', false],
+  ['outbreakText', 'coin.events.outbreak.run', '', false],
+  ['res art amount', 'coin.res.art.total > 0', 'Art: ', false],
+  ['things artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
+  ['things artwork price', 'coin.things.artwork.total > 0', 'Next artwork at ', false],
+  ['robotTab', 'coin.things.artwork.total > 0', '', true],
+  ['marketTab', 'coin.things.artwork.total > 0', '', true],
+  ['res artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
+  ['res money amount', 'coin.res.money.total > 0', '$', false],
+  ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
+  ['market selling', 'coin.things.artwork.total > 0', 'Artwork selling for $', false],
+  ['sell art', 'coin.things.artwork.total > 0', 'Sell an Artwork', false],
+  ['res creat amount', 'coin.res.creat.total > 0', 'Creativity: ', false],
+  ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
+  ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
+  ['market range', 'coin.debug', '', false],
+  ['singularity', 'coin.res.creat.amount > 0', '', false]
   
 ]
 function updateUI() {
-	if (value.debug){
+	if (coin.debug){
 		document.getElementById("debug").style.display = "block"
 		if (document.getElementById("0").length === 0){
-			value.debugSelected = []
-		dropDown(document.getElementById("0"), Object.keys(value))
+			coin.debugSelected = []
+		dropDown(document.getElementById("0"), Object.keys(coin))
 		}
 	} else {
 		document.getElementById("debug").style.display = "none"
 	}
-  document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(value)))
+  document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(coin)))
   UIUpdate.forEach(element => {
     let x = element[0].split(' ')
     let tempEl = document.getElementById(element[0])
@@ -134,7 +134,7 @@ function updateUI() {
 		else {
 			tempEl.style.display = "inline-block"
 		}
-      y = deepCopy(value);
+      y = deepCopy(coin);
       x.forEach(layer => {
         y = y[layer]
       });
@@ -167,162 +167,171 @@ function updateUI() {
 				  
 	})
 }
-
+function gainResources(outb){
+	if (!outb){
+	coin.res.intelligence.amount += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)
+    coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)}
+	else {
+		onOutbreak()
+	}
+}
+function onOutbreak(){
+	coin.res.intelligence.amount += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount)
+        coin.res.intelligence.total += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount)
+        coin.res.art.amount += 1 * coin.things.builder.amount
+        coin.res.art.total += 1 * coin.things.builder.amount
+        let r = coin.things.enRobot.amount
+         let a = coin.things.artwork.total
+         let artworkPrice = (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
+        if (coin.res.art.amount >= artworkPrice){
+          coin.res.art.amount -= artworkPrice
+          coin.things.artwork.amount+= coin.things.enRobot.amount+1
+          coin.things.artwork.total+= coin.things.enRobot.amount+1
+          coin.things.artwork.price.art = (coin.things.artwork.total+2+r)**2 
+        }
+}
+function infinity(){
+	coin.res.tails.amount = Infinity
+        coin.res.heads.amount = Infinity
+        coin.res.sides.amount = Infinity
+        coin.res.tails.total = Infinity
+        coin.res.heads.total = Infinity
+        coin.res.sides.total = Infinity
+        coin.res.robot.amount = Infinity
+        coin.res.robot.total = Infinity
+}
 function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
-	  if (value.res.artwork.total > 0){
-		  value.market.selling = marketPrice()
+	  if (coin.res.artwork.total > 0){
+		  coin.market.selling = marketPrice()
 	  }
-    if (value.res.robot.amount > 100) {
-      if (value.events.outbreak.run == false) {
-        value.res.intelligence.amount += (0.001 * value.res.robot.amount * 2**value.things.artwork.amount)
-        value.res.intelligence.total += (0.001 * value.res.robot.amount * 2**value.things.artwork.amount)
+    if (coin.res.robot.amount > 100) {
+		gainResources(coin.events.outbreak.run)
+      let chanceOfOutbreak = Math.log10(coin.res.intelligence.amount) / 308
+      if (coin.res.intelligence.amount == Infinity)  {
+        infinity()
+      }
+      if (Math.random() < chanceOfOutbreak  || (coin.res.intelligence.amount > 1e2 && !coin.events.outbreak.occured)){
+        coin.events.outbreak.run = true
+        coin.events.outbreak.occured = true
       }
       else {
-        value.res.intelligence.amount += (0.1 * value.res.robot.amount  * 2**value.things.artwork.amount)
-        value.res.intelligence.total += (0.1 * value.res.robot.amount  * 2**value.things.artwork.amount)
-        value.res.art.amount += 1 * value.things.builder.amount
-        value.res.art.total += 1 * value.things.builder.amount
-        let r = value.things.enRobot.amount
-         let a = value.things.artwork.total
-         let artworkPrice = (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
-        if (value.res.art.amount >= artworkPrice){
-          value.res.art.amount -= artworkPrice
-          value.things.artwork.amount+= value.things.enRobot.amount+1
-          value.things.artwork.total+= value.things.enRobot.amount+1
-          value.things.artwork.price.art = (value.things.artwork.total+2+r)**2 
-        }
-
-      }
-      let chanceOfOutbreak = Math.log10(value.res.intelligence.amount) / 308
-      if (value.res.intelligence.amount == Infinity)  {
-        value.res.tails.amount = Infinity
-        value.res.heads.amount = Infinity
-        value.res.sides.amount = Infinity
-        value.res.tails.total = Infinity
-        value.res.heads.total = Infinity
-        value.res.sides.total = Infinity
-        value.res.robot.amount = Infinity
-        value.res.robot.total = Infinity
-      }
-      if (Math.random() < chanceOfOutbreak  || (value.res.intelligence.amount > 1e2 && !value.events.outbreak.occured)){
-        value.events.outbreak.run = true
-        value.events.outbreak.occured = true
-      }
-      else {
-        value.events.outbreak.run = false
+        coin.events.outbreak.run = false
       }
     }
     things.forEach(t => {
-      if (value.things[t].amount > 0 && !value.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
-        if (value.res.intelligence.amount < 1) {
-          value.things[t].funct(value.things[t].amount);
+      if (coin.things[t].amount > 0 && !coin.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
+        if (coin.res.intelligence.amount < 1) {
+          coin.things[t].funct(coin.things[t].amount);
         }
         else {
-          value.things[t].funct(value.things[t].amount * (2**Math.log10(value.res.intelligence.amount)));
+          coin.things[t].funct(coin.things[t].amount * (2**Math.log10(coin.res.intelligence.amount)));
         }
       }
     })
 	
   }
-  if (value.res.creat.amount > 0){
-		let c = value.res.creat.amount
+  if (coin.res.creat.amount > 0){
+		updateSingularityBox()
+	}
+  tickCount++;
+}
+function updateSingularityBox(){
+	let c = coin.res.creat.amount
 		let sing = "Singularity<br>"
 		let amount = Math.floor(c/50)
 		sing += 'Create ' + format(amount) + ' enlightened robots<br>'
 		sing += 'Using ' + format(amount*50) + ' creativity<br>'
-		sing += 'Keeping ' + format(10**(value.things.book.amount+2)) + ' intelligence from books<br>'
+		sing += 'Keeping ' + format(10**(coin.things.book.amount+2)) + ' intelligence from books<br>'
 		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
-		value.singularity = sing
-	}
-  tickCount++;
+		coin.singularity = sing
 }
 function load() {
   if (localStorage.getItem('flipCoin') != null){
-    value = JSON.parse(localStorage.getItem('flipCoin'))
-	      if (value.version == undefined){
-      value.version = [0,0,0]
+    coin = JSON.parse(localStorage.getItem('flipCoin'))
+	      if (coin.version == undefined){
+      coin.version = [0,0,0]
     }
-  if (value.version[0] < 1){
-		if (value.res.creat.total == 0){
-		value.res.creat = deepCopy(ValueDefault.res.creat)}
-		if (value.res.money.total == 0){
-		value.res.money = deepCopy(ValueDefault.res.money)}
-		value.res.artwork = value.things.artwork
-		value.market = deepCopy(ValueDefault.market)
-		if (value.things.book.price.heads == 1e300){
-		value.things.book = deepCopy(ValueDefault.things.book)
+  if (coin.version[0] < 1){
+		if (coin.res.creat.total == 0){
+		coin.res.creat = deepCopy(coinDefault.res.creat)}
+		if (coin.res.money.total == 0){
+		coin.res.money = deepCopy(coinDefault.res.money)}
+		coin.res.artwork = coin.things.artwork
+		coin.market = deepCopy(coinDefault.market)
+		if (coin.things.book.price.heads == 1e300){
+		coin.things.book = deepCopy(coinDefault.things.book)
 		}
-		value.debug = false
-		value.market.range = ''
+		coin.debug = false
+		coin.market.range = ''
 	}
     resources.forEach(r => {
-      if (value.res[r].amount == null){
-        value.res[r].amount = Infinity
+      if (coin.res[r].amount == null){
+        coin.res[r].amount = Infinity
       }
-      if (value.res[r].total == null){
-        value.res[r].total = Infinity
+      if (coin.res[r].total == null){
+        coin.res[r].total = Infinity
       }
     })
     things.forEach(t => {
-      value.things[t].funct = ValueDefault.things[t].funct
-      if (value.things[t].amount == null){
-        value.things[t].amount = Infinity
+      coin.things[t].funct = coinDefault.things[t].funct
+      if (coin.things[t].amount == null){
+        coin.things[t].amount = Infinity
       }
-      if (value.things[t].total == null){
-        value.things[t].total = Infinity
+      if (coin.things[t].total == null){
+        coin.things[t].total = Infinity
       }
-      Object.keys(value.things[t].price).forEach(p => {
-        if (value.things[t].price[p] == null){
-          value.things[t].price[p] = Infinity
+      Object.keys(coin.things[t].price).forEach(p => {
+        if (coin.things[t].price[p] == null){
+          coin.things[t].price[p] = Infinity
         }
 
       })
     })
     let updated = false
-    if (value.version[2] != CURRENTVERSION[2]){
-      value.version[2] = CURRENTVERSION[2]
+    if (coin.version[2] != CURRENTVERSION[2]){
+      coin.version[2] = CURRENTVERSION[2]
       updated = true
     }
-    if (value.version[0] < 1 && value.version[1] < 2){
-      value.events.outbreak = deepCopy(ValueDefault.events.outbreak)
+    if (coin.version[0] < 1 && coin.version[1] < 2){
+      coin.events.outbreak = deepCopy(coinDefault.events.outbreak)
       updated = true
     }
-    if (value.version[0] < 1 && value.version[1] < 3){
+    if (coin.version[0] < 1 && coin.version[1] < 3){
 		
-      value.things.enRobot = deepCopy(ValueDefault.things.enRobot)
-      value.things.book = deepCopy(ValueDefault.things.book)
+      coin.things.enRobot = deepCopy(coinDefault.things.enRobot)
+      coin.things.book = deepCopy(coinDefault.things.book)
     }
-    value.version = CURRENTVERSION
+    coin.version = CURRENTVERSION
     if (updated){
-      console.log('Updated to v' + String(value.version[0] + '.' + String(value.version[1] + '.' + String(value.version[2]))))
+      console.log('Updated to v' + String(coin.version[0] + '.' + String(coin.version[1] + '.' + String(coin.version[2]))))
     }
-	if (value.things.builder.amount > 0){
+	if (coin.things.builder.amount > 0){
 		UIUpdate[5][2] = UPDATEDBUILDER
-		value.things.builder.text = UPDATEDBUILDER
+		coin.things.builder.text = UPDATEDBUILDER
 	}
 	  		  both.forEach(b => {
-	  value.res[b] = value.things[b]
+	  coin.res[b] = coin.things[b]
   });
-  value.sell = {
+  coin.sell = {
 	art: '',
 }
   }
   else {
-  value = deepCopy(ValueDefault);
+  coin = deepCopy(coinDefault);
   both.forEach(b => {
-	  value.res[b] = value.things[b]
+	  coin.res[b] = coin.things[b]
   });
   }
-  value.robotTab = "Robots"
-  value.marketTab = "Market"
-  value.singularity = ""
+  coin.robotTab = "Robots"
+  coin.marketTab = "Market"
+  coin.singularity = ""
   requestInterval(onTick, 50)
 }
 function save(){
-  localStorage.setItem('flipCoin', JSON.stringify(value))
+  localStorage.setItem('flipCoin', JSON.stringify(coin))
 }
 function requestInterval(fn, delay) {
   let requestAnimFrame = (function () {
@@ -337,7 +346,7 @@ function requestInterval(fn, delay) {
     handle = {};
 
   function loop() {
-    handle.value = requestAnimFrame(loop);
+    handle.coin = requestAnimFrame(loop);
     let current = Date.now(),
       delta = current - start;
     if (delta >= delay) {
@@ -345,7 +354,7 @@ function requestInterval(fn, delay) {
       start = Date.now();
     }
   }
-  handle.value = requestAnimFrame(loop);
+  handle.coin = requestAnimFrame(loop);
   return handle;
 }
 
@@ -353,34 +362,34 @@ function deepCopy(source) {
   return jQuery.extend(true, {}, source);
 }
 function flipCoin(times) {
-  if (((value.res.heads.total + value.res.tails.total) == 10) && value.res.sides.total === 0) {
-    value.res.sides.amount++;
-    value.res.sides.total++;
+  if (((coin.res.heads.total + coin.res.tails.total) == 10) && coin.res.sides.total === 0) {
+    coin.res.sides.amount++;
+    coin.res.sides.total++;
   }
   else {
     let flip = parseInt(Math.random() * 100);
     if (flip <= 45) {
-      value.res.heads.amount += times || 0
-      value.res.heads.total += times || 0
+      coin.res.heads.amount += times || 0
+      coin.res.heads.total += times || 0
     }
     else if (flip <= 90) {
-      value.res.tails.amount += times || 0
-      value.res.tails.total += times || 0
+      coin.res.tails.amount += times || 0
+      coin.res.tails.total += times || 0
     } else {
-      value.res.sides.amount += times || 0
-      value.res.sides.total += times || 0
+      coin.res.sides.amount += times || 0
+      coin.res.sides.total += times || 0
     }
   }
 }
 function buy(item, times, actualBuy = true) {
-  if (times == Infinity && value.things[item].amount == Infinity){
+  if (times == Infinity && coin.things[item].amount == Infinity){
     return
   }
   afford = true
-  let thePrice = value.things[item].price;
+  let thePrice = coin.things[item].price;
   let resNeeded = Object.keys(thePrice)
   resNeeded.forEach(r => {
-    if (value.res[r].amount < thePrice[r] * times || thePrice[r] == Infinity) {
+    if (coin.res[r].amount < thePrice[r] * times || thePrice[r] == Infinity) {
       afford = false
     }
   })
@@ -390,26 +399,26 @@ function buy(item, times, actualBuy = true) {
   if (afford) {
     resNeeded.forEach(r => {
       if (times != Infinity){
-      value.res[r].amount -= thePrice[r] * times}
+      coin.res[r].amount -= thePrice[r] * times}
       else {
-        value.res[r].amount = 0
+        coin.res[r].amount = 0
       }
-      value.things[item].price[r] *= (value.things[item].increase) ** times
+      coin.things[item].price[r] *= (coin.things[item].increase) ** times
     })
     try {
       if (item != 'builder') {
-        value.things[item].amount += times
-        value.things[item].total += times
+        coin.things[item].amount += times
+        coin.things[item].total += times
       }
       else {
-        if (value.things.builder.amount > 0) {
-          value.things.builder.amount *= 2
-          value.things.builder.total *= 2
+        if (coin.things.builder.amount > 0) {
+          coin.things.builder.amount *= 2
+          coin.things.builder.total *= 2
         }
         else {
-          value.things[item].amount += times
-          value.things[item].total += times
-          value.things.builder.text = UPDATEDBUILDER
+          coin.things[item].amount += times
+          coin.things[item].total += times
+          coin.things.builder.text = UPDATEDBUILDER
 		  UIUpdate[5][2] = UPDATEDBUILDER
         }
       }
@@ -443,13 +452,13 @@ function format(num) {
   }
 }
 function poop() {
-  value.res.tails.amount *= 10
+  coin.res.tails.amount *= 10
 }
 function convert(res1, res2, times) {
-  if (value.res[res1].amount >= 5 * times) {
-    value.res[res2].amount += times
-    value.res[res2].total += times
-    value.res[res1].amount -= 5 * times
+  if (coin.res[res1].amount >= 5 * times) {
+    coin.res[res2].amount += times
+    coin.res[res2].total += times
+    coin.res[res1].amount -= 5 * times
   }
 }
 function place(no){
@@ -457,24 +466,24 @@ function place(no){
 }
 function wipe(){
   if (confirm("Are you sure?")){
-	 value = deepCopy(ValueDefault)
-	localStorage.setItem('flipCoin', JSON.stringify(ValueDefault))
+	 coin = deepCopy(coinDefault)
+	localStorage.setItem('flipCoin', JSON.stringify(coinDefault))
 	window.location.reload(false)
   }
 }
 new ClipboardJS(document.getElementById("export"));
 function importt(){
   let x = prompt("Save to import: ")
-     let tempValue = deepCopy(value)
+     let tempcoin = deepCopy(coin)
   try {
-	value = JSON.parse(atob(x))
+	coin = JSON.parse(atob(x))
 	JSON.parse(atob(x))
     localStorage.setItem('flipCoin',atob(x))
     	window.location.reload(false)
   }
   catch {
-    value = deepCopy(tempValue)
-    localStorage.setItem('flipCoin', tempValue)
+    coin = deepCopy(tempcoin)
+    localStorage.setItem('flipCoin', tempcoin)
     	window.location.reload(false)
   }
 }
@@ -495,15 +504,15 @@ function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
 function marketPrice(){
-	let c = value.res.creat.amount
+	let c = coin.res.creat.amount
 	let deviation = getRandomArbitrary(0.5, 1.5)
 	price = Math.log2(c)*deviation
 	if (price > 0){
-		value.market.range = format(Math.log2(c)*0.5) + ' ' + format(Math.log2(c)*1.5)
+		coin.market.range = format(Math.log2(c)*0.5) + ' ' + format(Math.log2(c)*1.5)
 		return price
 	}
 	else {
-		value.market.range = '0.500 1.50'
+		coin.market.range = '0.500 1.50'
 		return deviation
 	}
 }
@@ -522,26 +531,26 @@ function doc_keyDown(e) {
 	}
 }
 function sellArtwork(times){
-	if (value.res.artwork.amount >= times){
-		value.res.money.amount += times*value.market.selling
-		value.res.money.total += times*value.market.selling
-		value.res.artwork.amount -= times
-		value.res.creat.amount += times
-		value.res.creat.total += times
+	if (coin.res.artwork.amount >= times){
+		coin.res.money.amount += times*coin.market.selling
+		coin.res.money.total += times*coin.market.selling
+		coin.res.artwork.amount -= times
+		coin.res.creat.amount += times
+		coin.res.creat.total += times
 	}
 }
 function singularity(){
-	if (value.res.creat.amount > 50 && confirm("Are you sure? This will reset almost everything.")){
-	let c = value.res.creat.amount
+	if (coin.res.creat.amount > 50 && confirm("Are you sure? This will reset almost everything.")){
+	let c = coin.res.creat.amount
 	let amount = Math.floor(c/50)
-	let er = value.things.enRobot.amount
-	let intel = 10**(value.things.book.amount+2)
-	value = deepCopy(ValueDefault)
-	value.things.enRobot.amount = er + amount
-	value.things.enRobot.total = er + amount
-	value.res.intelligence.amount = intel
-	value.res.intelligence.total = intel
-	localStorage.setItem('flipCoin', JSON.stringify(value))
+	let er = coin.things.enRobot.amount
+	let intel = 10**(coin.things.book.amount+2)
+	coin = deepCopy(coinDefault)
+	coin.things.enRobot.amount = er + amount
+	coin.things.enRobot.total = er + amount
+	coin.res.intelligence.amount = intel
+	coin.res.intelligence.total = intel
+	localStorage.setItem('flipCoin', JSON.stringify(coin))
 	window.location.reload(false)
 	}
 }
@@ -549,7 +558,7 @@ function dropDown(ele, options){
 		ele.length = 0
 		options.forEach(key => {
 			 let o = document.createElement("option");
-			o.value = key;
+			o.coin = key;
 			o.text = key;
 			ele.appendChild(o);
 		})
@@ -558,8 +567,8 @@ function range(lower, upper){
 	return Array.from(new Array(parseInt(upper-lower)), (x,i) => i + lower)
 }
 function newDropDown(elem){
-	let selectedValue = elem.options[elem.selectedIndex].value;
-	let len = value.debugSelected.length + 1
+	let selectedcoin = elem.options[elem.selectedIndex].coin;
+	let len = coin.debugSelected.length + 1
 	let toDelete = range(parseInt(elem.getAttribute('id')) + 1, len)
 	try {
 	toDelete.forEach(num => {
@@ -567,39 +576,39 @@ function newDropDown(elem){
 	})
 	}
 	catch{}
-	value.debugSelected = value.debugSelected.slice(0, parseInt(elem.getAttribute('id')))
-	value.debugSelected.push(selectedValue)
-	let x = deepCopy(value)
-	value.debugSelected.forEach(n => {
+	coin.debugSelected = coin.debugSelected.slice(0, parseInt(elem.getAttribute('id')))
+	coin.debugSelected.push(selectedcoin)
+	let x = deepCopy(coin)
+	coin.debugSelected.forEach(n => {
 		x = x[n]
 	})
 	if (typeof(x) != 'object'){
 		let y = document.createElement('textarea')
 		y.innerHTML = String(x)
-		y.setAttribute('id', value.debugSelected.length)
-		y.setAttribute('onchange', "changeValue(this.value, this)")
+		y.setAttribute('id', coin.debugSelected.length)
+		y.setAttribute('onchange', "changecoin(this.coin, this)")
 		document.getElementById("debug").appendChild(y)
 	}
 	else {
 		let y = document.createElement('select')
 		dropDown(y, Object.keys(x))
 		console.log(y)
-		y.setAttribute('id', value.debugSelected.length)
+		y.setAttribute('id', coin.debugSelected.length)
 		y.setAttribute('onfocusout', "newDropDown(this)")
 		document.getElementById("debug").appendChild(y)
 	}
 }
-function changeValue(to, ele){
-	x = deepCopy(value)
-	value.debugSelected.forEach(k => {
+function changecoin(to, ele){
+	x = deepCopy(coin)
+	coin.debugSelected.forEach(k => {
 		x = x[k]
 	})
 	if (typeof(x) == 'number'){
 		to = parseFloat(to)
 	}
-	setToValue(value, to, value.debugSelected)
+	setTocoin(coin, to, coin.debugSelected)
 }
-function setToValue(obj, val, path) {
+function setTocoin(obj, val, path) {
     var i;
     for (i = 0; i < path.length - 1; i++)
         obj = obj[path[i]];
