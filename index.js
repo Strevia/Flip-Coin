@@ -13,6 +13,7 @@ var ValueDefault = {
   things: {},
   events: {}
 }
+ValueDefault.version =  CURRENTVERSION
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot']
 both = ['robot', 'artwork']
@@ -108,7 +109,8 @@ UIUpdate = [
   ['res creat amount', 'value.res.creat.total > 0', 'Creativity: ', false],
   ['things book amount', 'value.things.book.total > 0', 'Books: ', false],
   ['things book price', 'value.res.money.total > 0', 'Write Book of Knowledge<br>', false],
-  ['market range', 'value.debug', '', false]
+  ['market range', 'value.debug', '', false],
+  ['singularity', 'value.res.creat.amount > 0', '', false]
   
 ]
 function updateUI() {
@@ -214,7 +216,18 @@ function onTick() {
         }
       }
     })
+	
   }
+  if (value.res.creat.amount > 0){
+		let c = value.res.creat.amount
+		let sing = "Singularity<br>"
+		let amount = Math.floor(c/50)
+		sing += 'Create ' + format(amount) + ' enlightened robots<br>'
+		sing += 'Using ' + format(amount*50) + ' creativity<br>'
+		sing += 'Keeping ' + format(10**(value.things.book.amount+2)) + ' intelligence from books<br>'
+		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
+		value.singularity = sing
+	}
   tickCount++;
 }
 function load() {
@@ -269,6 +282,7 @@ function load() {
       updated = true
     }
     if (value.version[0] < 1 && value.version[1] < 3){
+		
       value.things.enRobot = deepCopy(ValueDefault.things.enRobot)
       value.things.book = deepCopy(ValueDefault.things.book)
     }
@@ -295,6 +309,7 @@ function load() {
   }
   value.robotTab = "Robots"
   value.marketTab = "Market"
+  value.singularity = ""
   requestInterval(onTick, 50)
 }
 function save(){
@@ -505,6 +520,19 @@ function sellArtwork(times){
 		value.res.creat.amount += times
 		value.res.creat.total += times
 	}
+}
+function singularity(){
+	let c = value.res.creat.amount
+	let amount = Math.floor(c/50)
+	let er = value.things.enRobot.amount
+	let intel = 10**(value.things.book.amount+2)
+	value = deepCopy(ValueDefault)
+	value.things.enRobot.amount = er + amount
+	value.things.enRobot.total = er + amount
+	value.res.intelligence.amount = intel
+	value.res.intelligence.total = intel
+	localStorage.setItem('flipCoin', JSON.stringify(value))
+	window.location.reload(false)
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
