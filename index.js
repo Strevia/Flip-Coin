@@ -115,7 +115,7 @@ UIUpdate = [
   ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
   ['market range', 'coin.debug', '', false],
   ['singularity', 'coin.res.creat.amount > 0', '', false],
-  ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100', '', false]
+  ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured', '', false]
   
 ]
 function updateUI() {
