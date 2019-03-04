@@ -586,7 +586,7 @@ function newDropDown(elem){
 		let y = document.createElement('textarea')
 		y.innerHTML = String(x)
 		y.setAttribute('id', coin.debugSelected.length)
-		y.setAttribute('onchange', "changecoin(this.coin, this)")
+		y.setAttribute('onchange', "changecoin(this.value, this)")
 		document.getElementById("debug").appendChild(y)
 	}
 	else {
@@ -606,9 +606,9 @@ function changecoin(to, ele){
 	if (typeof(x) == 'number'){
 		to = parseFloat(to)
 	}
-	setTocoin(coin, to, coin.debugSelected)
+	setToValue(coin, to, coin.debugSelected)
 }
-function setTocoin(obj, val, path) {
+function setToValue(obj, val, path) {
     var i;
     for (i = 0; i < path.length - 1; i++)
         obj = obj[path[i]];
