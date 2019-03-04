@@ -114,6 +114,15 @@ UIUpdate = [
   
 ]
 function updateUI() {
+	if (value.debug){
+		document.getElementById("debug").style.display = "block"
+		if (document.getElementById("0").length === 0){
+			value.debugSelected = []
+		dropDown(document.getElementById("0"), Object.keys(value))
+		}
+	} else {
+		document.getElementById("debug").style.display = "none"
+	}
   document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(value)))
   UIUpdate.forEach(element => {
     let x = element[0].split(' ')
@@ -535,6 +544,67 @@ function singularity(){
 	localStorage.setItem('flipCoin', JSON.stringify(value))
 	window.location.reload(false)
 	}
+}
+function dropDown(ele, options){
+		ele.length = 0
+		options.forEach(key => {
+			 let o = document.createElement("option");
+			o.value = key;
+			o.text = key;
+			ele.appendChild(o);
+		})
+}
+function range(lower, upper){
+	return Array.from(new Array(parseInt(upper-lower)), (x,i) => i + lower)
+}
+function newDropDown(elem){
+	let selectedValue = elem.options[elem.selectedIndex].value;
+	let len = value.debugSelected.length + 1
+	let toDelete = range(parseInt(elem.getAttribute('id')) + 1, len)
+	try {
+	toDelete.forEach(num => {
+		document.getElementById(String(num)).remove()
+	})
+	}
+	catch{}
+	value.debugSelected = value.debugSelected.slice(0, parseInt(elem.getAttribute('id')))
+	value.debugSelected.push(selectedValue)
+	let x = deepCopy(value)
+	value.debugSelected.forEach(n => {
+		x = x[n]
+	})
+	if (typeof(x) != 'object'){
+		let y = document.createElement('textarea')
+		y.innerHTML = String(x)
+		y.setAttribute('id', value.debugSelected.length)
+		y.setAttribute('onchange', "changeValue(this.value, this)")
+		document.getElementById("debug").appendChild(y)
+	}
+	else {
+		let y = document.createElement('select')
+		dropDown(y, Object.keys(x))
+		console.log(y)
+		y.setAttribute('id', value.debugSelected.length)
+		y.setAttribute('onfocusout', "newDropDown(this)")
+		document.getElementById("debug").appendChild(y)
+	}
+}
+function changeValue(to, ele){
+	x = deepCopy(value)
+	value.debugSelected.forEach(k => {
+		x = x[k]
+	})
+	if (typeof(x) == 'number'){
+		to = parseFloat(to)
+	}
+	setToValue(value, to, value.debugSelected)
+}
+function setToValue(obj, val, path) {
+    var i;
+    for (i = 0; i < path.length - 1; i++)
+        obj = obj[path[i]];
+
+    obj[path[i]] = val;
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
