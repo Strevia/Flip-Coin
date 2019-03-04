@@ -170,7 +170,18 @@ function updateUI() {
 function gainResources(outb){
 	if (!outb){
 	coin.res.intelligence.amount += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)
-    coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)}
+    coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)
+	things.forEach(t => {
+      if (coin.things[t].amount > 0 && !coin.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
+        if (coin.res.intelligence.amount < 1) {
+          coin.things[t].funct(coin.things[t].amount);
+        }
+        else {
+          coin.things[t].funct(coin.things[t].amount * (2**Math.log10(coin.res.intelligence.amount)));
+        }
+      }
+    })
+	}
 	else {
 		onOutbreak()
 	}
@@ -221,17 +232,6 @@ function onTick() {
         coin.events.outbreak.run = false
       }
     }
-    things.forEach(t => {
-      if (coin.things[t].amount > 0 && !coin.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
-        if (coin.res.intelligence.amount < 1) {
-          coin.things[t].funct(coin.things[t].amount);
-        }
-        else {
-          coin.things[t].funct(coin.things[t].amount * (2**Math.log10(coin.res.intelligence.amount)));
-        }
-      }
-    })
-	
   }
   if (coin.res.creat.amount > 0){
 		updateSingularityBox()
