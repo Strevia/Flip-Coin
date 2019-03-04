@@ -522,6 +522,7 @@ function sellArtwork(times){
 	}
 }
 function singularity(){
+	if (value.res.creat.amount > 50 && confirm("Are you sure? This will reset almost everything.")){
 	let c = value.res.creat.amount
 	let amount = Math.floor(c/50)
 	let er = value.things.enRobot.amount
@@ -533,6 +534,7 @@ function singularity(){
 	value.res.intelligence.total = intel
 	localStorage.setItem('flipCoin', JSON.stringify(value))
 	window.location.reload(false)
+	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
