@@ -86,6 +86,10 @@ coinDefault.market = {
 coinDefault.sell = {
 	art: '',
 }
+coinDefault.sacrifice = {
+	amount: 0.1,
+	total: 0
+}
 UIUpdate = [
   ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
@@ -110,7 +114,8 @@ UIUpdate = [
   ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
   ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
   ['market range', 'coin.debug', '', false],
-  ['singularity', 'coin.res.creat.amount > 0', '', false]
+  ['singularity', 'coin.res.creat.amount > 0', '', false],
+  ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100', '', false]
   
 ]
 function updateUI() {
@@ -123,6 +128,7 @@ function updateUI() {
 	} else {
 		document.getElementById("debug").style.display = "none"
 	}
+		updateSacrificeText()
   document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(coin)))
   UIUpdate.forEach(element => {
     let x = element[0].split(' ')
@@ -169,8 +175,9 @@ function updateUI() {
 }
 function gainResources(outb){
 	if (!outb){
+		if (coin.res.robot.amount > 100) {
 	coin.res.intelligence.amount += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);
-    coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);
+		coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);}
 	things.forEach(t => {
       if (coin.things[t].amount > 0 && !coin.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
         if (coin.res.intelligence.amount < 1) {
@@ -184,6 +191,13 @@ function gainResources(outb){
 	}
 	else {
 		onOutbreak()
+	}
+}
+function updateSacrificeText(){
+	if (coin.res.robot.amount >= 100){
+		let t = ''
+		t += 'Sacrifice ' + format(coin.sacrifice.amount *100) + '% of your robots to trigger a revolution.'
+		coin.sacrificeText = t
 	}
 }
 function onOutbreak(){
@@ -218,8 +232,8 @@ function onTick() {
 	  if (coin.res.artwork.total > 0){
 		  coin.market.selling = marketPrice()
 	  }
+	gainResources(coin.events.outbreak.run)
     if (coin.res.robot.amount > 100) {
-		gainResources(coin.events.outbreak.run)
       let chanceOfOutbreak = Math.log10(coin.res.intelligence.amount) / 308
       if (coin.res.intelligence.amount == Infinity)  {
         infinity()
@@ -232,6 +246,9 @@ function onTick() {
         coin.events.outbreak.run = false
       }
     }
+	else {
+		coin.events.outbreak.run = false
+	}
   }
   if (coin.res.creat.amount > 0){
 		updateSingularityBox()
@@ -263,6 +280,14 @@ function load() {
 		coin.market = deepCopy(coinDefault.market)
 		if (coin.things.book.price.heads == 1e300){
 		coin.things.book = deepCopy(coinDefault.things.book)
+		}
+		try {
+		if (coin.sacrifice.total == 0){
+			coin.sacrifice = deepCopy(coinDefault.sacrifice)
+		}
+		}
+		catch {
+			coin.sacrifice = deepCopy(coinDefault.sacrifice)
 		}
 		coin.debug = false
 		coin.market.range = ''
@@ -328,6 +353,7 @@ function load() {
   coin.robotTab = "Robots"
   coin.marketTab = "Market"
   coin.singularity = ""
+  coin.sacrificeText = ""
   requestInterval(onTick, 50)
 }
 function save(){
@@ -614,6 +640,12 @@ function setToValue(obj, val, path) {
         obj = obj[path[i]];
 
     obj[path[i]] = val;
+}
+function sacrifice(){
+	coin.res.robot.amount *= coin.sacrifice.amount
+	coin.sacrifice.total++
+	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
+	coin.events.outbreak.run = true
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
