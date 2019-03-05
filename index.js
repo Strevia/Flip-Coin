@@ -196,7 +196,7 @@ function gainResources(outb){
 function updateSacrificeText(){
 	if (coin.res.robot.amount >= 100){
 		let t = ''
-		t += 'Sacrifice ' + format(coin.sacrifice.amount *100) + '% of your robots to trigger a revolution.'
+		t += 'Sacrifice ' + format(coin.sacrifice.amount *100) + '% of robots to trigger a revolution.'
 		coin.sacrificeText = t
 	}
 }
