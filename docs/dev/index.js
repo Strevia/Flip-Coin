@@ -205,14 +205,24 @@ function onOutbreak(){
         coin.res.intelligence.total += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount);
         coin.res.art.amount += 1 * coin.things.builder.amount
         coin.res.art.total += 1 * coin.things.builder.amount
-        let r = coin.things.enRobot.amount
-         let a = coin.things.artwork.total
-         let artworkPrice = (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
-        if (coin.res.art.amount >= artworkPrice){
-          coin.res.art.amount -= artworkPrice
-          coin.things.artwork.amount+= coin.things.enRobot.amount+1
-          coin.things.artwork.total+= coin.things.enRobot.amount+1
-          coin.things.artwork.price.art = (coin.things.artwork.total+2+r)**2 
+		let a = coin.res.artwork.total
+        maxAmount = Math.ceil(maxArtwork(coin.res.art.amount, a))
+		if (coin.res.art.amount >= artworkPrice(a, maxAmount + 1)){
+			maxAmount++
+		}
+		else if (coin.res.art.amount < artworkPrice(a, maxAmount)){
+			maxAmount--
+		}
+		price = artworkPrice(a, maxAmount)
+		maxAmount++
+		if (maxAmount > coin.things.enRobot.amount){
+			maxAmount = coin.things.enRobot.amount
+		}
+        if (coin.res.art.amount >= price && maxAmount > 0){
+          coin.res.art.amount -= price
+          coin.things.artwork.amount+= maxAmount
+          coin.things.artwork.total+= maxAmount
+          coin.things.artwork.price.art = (coin.things.artwork.total+2)**2 
         }
 }
 function infinity(){
@@ -653,6 +663,12 @@ function sacrifice(){
 	coin.sacrifice.total++
 	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
 	coin.events.outbreak.run = true
+}
+function artworkPrice(a, r){
+	return (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
+}
+function maxArtwork(p, a){
+	return 1/(6*(2**(1/3)))*((216*a**3+972*a**2+Math.sqrt((216*a**3+972*a**2+1404*a+648*p+648)**2-108)+1404*a+648*p+648)**(1/3))+1/(2**(2/3)*(216*a**3+972*a**2+Math.sqrt((216*a**3+972*a**2+1404*a+648*p+648)**2-108)+1404*a+648*p+648)**(1/3))+0.5*(-2*a-5)
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
