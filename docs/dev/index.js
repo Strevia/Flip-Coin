@@ -275,9 +275,11 @@ function load() {
 	  try{
 		if (coin.res.creat.total == 0){
 		coin.res.creat = deepCopy(coinDefault.res.creat)}}
-	  catch{}
+	  catch{coin.res.creat = deepCopy(coinDefault.res.creat)}
+	  try {
 		if (coin.res.money.total == 0){
-		coin.res.money = deepCopy(coinDefault.res.money)}
+		coin.res.money = deepCopy(coinDefault.res.money)}}
+	  catch{coin.res.money = deepCopy(coinDefault.res.money)}
 		coin.res.artwork = coin.things.artwork
 		coin.market = deepCopy(coinDefault.market)
 		if (coin.things.book.price.heads == 1e300){
