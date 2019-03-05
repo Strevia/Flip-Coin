@@ -571,11 +571,14 @@ function singularity(){
 	let amount = Math.floor(c/50)
 	let er = coin.things.enRobot.amount
 	let intel = 10**(coin.things.book.amount+2)
+	let b = coin.things.book
 	coin = deepCopy(coinDefault)
 	coin.things.enRobot.amount = er + amount
 	coin.things.enRobot.total = er + amount
 	coin.res.intelligence.amount = intel
 	coin.res.intelligence.total = intel
+	coin.things.book = b
+	coin.things.book.price = coinDefault.things.book.price
 	localStorage.setItem('flipCoin', JSON.stringify(coin))
 	window.location.reload(false)
 	}
