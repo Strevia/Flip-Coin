@@ -272,8 +272,10 @@ function load() {
       coin.version = [0,0,0]
     }
   if (coin.version[0] < 1){
+	  try{
 		if (coin.res.creat.total == 0){
-		coin.res.creat = deepCopy(coinDefault.res.creat)}
+		coin.res.creat = deepCopy(coinDefault.res.creat)}}
+	  catch{}
 		if (coin.res.money.total == 0){
 		coin.res.money = deepCopy(coinDefault.res.money)}
 		coin.res.artwork = coin.things.artwork
