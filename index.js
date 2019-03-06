@@ -548,7 +548,7 @@ function marketPrice(){
 	let deviation = getRandomArbitrary(0.5, 1.5)
 	price = Math.sqrt(c)*deviation
 	if (price > 0){
-		coin.market.range = format(Math.log2(c)*0.5) + ' ' + format(Math.log2(c)*1.5)
+		coin.market.range = format(Math.sqrt(c)*0.5) + ' ' + format(Math.sqrt(c)*1.5)
 		return price
 	}
 	else {
