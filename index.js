@@ -215,8 +215,8 @@ function onOutbreak(){
 		}
 		price = artworkPrice(a, maxAmount)
 		maxAmount++
-		if (maxAmount > coin.things.enRobot.amount){
-			maxAmount = coin.things.enRobot.amount
+		if (maxAmount > coin.things.enRobot.amount + 1){
+			maxAmount = coin.things.enRobot.amount + 1
 		}
         if (coin.res.art.amount >= price && maxAmount > 0){
           coin.res.art.amount -= price
