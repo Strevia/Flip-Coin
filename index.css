@@ -25,8 +25,11 @@ p {
 	 outline-style:solid;
 	 outline-color:green;
 	 background-color:#32cd32;
+	 
 	}
-
+.tablinks:hover{
+	cursor: pointer;
+}
 .resorses{
 	outline-style:solid;
 	outline-width:5px;
@@ -67,6 +70,13 @@ p {
 	min-width:78%;
 	background-color:#A8937D; 
 }
+.MAIN_BUTTON:hover{
+	background-color:#9C8976;
+	cursor: pointer;
+} 
+.MAIN_BUTTON:active{
+	background-color:#918070;
+} 
 .SubMAIN_BUTTON {
 	border:solid;
     border-color:black;
@@ -77,6 +87,13 @@ p {
 	margin-left:10px;
 	min-width:49%;
 	background-color:#f5f5dc;
+}
+.SubMAIN_BUTTON:hover {
+	background-color:#EBEBD2;
+	cursor: pointer;
+}
+.SubMAIN_BUTTON:active{
+	background-color:#E3E1C8;
 }
 .OUTBREAK{
     border:solid;
