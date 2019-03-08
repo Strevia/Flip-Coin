@@ -130,6 +130,7 @@ function updateUI() {
 	}
 		updateSacrificeText()
   document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(coin)))
+  updateTooltips()
   UIUpdate.forEach(element => {
     let x = element[0].split(' ')
     let tempEl = document.getElementById(element[0])
@@ -173,6 +174,13 @@ function updateUI() {
 				  
 	})
 }
+function updateTooltips(){
+	document.getElementById('res intelligence amount').setAttribute('title', "Uh oh, your robots are getting smarter. I have a feeling them getting smarter will make them more likely to revolt, probably something like a " + format(Math.log10(coin.res.intelligence.amount)/308*100) + '% chance right now. I also have a feeling them being smarter makes them produce ' + format(2**Math.log10(coin.res.intelligence.amount)) + 'x more robots and coins though, so it may not all be bad.')
+	document.getElementById('things robot amount').setAttribute('title', "What a nice robot. It'll flip coins for you, but since all of them will do it together it'll land on the same side for all. Currently flipping " + format(coin.res.robot.amount*2**Math.log10(coin.res.intelligence.amount)) + "coins per second.")
+	document.getElementById('things builder amount').setAttribute('title', "Allows autonomous trading with Craig. You probably already know that from the other tooltip and I don't have a new joke, so I'll just tell you you're trading " + format(coin.things.builder.amount*2**Math.log10(coin.res.intelligence.amount)) + " times a second.")
+	document.getElementById('things enRobot amount').setAttribute('title', "Forged by the singularity, enlightened robots will attempt to construct an additional artwork each revolution. Currently making " + format(coin.things.enRobot.amount) + " more artwork from that")
+	document.getElementById('things artwork amount').setAttribute('title', "So beautiful. Made with art, but more importantly makes your robots smarter. Each one doubles the amount of intelligence your robots generate. Currently making " + format(2**coin.res.artwork.amount) + "x extra intelligence")
+}	
 function gainResources(outb){
 	if (!outb){
 		if (coin.res.robot.amount > 100) {

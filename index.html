@@ -29,9 +29,9 @@
 	<div id="robot" class="tabcontent">
 		<div class="stuffOnRight">
 			<p class="resorses">
-				<span id="res heads amount"></span> <span id="res tails amount"></span>
-				<span id="res sides amount"></span> <span
-					id="res intelligence amount"></span> <span id="res art amount"></span>
+				<span id="res heads amount" title='Heads is one of the things a coin can land on when you flip it. You can use heads to get robots and builders. And yes, I copy and pasted the one from tails because I can.'></span> <span id="res tails amount" title='Tails is one of the things a coin can land on when you flip it. You can use tails to get robots and builders. And yes, I copy and pasted the one from tails because I can.'></span>
+				<span id="res sides amount" title="Sometimes when you flip a coin it will land on its side. Why? Who knows? Just know there's a 10% chance this'll happen. The only person who likes these is Craig to trade for robots."></span> <span
+					id="res intelligence amount"></span> <span id="res art amount" title="Looks like your robots have revolted and made an art. Is that good? What does art do? You'll have to wait and see."></span>
 			</p>
 			<p></p>
 			<p class="things">
@@ -41,17 +41,18 @@
 			</p>
 		</div>
 		<p>
-			<button id="flip" onclick="flipCoin(1)" class="MAIN_BUTTON">Flip
-				Coin</button>
+			<button id="flip" title = "Hotkey is F. Flip a coin. What idiot would name an entire game around that concept?" onclick="flipCoin(1)" class="MAIN_BUTTON">Flip
+				Coin 
+</button>
 		</p>
-		<span id="outbreakText" class="OUTBREAK"></span>
-		<button id="sacrificeText" onclick = "sacrifice()" class="OUTBREAK"></span>
+		<span id="outbreakText" class="OUTBREAK" title = "If you somehow held your mouse over this long enough, it probably means you've reached Infinite intelligence. If so, good job, but if not, forget what I just said."></span>
+		<button id="sacrificeText" onclick = "sacrifice()" class="OUTBREAK" title ="Sacrifice some robots, making them sad. This will make them angry and guarentee a revolution. Each time you do it they will get more tolerant, though, up to 100% of your robots. Resets on singularity."></span>
 		<p>
 			<button id='things robot price' class="prices SubMAIN_BUTTON"
-				onclick='buy("robot", 1)'></button>
+				onclick='buy("robot", 1)' title="Hotkey is R. By combining a head, a tail, and a side, you miracously make something that an unsuspecting human is willing to trade a robot for. Woohoo!"></button>
 		</p>
 		<p>
-			<button id='things builder price' class="prices SubMAIN_BUTTON"
+			<button id='things builder price' title= 'Hotkey is B. Buy a builder to build more robots, or if you have more than one double your builders. Though they still need to trade with Craig, they will do it automatically.' class="prices SubMAIN_BUTTON"
 				onclick='buy("builder", 1)'></button>
 		</p>
 	</div>
