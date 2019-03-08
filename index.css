@@ -8,7 +8,15 @@ button.link { background:none;border:none; text-decoration:underline; color: "#0
 	 width: 99%;
  }
 body {
-	background-color:#97CCF1 ;
+	background:
+	linear-gradient(27deg, #99cef3 5px, transparent 5px) 0 5px,
+	linear-gradient(207deg, #99cef3 5px, transparent 5px) 10px 0px,
+	linear-gradient(27deg, #a4d9fe 5px, transparent 5px) 0px 10px,
+	linear-gradient(207deg, #a4d9fe 5px, transparent 5px) 10px 5px,
+	linear-gradient(90deg, #9fd4f9 10px, transparent 10px),
+	linear-gradient(#a1d6fb 25%, #9ed3f8 25%, #9ed3f8 50%, transparent 50%, transparent 75%, #a4d9fe 75%, #a4d9fe);
+	background-color: #97CCF1;
+	background-size: 20px 20px;
 }
 p {
 	 border:10px;
