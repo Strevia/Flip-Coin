@@ -452,7 +452,9 @@ function buy(item, times, actualBuy = true) {
       else {
         coin.res[r].amount = 0
       }
-      coin.things[item].price[r] *= (coin.things[item].increase) ** times
+	  if (times != Infinity){
+		coin.things[item].price[r] *= (coin.things[item].increase) ** times
+	  }
     })
     try {
       if (item != 'builder') {
