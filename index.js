@@ -69,7 +69,7 @@ coinDefault.things.book = {
   amount: 0,
   total: 0,
   price: {
-    money: 100,
+    money: 10,
   },
   increase: 10
 }
