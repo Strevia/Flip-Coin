@@ -1,7 +1,7 @@
 //revolutions are called outbreaks
 var tickCount = 0;
 const CURRENTVERSION = [0, 5, 0]
-const UPDATEDBUILDER =  'Double <b><i>B</b></i>uilder Bots<br>'
+const UPDATEDBUILDER =  'Double Builder Bots<br>'
 const secondaryPrefixes = [
   '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
 ]
@@ -94,9 +94,9 @@ UIUpdate = [
   ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
   ['res sides amount', 'coin.res.sides.total > 0', 'Sides: ', false],
-  ['things robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping <b><i>R</b></i>obot<br>', false],
+  ['things robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping Robot<br>', false],
   ['things robot amount', 'coin.things.robot.total > 0', 'Robots: ', false],
-  ['things builder price', 'coin.things.robot.total > 1', 'Buy <b><i>B</b></i>uilder Bot<br>', false],
+  ['things builder price', 'coin.things.robot.total > 1', 'Buy Builder Bot<br>', false],
   ['things builder amount', 'coin.things.builder.amount > 0 ', 'Builders: ', false],
   ['res intelligence amount', 'coin.res.intelligence.total > 0', 'Intelligence: ', false],
   ['outbreakText', 'coin.events.outbreak.run', '', false],
