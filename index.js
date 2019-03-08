@@ -235,6 +235,7 @@ function onOutbreak(){
         }
 }
 function infinity(){
+	coin.outbreakText = "Flipping and building has stopped."
 	coin.res.tails.amount = Infinity
         coin.res.heads.amount = Infinity
         coin.res.sides.amount = Infinity
