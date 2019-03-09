@@ -332,7 +332,7 @@ function load() {
 		coin.things.book = deepCopy(coinDefault.things.book)
 		}
 		try {
-			if (coin.things.battery.total == 0){
+			if (coin.things.battery.total == coinDefault.things.battery.total){
 		coin.things.battery = deepCopy(coinDefault.things.battery)}
 		}
 		catch{
@@ -522,6 +522,7 @@ function buyBattery(){
 	if (coin.res.sides.amount > coin.things.battery.price.sides){
 		coin.res.sides.amount -= coin.things.battery.price.sides
 		coin.things.battery.amount += 120
+		coin.things.battery.total += 120
 	}
 }
 
