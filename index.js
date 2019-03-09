@@ -142,7 +142,7 @@ function updateUI() {
 	}
 		updateSacrificeText()
 		updateBatteries()
-  document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(coin)))
+  document.getElementById('export').setAttribute('data-clipboard-text',btoa(unescape(encodeURIComponent(JSON.stringify(coin, replace)))))
   updateTooltips()
   UIUpdate.forEach(element => {
     let x = element[0].split(' ')
@@ -252,12 +252,17 @@ function onOutbreak(){
 			maxAmount = coin.things.enRobot.amount + 1
 		}
 		price = artworkPrice(a, maxAmount - 1)
-        if (coin.res.art.amount >= price && maxAmount > 0){
+        if (coin.res.art.amount >= price && maxAmount > 0 && coin.res.art.amount != Infinity){
           coin.res.art.amount -= price
           coin.things.artwork.amount+= maxAmount
           coin.things.artwork.total+= maxAmount
           coin.things.artwork.price.art = (coin.things.artwork.total+2)**2 
         }
+		else if (coin.res.art.amount == Infinity){
+			coin.things.artwork.amount+= coin.things.enRobot.amount + 1
+          coin.things.artwork.total+= coin.things.enRobot.amount + 1
+		  coin.things.artwork.price.art = (coin.things.artwork.total+2)**2
+		}
 }
 function infinity(){
 	coin.outbreakText = "Flipping and building has stopped."
@@ -356,23 +361,23 @@ function load() {
 		coin.market.range = ''
 	}
     resources.forEach(r => {
-      if (coin.res[r].amount == null){
+      if (coin.res[r].amount == "infinity"){
         coin.res[r].amount = Infinity
       }
-      if (coin.res[r].total == null){
+      if (coin.res[r].total == "infinity"){
         coin.res[r].total = Infinity
       }
     })
     things.forEach(t => {
       coin.things[t].funct = coinDefault.things[t].funct
-      if (coin.things[t].amount == null){
+      if (coin.things[t].amount == "infinity"){
         coin.things[t].amount = Infinity
       }
-      if (coin.things[t].total == null){
+      if (coin.things[t].total == "infinity"){
         coin.things[t].total = Infinity
       }
       Object.keys(coin.things[t].price).forEach(p => {
-        if (coin.things[t].price[p] == null){
+        if (coin.things[t].price[p] == "infinity"){
           coin.things[t].price[p] = Infinity
         }
 
@@ -428,7 +433,7 @@ function load() {
   requestInterval(onTick, 50)
 }
 function save(){
-  localStorage.setItem('flipCoin', JSON.stringify(coin))
+  localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
 }
 function requestInterval(fn, delay) {
   let requestAnimFrame = (function () {
@@ -486,8 +491,6 @@ function buy(item, times, actualBuy = true) {
   let thePrice = coin.things[item].price;
   let resNeeded = Object.keys(thePrice)
   resNeeded.forEach(r => {
-	  if (item == "battery"){
-	  console.log(r)}
     if (coin.res[r].amount < thePrice[r] * times || thePrice[r] == Infinity) {
       afford = false
     }
@@ -589,7 +592,7 @@ function place(no){
 function wipe(){
   if (confirm("Are you sure?")){
 	 coin = deepCopy(coinDefault)
-	localStorage.setItem('flipCoin', JSON.stringify(coinDefault))
+	localStorage.setItem('flipCoin', JSON.stringify(coinDefault, replace))
 	window.location.reload(false)
   }
 }
@@ -675,7 +678,7 @@ function singularity(){
 	coin.res.intelligence.total = intel
 	coin.things.book = b
 	coin.things.book.price = coinDefault.things.book.price
-	localStorage.setItem('flipCoin', JSON.stringify(coin))
+	localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
 	window.location.reload(false)
 	}
 }
@@ -762,6 +765,13 @@ function toggleNotation(){
 		coin.notation = 0
 		coin.notationDisplay = "Standard"
 		break
+	}
+}
+function replace(name, val){
+	if (val == Infinity){
+		return "infinity"
+	} else {
+		return val
 	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
