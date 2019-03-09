@@ -212,8 +212,8 @@ function updateSacrificeText(){
 function onOutbreak(){
 	coin.res.intelligence.amount += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount);
         coin.res.intelligence.total += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount);
-        coin.res.art.amount += 1 * coin.things.builder.amount
-        coin.res.art.total += 1 * coin.things.builder.amount
+        coin.res.art.amount += 1 * coin.things.builder.amount * (coin.things.enRobot.amount + 1)
+        coin.res.art.total += 1 * coin.things.builder.amount * (coin.things.enRobot.amount + 1)
 		let a = coin.res.artwork.total
         maxAmount = Math.ceil(maxArtwork(coin.res.art.amount, a))
 		if (coin.res.art.amount >= artworkPrice(a, maxAmount + 1)){
