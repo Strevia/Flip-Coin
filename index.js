@@ -518,6 +518,13 @@ function buy(item, times, actualBuy = true) {
     }
   }
 }
+function buyBattery(){
+	if (coin.res.sides.amount > coin.things.battery.price.sides){
+		coin.res.sides.amount -= coin.things.battery.price.sides
+		coin.things.battery.amount += 120
+	}
+}
+
 
 function upperFirst(lower) {
   return lower.charAt(0).toUpperCase() + lower.substr(1);
