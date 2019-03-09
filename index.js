@@ -126,7 +126,7 @@ UIUpdate = [
   ['singularity', 'coin.res.creat.amount > 0', '', false],
   ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
-  ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', true]
+  ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false]
 ]
 function updateUI() {
 	if (coin.debug){
