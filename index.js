@@ -99,6 +99,7 @@ coinDefault.things.battery = {
 	amount: 0,
 	total: 0
 }
+coinDefault.notation = 0
 UIUpdate = [
   ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
@@ -346,6 +347,9 @@ function load() {
 		catch {
 			coin.sacrifice = deepCopy(coinDefault.sacrifice)
 		}
+  if (typeof(coin.notation) != "number"){
+	  coin.notation = 0
+  }
 		coin.debug = false
 		coin.market.range = ''
 	}
@@ -535,6 +539,7 @@ function buyRobot(x) {
 }
 function format(num) {
   let exp = Math.floor(Math.log10(num))
+  var leading
   if (exp <= 2) {
     return Number.parseFloat(num).toPrecision(3)
   }
@@ -542,13 +547,21 @@ function format(num) {
     return '∞'
   }
   else {
+	  switch (coin.notation){
+		  case 0:
     let level = Math.floor(exp / 3)
     let primary = Math.floor(level / 10)
     let secondary = level % 10
-    let leading = Number.parseFloat(num / 10 ** (level * 3)).toPrecision(3)
-    prefix = String(leading) + primaryPrefixes[primary] + (secondaryPrefixes[secondary] || '')
+    leading = Number.parseFloat(num / 10 ** (level * 3)).toPrecision(3)
+		  prefix = String(leading) + primaryPrefixes[primary] + (secondaryPrefixes[secondary] || '')
+		  break
+		  case 1:
+		  leading = (num / 10**exp).toPrecision(3)
+		  prefix = String(leading) + 'e' + String(exp)
+		  }
+		  }
+	  
     return prefix
-  }
 }
 function poop() {
   coin.res.tails.amount *= 10
