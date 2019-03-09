@@ -413,6 +413,14 @@ function load() {
 	  coin.res[b] = coin.things[b]
   });
   }
+  switch (coin.notation){
+		case 1:
+		coin.notationDisplay = "Scientific"
+		break
+		case 0:
+		coin.notationDisplay = "Standard"
+		break
+	}
   coin.robotTab = "Robots"
   coin.marketTab = "Market"
   coin.singularity = ""
