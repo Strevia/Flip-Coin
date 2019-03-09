@@ -311,9 +311,9 @@ function onTick() {
 function updateSingularityBox(){
 	let c = coin.res.creat.amount
 		let sing = "Singularity<br>"
-		let amount = Math.floor(c/50)
+		let amount = Math.floor(c/25)
 		sing += 'Create ' + format(amount) + ' enlightened robots<br>'
-		sing += 'Using ' + format(amount*50) + ' creativity<br>'
+		sing += 'Using ' + format(amount*25) + ' creativity<br>'
 		sing += 'Keeping ' + format(10**(coin.things.book.amount+2)) + ' intelligence from books<br>'
 		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
 		coin.singularity = sing
@@ -665,9 +665,9 @@ function sellArtwork(times){
 	}
 }
 function singularity(){
-	if (coin.res.creat.amount > 50 && confirm("Are you sure? This will reset almost everything.")){
+	if (coin.res.creat.amount > 25 && confirm("Are you sure? This will reset almost everything.")){
 	let c = coin.res.creat.amount
-	let amount = Math.floor(c/50)
+	let amount = Math.floor(c/25)
 	let er = coin.things.enRobot.amount
 	let intel = 10**(coin.things.book.amount+2)
 	let b = coin.things.book
