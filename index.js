@@ -127,7 +127,8 @@ UIUpdate = [
   ['singularity', 'coin.res.creat.amount > 0', '', false],
   ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
-  ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false]
+  ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
+  ['notationDisplay', 'true', 'Current Notation: ', true]
 ]
 function updateUI() {
 	if (coin.debug){
@@ -349,6 +350,7 @@ function load() {
 		}
   if (typeof(coin.notation) != "number"){
 	  coin.notation = 0
+	  coin.notationDisplay = "Standard"
   }
 		coin.debug = false
 		coin.market.range = ''
@@ -741,6 +743,18 @@ function artworkPrice(a, r){
 }
 function maxArtwork(p, a){
 	return 1/(6*(2**(1/3)))*((216*a**3+972*a**2+Math.sqrt((216*a**3+972*a**2+1404*a+648*p+648)**2-108)+1404*a+648*p+648)**(1/3))+1/(2**(2/3)*(216*a**3+972*a**2+Math.sqrt((216*a**3+972*a**2+1404*a+648*p+648)**2-108)+1404*a+648*p+648)**(1/3))+0.5*(-2*a-5)
+}
+function toggleNotation(){
+	switch (coin.notation){
+		case 0:
+		coin.notation = 1
+		coin.notationDisplay = "Scientific"
+		break
+		case 1:
+		coin.notation = 0
+		coin.notationDisplay = "Standard"
+		break
+	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
