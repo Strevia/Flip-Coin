@@ -671,6 +671,7 @@ function singularity(){
 	let er = coin.things.enRobot.amount
 	let intel = 10**(coin.things.book.amount+2)
 	let b = coin.things.book
+	let notation = coin.notation
 	coin = deepCopy(coinDefault)
 	coin.things.enRobot.amount = er + amount
 	coin.things.enRobot.total = er + amount
@@ -678,6 +679,7 @@ function singularity(){
 	coin.res.intelligence.total = intel
 	coin.things.book = b
 	coin.things.book.price = coinDefault.things.book.price
+	coin.notation = notation
 	localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
 	window.location.reload(false)
 	}
