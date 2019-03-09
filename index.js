@@ -15,7 +15,7 @@ var coinDefault = {
 }
 coinDefault.version =  CURRENTVERSION
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
-things = ['robot', 'builder', 'artwork', 'book', 'enRobot']
+things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery']
 both = ['robot', 'artwork']
 events = ['outbreak']
 resources.forEach(resor => coinDefault.res[resor] = {
@@ -90,6 +90,15 @@ coinDefault.sacrifice = {
 	amount: 0.1,
 	total: 0
 }
+coinDefault.things.battery = {
+	price: {
+		sides: 1
+	},
+	display: '',
+	increase: 1,
+	amount: 0,
+	total: 0
+}
 UIUpdate = [
   ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
@@ -115,8 +124,9 @@ UIUpdate = [
   ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
   ['market range', 'coin.debug', '', false],
   ['singularity', 'coin.res.creat.amount > 0', '', false],
-  ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured', '', false]
-  
+  ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
+  ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
+  ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', true]
 ]
 function updateUI() {
 	if (coin.debug){
@@ -129,6 +139,7 @@ function updateUI() {
 		document.getElementById("debug").style.display = "none"
 	}
 		updateSacrificeText()
+		updateBatteries()
   document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(coin)))
   updateTooltips()
   UIUpdate.forEach(element => {
@@ -181,19 +192,31 @@ function updateTooltips(){
 	document.getElementById('things enRobot amount').setAttribute('title', "Forged by the singularity, enlightened robots will attempt to construct an additional artwork each revolution. Currently making " + format(coin.things.enRobot.amount) + " more artwork from that. Will also mltiply art, currently by " + format(coin.things.enRobot.amount + 1) + "x")
 	document.getElementById('things artwork amount').setAttribute('title', "So beautiful. Made with art, but more importantly makes your robots smarter. Each one doubles the amount of intelligence your robots generate. Currently making " + format(2**coin.res.artwork.amount) + "x extra intelligence")
 	document.getElementById('res creat amount').setAttribute('title', "Somehow selling an artwork made all your artwork more valuable. Huh. Currently provides a " + format(Math.sqrt(coin.res.creat.amount)) + "x bonus to Craig's price.")
-}	
+}
+function updateBatteries(){
+	let current = coin.res.sides.amount / 10
+	if (current > coin.things.battery.price.sides){
+		coin.things.battery.price.sides = current
+	}
+	coin.things.battery.display = "Spend " + format(coin.things.battery.price.sides) + " sides to get 120 batteries"
+}
 function gainResources(outb){
 	if (!outb){
 		if (coin.res.robot.amount > 100) {
 	coin.res.intelligence.amount += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);
 		coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);}
 	things.forEach(t => {
-      if (coin.things[t].amount > 0 && !coin.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
+      if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
         if (coin.res.intelligence.amount < 1) {
           coin.things[t].funct(coin.things[t].amount);
         }
         else {
+			if (coin.things.battery.amount >= 1){
+				coin.things[t].funct(coin.things[t].amount * (2**Math.log10(coin.res.intelligence.amount)) * 1.5)
+			}
+			else {
           coin.things[t].funct(coin.things[t].amount * (2**Math.log10(coin.res.intelligence.amount)));
+			}
         }
       }
     })
@@ -226,7 +249,7 @@ function onOutbreak(){
 		if (maxAmount > coin.things.enRobot.amount + 1){
 			maxAmount = coin.things.enRobot.amount + 1
 		}
-		price = artworkPrice(a, maxAmount)
+		price = artworkPrice(a, maxAmount - 1)
         if (coin.res.art.amount >= price && maxAmount > 0){
           coin.res.art.amount -= price
           coin.things.artwork.amount+= maxAmount
@@ -249,6 +272,9 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
+	  if (coin.things.battery.amount > 0){
+		  coin.things.battery.amount--
+	  }
 	  if (coin.res.artwork.total > 0){
 		  coin.market.selling = marketPrice()
 	  }
@@ -258,7 +284,7 @@ function onTick() {
       if (coin.res.intelligence.amount == Infinity)  {
         infinity()
       }
-      if (Math.random() < chanceOfOutbreak  || (coin.res.intelligence.amount > 1e2 && !coin.events.outbreak.occured)){
+      if ((Math.random() < chanceOfOutbreak && coin.things.battery.amount < 1)  || (coin.res.intelligence.amount > 1e2 && !coin.events.outbreak.occured)){
         coin.events.outbreak.run = true
         coin.events.outbreak.occured = true
       }
@@ -304,6 +330,13 @@ function load() {
 		coin.market = deepCopy(coinDefault.market)
 		if (coin.things.book.price.heads == 1e300){
 		coin.things.book = deepCopy(coinDefault.things.book)
+		}
+		try {
+			if (coin.things.battery.total == 0){
+		coin.things.battery = deepCopy(coinDefault.things.battery)}
+		}
+		catch{
+			coin.things.battery = deepCopy(coinDefault.things.battery)
 		}
 		try {
 		if (coin.sacrifice.total == 0){
@@ -439,6 +472,8 @@ function buy(item, times, actualBuy = true) {
   let thePrice = coin.things[item].price;
   let resNeeded = Object.keys(thePrice)
   resNeeded.forEach(r => {
+	  if (item == "battery"){
+	  console.log(r)}
     if (coin.res[r].amount < thePrice[r] * times || thePrice[r] == Infinity) {
       afford = false
     }
@@ -461,6 +496,10 @@ function buy(item, times, actualBuy = true) {
       if (item != 'builder') {
         coin.things[item].amount += times
         coin.things[item].total += times
+		if (item == "battery"){
+			coin.things.battery.amount += 120
+			coin.things.battery.total += 120
+		}
       }
       else {
         if (coin.things.builder.amount > 0) {
