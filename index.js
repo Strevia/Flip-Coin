@@ -142,7 +142,7 @@ function updateUI() {
 	}
 		updateSacrificeText()
 		updateBatteries()
-  document.getElementById('export').setAttribute('data-clipboard-text',btoa(unescape(encodeURIComponent(JSON.stringify(coin, replace)))))
+  document.getElementById('export').setAttribute('data-clipboard-text',utoa(JSON.stringify(coin, replace)))
   updateTooltips()
   UIUpdate.forEach(element => {
     let x = element[0].split(' ')
@@ -601,9 +601,9 @@ function importt(){
   let x = prompt("Save to import: ")
      let tempcoin = deepCopy(coin)
   try {
-	coin = JSON.parse(atob(x))
-	JSON.parse(atob(x))
-    localStorage.setItem('flipCoin',atob(x))
+	coin = JSON.parse(atou(x))
+	JSON.parse(atou(x))
+    localStorage.setItem('flipCoin',atou(x))
     	window.location.reload(false)
   }
   catch {
@@ -793,6 +793,12 @@ function replace(name, val){
 	} else {
 		return val
 	}
+}
+function utoa(str) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+function atou(str) {
+    return decodeURIComponent(escape(window.atob(str)));
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
