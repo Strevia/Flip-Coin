@@ -642,17 +642,34 @@ function marketPrice(){
 	}
 }
 function doc_keyDown(e) {
-    if (e.keyCode == 70 || e.keyCode == 102) {
-        document.getElementById("flip").click()
-    }
-	if (e.keyCode == 82 || e.keyCode == 114) {
+	switch (String.fromCharCode(e.keyCode)){
+		case 'f':
+		case 'F':
+			flipCoin(1)
+			break;
+	case 'r':
+	case 'R':
 		document.getElementById("things robot price").click()
-	}
-	if (e.keyCode == 66 || e.keyCode == 98) {
+	break;
+	case 'b':
+	case 'B':
 		document.getElementById("things builder price").click()
-	}
-	if (e.keyCode == 83 || e.keyCode == 115) {
+	break;
+	case 's':
+	case 'S':
 		document.getElementById("sell art").click()
+		break;
+	case 'w':
+	case 'W':
+		buy('book', 1)
+		break;
+	case '/':
+		sacrifice()
+		break;
+	case 'd':
+	case 'D':
+		buy('battery', 1)
+		break;
 	}
 }
 function sellArtwork(times){
@@ -746,10 +763,11 @@ function setToValue(obj, val, path) {
     obj[path[i]] = val;
 }
 function sacrifice(){
+	if (!coin.events.outbreak.run){
 	coin.res.robot.amount *= 1-coin.sacrifice.amount
 	coin.sacrifice.total++
 	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
-	coin.events.outbreak.run = true
+	coin.events.outbreak.run = true}
 }
 function artworkPrice(a, r){
 	return (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
