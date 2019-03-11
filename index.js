@@ -100,6 +100,7 @@ coinDefault.things.battery = {
 	amount: 0,
 	total: 0
 }
+coinDefault.notation = 0
 UIUpdate = [
   ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
@@ -129,6 +130,7 @@ UIUpdate = [
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['market selling', 'coin.things.artwork.total > 0', '$', false]
+  ['notationDisplay', 'true', 'Current Notation: ', true]
 ]
 function updateUI() {
 	if (coin.debug){
@@ -142,7 +144,7 @@ function updateUI() {
 	}
 		updateSacrificeText()
 		updateBatteries()
-  document.getElementById('export').setAttribute('data-clipboard-text',btoa(JSON.stringify(coin)))
+  document.getElementById('export').setAttribute('data-clipboard-text',utoa(JSON.stringify(coin, replace)))
   updateTooltips()
   UIUpdate.forEach(element => {
     let x = element[0].split(' ')
@@ -191,7 +193,7 @@ function updateTooltips(){
 	document.getElementById('res intelligence amount').setAttribute('title', "Uh oh, your robots are getting smarter. I have a feeling them getting smarter will make them more likely to revolt, probably something like a " + format(Math.log10(coin.res.intelligence.amount)/308*100) + '% chance right now. I also have a feeling them being smarter makes them produce ' + format(2**Math.log10(coin.res.intelligence.amount)) + 'x more robots and coins though, so it may not all be bad.')
 	document.getElementById('things robot amount').setAttribute('title', "What a nice robot. It'll flip coins for you, but since all of them will do it together it'll land on the same side for all. Currently flipping " + format(coin.res.robot.amount*2**Math.log10(coin.res.intelligence.amount) * 1.5 **(coin.things.battery.amount >= 1)) + " coins per second.")
 	document.getElementById('things builder amount').setAttribute('title', "Allows autonomous trading with Craig. You probably already know that from the other tooltip and I don't have a new joke, so I'll just tell you you're trading " + format(coin.things.builder.amount*2**Math.log10(coin.res.intelligence.amount) * 1.5 **(coin.things.battery.amount >= 1)) + " times a second.")
-	document.getElementById('things enRobot amount').setAttribute('title', "Forged by the singularity, enlightened robots will attempt to construct an additional artwork each revolution. Currently making " + format(coin.things.enRobot.amount) + " more artwork from that. Will also mltiply art, currently by " + format(coin.things.enRobot.amount + 1) + "x")
+	document.getElementById('things enRobot amount').setAttribute('title', "Forged by the singularity, enlightened robots will attempt to construct an additional artwork each revolution. Currently making " + format(coin.things.enRobot.amount) + " more artwork from that. Will also multiply art, currently by " + format(coin.things.enRobot.amount + 1) + "x")
 	document.getElementById('things artwork amount').setAttribute('title', "So beautiful. Made with art, but more importantly makes your robots smarter. Each one doubles the amount of intelligence your robots generate. Currently making " + format(2**coin.res.artwork.amount) + "x extra intelligence")
 	document.getElementById('res creat amount').setAttribute('title', "Somehow selling an artwork made all your artwork more valuable. Huh. Currently provides a " + format(Math.sqrt(coin.res.creat.amount)) + "x bonus to Craig's price.")
 }
@@ -252,12 +254,17 @@ function onOutbreak(){
 			maxAmount = coin.things.enRobot.amount + 1
 		}
 		price = artworkPrice(a, maxAmount - 1)
-        if (coin.res.art.amount >= price && maxAmount > 0){
+        if (coin.res.art.amount >= price && maxAmount > 0 && coin.res.art.amount != Infinity){
           coin.res.art.amount -= price
           coin.things.artwork.amount+= maxAmount
           coin.things.artwork.total+= maxAmount
           coin.things.artwork.price.art = (coin.things.artwork.total+2)**2 
         }
+		else if (coin.res.art.amount == Infinity){
+			coin.things.artwork.amount+= coin.things.enRobot.amount + 1
+          coin.things.artwork.total+= coin.things.enRobot.amount + 1
+		  coin.things.artwork.price.art = (coin.things.artwork.total+2)**2
+		}
 }
 function infinity(){
 	coin.outbreakText = "Flipping and building has stopped."
@@ -306,9 +313,9 @@ function onTick() {
 function updateSingularityBox(){
 	let c = coin.res.creat.amount
 		let sing = "Singularity<br>"
-		let amount = Math.floor(c/50)
+		let amount = Math.floor(c/25)
 		sing += 'Create ' + format(amount) + ' enlightened robots<br>'
-		sing += 'Using ' + format(amount*50) + ' creativity<br>'
+		sing += 'Using ' + format(amount*25) + ' creativity<br>'
 		sing += 'Keeping ' + format(10**(coin.things.book.amount+2)) + ' intelligence from books<br>'
 		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
 		coin.singularity = sing
@@ -348,27 +355,31 @@ function load() {
 		catch {
 			coin.sacrifice = deepCopy(coinDefault.sacrifice)
 		}
+  if (typeof(coin.notation) != "number"){
+	  coin.notation = 0
+	  coin.notationDisplay = "Standard"
+  }
 		coin.debug = false
 		coin.market.range = ''
 	}
     resources.forEach(r => {
-      if (coin.res[r].amount == null){
+      if (coin.res[r].amount == "infinity"){
         coin.res[r].amount = Infinity
       }
-      if (coin.res[r].total == null){
+      if (coin.res[r].total == "infinity"){
         coin.res[r].total = Infinity
       }
     })
     things.forEach(t => {
       coin.things[t].funct = coinDefault.things[t].funct
-      if (coin.things[t].amount == null){
+      if (coin.things[t].amount == "infinity"){
         coin.things[t].amount = Infinity
       }
-      if (coin.things[t].total == null){
+      if (coin.things[t].total == "infinity"){
         coin.things[t].total = Infinity
       }
       Object.keys(coin.things[t].price).forEach(p => {
-        if (coin.things[t].price[p] == null){
+        if (coin.things[t].price[p] == "infinity"){
           coin.things[t].price[p] = Infinity
         }
 
@@ -409,6 +420,14 @@ function load() {
 	  coin.res[b] = coin.things[b]
   });
   }
+  switch (coin.notation){
+		case 1:
+		coin.notationDisplay = "Scientific"
+		break
+		case 0:
+		coin.notationDisplay = "Standard"
+		break
+	}
   coin.robotTab = "Robots"
   coin.marketTab = "Market"
   coin.singularity = ""
@@ -417,7 +436,7 @@ function load() {
   requestInterval(onTick, 50)
 }
 function save(){
-  localStorage.setItem('flipCoin', JSON.stringify(coin))
+  localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
 }
 function requestInterval(fn, delay) {
   let requestAnimFrame = (function () {
@@ -475,8 +494,6 @@ function buy(item, times, actualBuy = true) {
   let thePrice = coin.things[item].price;
   let resNeeded = Object.keys(thePrice)
   resNeeded.forEach(r => {
-	  if (item == "battery"){
-	  console.log(r)}
     if (coin.res[r].amount < thePrice[r] * times || thePrice[r] == Infinity) {
       afford = false
     }
@@ -538,6 +555,7 @@ function buyRobot(x) {
 }
 function format(num) {
   let exp = Math.floor(Math.log10(num))
+  var leading
   if (exp <= 2) {
     return Number.parseFloat(num).toPrecision(3)
   }
@@ -545,13 +563,21 @@ function format(num) {
     return '∞'
   }
   else {
+	  switch (coin.notation){
+		  case 0:
     let level = Math.floor(exp / 3)
     let primary = Math.floor(level / 10)
     let secondary = level % 10
-    let leading = Number.parseFloat(num / 10 ** (level * 3)).toPrecision(3)
-    prefix = String(leading) + primaryPrefixes[primary] + (secondaryPrefixes[secondary] || '')
+    leading = Number.parseFloat(num / 10 ** (level * 3)).toPrecision(3)
+		  prefix = String(leading) + primaryPrefixes[primary] + (secondaryPrefixes[secondary] || '')
+		  break
+		  case 1:
+		  leading = (num / 10**exp).toPrecision(3)
+		  prefix = String(leading) + 'e' + String(exp)
+		  }
+		  }
+	  
     return prefix
-  }
 }
 function poop() {
   coin.res.tails.amount *= 10
@@ -569,7 +595,7 @@ function place(no){
 function wipe(){
   if (confirm("Are you sure?")){
 	 coin = deepCopy(coinDefault)
-	localStorage.setItem('flipCoin', JSON.stringify(coinDefault))
+	localStorage.setItem('flipCoin', JSON.stringify(coinDefault, replace))
 	window.location.reload(false)
   }
 }
@@ -578,9 +604,9 @@ function importt(){
   let x = prompt("Save to import: ")
      let tempcoin = deepCopy(coin)
   try {
-	coin = JSON.parse(atob(x))
-	JSON.parse(atob(x))
-    localStorage.setItem('flipCoin',atob(x))
+	coin = JSON.parse(atou(x))
+	JSON.parse(atou(x))
+    localStorage.setItem('flipCoin',atou(x))
     	window.location.reload(false)
   }
   catch {
@@ -619,17 +645,34 @@ function marketPrice(){
 	}
 }
 function doc_keyDown(e) {
-    if (e.keyCode == 70 || e.keyCode == 102) {
-        document.getElementById("flip").click()
-    }
-	if (e.keyCode == 82 || e.keyCode == 114) {
+	switch (String.fromCharCode(e.keyCode)){
+		case 'f':
+		case 'F':
+			flipCoin(1)
+			break;
+	case 'r':
+	case 'R':
 		document.getElementById("things robot price").click()
-	}
-	if (e.keyCode == 66 || e.keyCode == 98) {
+	break;
+	case 'b':
+	case 'B':
 		document.getElementById("things builder price").click()
-	}
-	if (e.keyCode == 83 || e.keyCode == 115) {
+	break;
+	case 's':
+	case 'S':
 		document.getElementById("sell art").click()
+		break;
+	case 'w':
+	case 'W':
+		buy('book', 1)
+		break;
+	case '/':
+		sacrifice()
+		break;
+	case 'd':
+	case 'D':
+		buy('battery', 1)
+		break;
 	}
 }
 function sellArtwork(times){
@@ -642,12 +685,13 @@ function sellArtwork(times){
 	}
 }
 function singularity(){
-	if (coin.res.creat.amount > 50 && confirm("Are you sure? This will reset almost everything.")){
+	if (coin.res.creat.amount > 25 && confirm("Are you sure? This will reset almost everything.")){
 	let c = coin.res.creat.amount
-	let amount = Math.floor(c/50)
+	let amount = Math.floor(c/25)
 	let er = coin.things.enRobot.amount
 	let intel = 10**(coin.things.book.amount+2)
 	let b = coin.things.book
+	let notation = coin.notation
 	coin = deepCopy(coinDefault)
 	coin.things.enRobot.amount = er + amount
 	coin.things.enRobot.total = er + amount
@@ -655,7 +699,8 @@ function singularity(){
 	coin.res.intelligence.total = intel
 	coin.things.book = b
 	coin.things.book.price = coinDefault.things.book.price
-	localStorage.setItem('flipCoin', JSON.stringify(coin))
+	coin.notation = notation
+	localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
 	window.location.reload(false)
 	}
 }
@@ -721,16 +766,42 @@ function setToValue(obj, val, path) {
     obj[path[i]] = val;
 }
 function sacrifice(){
+	if (!coin.events.outbreak.run){
 	coin.res.robot.amount *= 1-coin.sacrifice.amount
 	coin.sacrifice.total++
 	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
-	coin.events.outbreak.run = true
+	coin.events.outbreak.run = true}
 }
 function artworkPrice(a, r){
 	return (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
 }
 function maxArtwork(p, a){
 	return 1/(6*(2**(1/3)))*((216*a**3+972*a**2+Math.sqrt((216*a**3+972*a**2+1404*a+648*p+648)**2-108)+1404*a+648*p+648)**(1/3))+1/(2**(2/3)*(216*a**3+972*a**2+Math.sqrt((216*a**3+972*a**2+1404*a+648*p+648)**2-108)+1404*a+648*p+648)**(1/3))+0.5*(-2*a-5)
+}
+function toggleNotation(){
+	switch (coin.notation){
+		case 0:
+		coin.notation = 1
+		coin.notationDisplay = "Scientific"
+		break
+		case 1:
+		coin.notation = 0
+		coin.notationDisplay = "Standard"
+		break
+	}
+}
+function replace(name, val){
+	if (val == Infinity){
+		return "infinity"
+	} else {
+		return val
+	}
+}
+function utoa(str) {
+    return window.btoa(unescape(encodeURIComponent(str)));
+}
+function atou(str) {
+    return decodeURIComponent(escape(window.atob(str)));
 }
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
