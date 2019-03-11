@@ -81,8 +81,7 @@ coinDefault.things.enRobot = {
   },
 }
 coinDefault.market = {
-	selling: 1,
-	display: "Artwork selling for"
+	selling: 1
 }
 coinDefault.sell = {
 	art: '',
@@ -119,7 +118,7 @@ UIUpdate = [
   ['res artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
   ['res money amount', 'coin.res.money.total > 0', '$', false],
   ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
-  ['market display', 'coin.things.artwork.total > 0', '', false],
+  ['market selling', 'coin.things.artwork.total > 0', 'Artwork selling for $', false],
   ['sell art', 'coin.things.artwork.total > 0', 'Sell an Artwork', false],
   ['res creat amount', 'coin.res.creat.total > 0', 'Creativity: ', false],
   ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
@@ -129,7 +128,6 @@ UIUpdate = [
   ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
-  ['market selling', 'coin.things.artwork.total > 0', '$', false]
   ['notationDisplay', 'true', 'Current Notation: ', true]
 ]
 function updateUI() {
@@ -432,7 +430,6 @@ function load() {
   coin.marketTab = "Market"
   coin.singularity = ""
   coin.sacrificeText = ""
-  coin.market.display = "Artwork selling for"
   requestInterval(onTick, 50)
 }
 function save(){
