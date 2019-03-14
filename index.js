@@ -15,7 +15,7 @@ var coinDefault = {
 }
 coinDefault.version =  CURRENTVERSION
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
-things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery']
+things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery', 'sellers']
 both = ['robot', 'artwork']
 events = ['outbreak']
 resources.forEach(resor => coinDefault.res[resor] = {
@@ -100,6 +100,15 @@ coinDefault.things.battery = {
 	total: 0
 }
 coinDefault.notation = 0
+coinDefault.things.sellers = {
+	amount: 0,
+	total: 0,
+	funct: sellArtwork,
+	price : {
+		money: 1e300
+	},
+	increase: 10
+}
 UIUpdate = [
   ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
   , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
@@ -209,7 +218,7 @@ function gainResources(outb){
 		coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount);}
 	things.forEach(t => {
       if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
-        if (coin.res.intelligence.amount < 1) {
+        if (coin.res.intelligence.amount < 1 || t!= "robot" || t!="builder") {
           coin.things[t].funct(coin.things[t].amount);
         }
         else {
@@ -221,9 +230,13 @@ function gainResources(outb){
 			}
         }
       }
+	  if (t == "sellers"){
+		  coin.things[t].funct(coin.things[t].amount);
+	  }
     })
 	}
 	else {
+		  coin.things.sellers.funct(coin.things.sellers.amount);
 		onOutbreak()
 	}
 }
@@ -352,6 +365,13 @@ function load() {
 		}
 		catch {
 			coin.sacrifice = deepCopy(coinDefault.sacrifice)
+		}
+		try {
+			if (coin.things.sellers.total == coinDefault.things.sellers.total){
+		coin.things.sellers = deepCopy(coinDefault.things.sellers)}
+		}
+		catch{
+			coin.things.sellers = deepCopy(coinDefault.things.sellers)
 		}
   if (typeof(coin.notation) != "number"){
 	  coin.notation = 0
