@@ -1,5 +1,4 @@
 //revolutions are called outbreaks
-//test for discord
 var tickCount = 0;
 const CURRENTVERSION = [0, 5, 0]
 const UPDATEDBUILDER =  'Double Builder Bots<br>'
