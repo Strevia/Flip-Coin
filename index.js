@@ -129,7 +129,8 @@ UIUpdate = [
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
-  ['market selling', 'coin.things.artwork.total > 0', '$', false]
+  ['market selling', 'coin.things.artwork.total > 0', '$', false],
+  ['singularityBox', 'coin.res.creat.amount > 0', '', false]
 ]
 function updateUI() {
 	if (coin.debug){
@@ -318,6 +319,7 @@ function updateSingularityBox(){
 		sing += 'Keeping ' + format(10**(coin.things.book.amount+2)) + ' intelligence from books<br>'
 		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
 		coin.singularity = "Singularity<br>"
+		coin.singularityBox = sing
 }
 function load() {
   if (localStorage.getItem('flipCoin') != null){
