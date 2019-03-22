@@ -312,13 +312,13 @@ function onTick() {
 }
 function updateSingularityBox(){
 	let c = coin.res.creat.amount
-		let sing = "Singularity<br>"
+		let sing = ""
 		let amount = Math.floor(c/25)
 		sing += 'Create ' + format(amount) + ' enlightened robots<br>'
 		sing += 'Using ' + format(amount*25) + ' creativity<br>'
 		sing += 'Keeping ' + format(10**(coin.things.book.amount+2)) + ' intelligence from books<br>'
 		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
-		coin.singularity = sing
+		coin.singularity = "Singularity<br>"
 }
 function load() {
   if (localStorage.getItem('flipCoin') != null){
