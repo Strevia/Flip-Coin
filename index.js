@@ -120,7 +120,6 @@ UIUpdate = [
   ['res money amount', 'coin.res.money.total > 0', '$', false],
   ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
   ['market display', 'coin.things.artwork.total > 0', '', false],
-  ['sell art', 'coin.things.artwork.total > 0', 'Sell an Artwork', false],
   ['res creat amount', 'coin.res.creat.total > 0', 'Creativity: ', false],
   ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
   ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
