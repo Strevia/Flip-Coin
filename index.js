@@ -666,7 +666,7 @@ function doc_keyDown(e) {
 	case 'W':
 		buy('book', 1)
 		break;
-	case '/':
+	case '¿':
 		sacrifice()
 		break;
 	case 'd':
