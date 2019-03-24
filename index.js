@@ -81,7 +81,8 @@ coinDefault.things.enRobot = {
   },
 }
 coinDefault.market = {
-	selling: 1
+	selling: 1,
+	display: "Artwork selling for"
 }
 coinDefault.sell = {
 	art: '',
@@ -101,8 +102,8 @@ coinDefault.things.battery = {
 }
 coinDefault.notation = 0
 UIUpdate = [
-  ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false]
-  , ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
+  ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false],
+  ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
   ['res sides amount', 'coin.res.sides.total > 0', 'Sides: ', false],
   ['things robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping Robot<br>', false],
   ['things robot amount', 'coin.things.robot.total > 0', 'Robots: ', false],
@@ -116,10 +117,8 @@ UIUpdate = [
   ['robotTab', 'coin.things.artwork.total > 0', '', true],
   ['marketTab', 'coin.things.artwork.total > 0', '', true],
   ['res artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
-  ['res money amount', 'coin.res.money.total > 0', '$', false],
+  ['res money amount', 'coin.res.money.total > 0', 'Money: $', false],
   ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
-  ['market selling', 'coin.things.artwork.total > 0', 'Artwork selling for $', false],
-  ['sell art', 'coin.things.artwork.total > 0', 'Sell an Artwork', false],
   ['res creat amount', 'coin.res.creat.total > 0', 'Creativity: ', false],
   ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
   ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
@@ -128,7 +127,9 @@ UIUpdate = [
   ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
-  ['notationDisplay', 'true', 'Current Notation: ', true]
+  ['notationDisplay', 'true', 'Current Notation: ', true],
+  ['market selling', 'coin.things.artwork.total > 0', '$', false],
+  ['singularityBox', 'coin.res.creat.amount > 0', '', false]
 ]
 function updateUI() {
 	if (coin.debug){
@@ -310,13 +311,14 @@ function onTick() {
 }
 function updateSingularityBox(){
 	let c = coin.res.creat.amount
-		let sing = "Singularity<br>"
+		let sing = ""
 		let amount = Math.floor(c/25)
 		sing += 'Create ' + format(amount) + ' enlightened robots<br>'
 		sing += 'Using ' + format(amount*25) + ' creativity<br>'
 		sing += 'Keeping ' + format(10**(coin.things.book.amount+2)) + ' intelligence from books<br>'
 		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
-		coin.singularity = sing
+		coin.singularity = "Singularity<br>"
+		coin.singularityBox = sing
 }
 function load() {
   if (localStorage.getItem('flipCoin') != null){
@@ -430,6 +432,7 @@ function load() {
   coin.marketTab = "Market"
   coin.singularity = ""
   coin.sacrificeText = ""
+  coin.market.display = "Artwork selling for"
   requestInterval(onTick, 50)
 }
 function save(){
