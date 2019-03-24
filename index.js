@@ -660,7 +660,7 @@ function doc_keyDown(e) {
 	break;
 	case 's':
 	case 'S':
-		document.getElementById("sell art").click()
+		document.getElementById("market selling").click()
 		break;
 	case 'w':
 	case 'W':
