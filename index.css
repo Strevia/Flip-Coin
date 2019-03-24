@@ -124,6 +124,9 @@ p {
 	max-height:16%;
 	
   }
+.OUTBREAK:hover{
+	cursor:pointer;
+}
 .booze{
 	float:right;
 	border:solid;
