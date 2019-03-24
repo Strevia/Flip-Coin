@@ -599,7 +599,7 @@ function wipe(){
 	window.location.reload(false)
   }
 }
-new ClipboardJS(document.getElementById("export"));
+var clipboard = new ClipboardJS(document.getElementById("export"));
 function importt(){
   let x = prompt("Save to import: ")
      let tempcoin = deepCopy(coin)
@@ -660,7 +660,7 @@ function doc_keyDown(e) {
 	break;
 	case 's':
 	case 'S':
-		document.getElementById("sell art").click()
+		document.getElementById("market selling").click()
 		break;
 	case 'w':
 	case 'W':
@@ -803,6 +803,12 @@ function utoa(str) {
 function atou(str) {
     return decodeURIComponent(escape(window.atob(str)));
 }
+clipboard.on('success', function(e) {
+    alert("Save copied successfully.")
+});
+clipboard.on('error', function(e) {
+    alert("Error when copying save, please try again later.")
+});
 document.addEventListener('keydown', doc_keyDown, false);
 document.getElementsByClassName("tablinks")[0].click()
 load();
