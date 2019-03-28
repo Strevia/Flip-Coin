@@ -656,7 +656,8 @@ function doc_keyDown(e) {
 	break;
 	case 'b':
 	case 'B':
-		document.getElementById("things builder price").click()
+	if (coin.res.intelligence.amount < Infinity){
+	document.getElementById("things builder price").click()}
 	break;
 	case 's':
 	case 'S':
