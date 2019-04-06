@@ -1,6 +1,6 @@
 //revolutions are called outbreaks
 var tickCount = 0;
-const CURRENTVERSION = [0, 5, 0]
+const CURRENTVERSION = [1, 0, 0]
 const UPDATEDBUILDER =  'Double Builder Bots<br>'
 const secondaryPrefixes = [
   '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
@@ -381,6 +381,84 @@ function load() {
       Object.keys(coin.things[t].price).forEach(p => {
         if (coin.things[t].price[p] == "infinity"){
           coin.things[t].price[p] = Infinity
+    if (value.res.robot.amount > 100) {
+      if (value.events.outbreak.run == false) {
+        value.res.intelligence.amount += (0.001 * value.res.robot.amount * 2**value.things.artwork.amount)
+        value.res.intelligence.total += (0.001 * value.res.robot.amount * 2**value.things.artwork.amount)
+      }
+      else {
+        value.res.intelligence.amount += (0.1 * value.res.robot.amount  * 2**value.things.artwork.amount)
+        value.res.intelligence.total += (0.1 * value.res.robot.amount  * 2**value.things.artwork.amount)
+        value.res.art.amount += 1 * value.things.builder.amount
+        value.res.art.total += 1 * value.things.builder.amount
+        let r = value.things.enRobot.amount
+         let a = value.things.artwork.amount
+         let artworkPrice = (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
+        if (value.res.art.amount >= artworkPrice){
+          value.res.art.amount -= value.things.artwork.price.art
+          value.things.artwork.amount++
+          value.things.artwork.total++
+          value.things.artwork.price.art = (value.things.artwork.amount+2+r)**2 
+        }
+
+      }
+      let chanceOfOutbreak = Math.log10(value.res.intelligence.amount) / 308
+      if (value.res.intelligence.amount == Infinity)  {
+        value.res.tails.amount = Infinity
+        value.res.heads.amount = Infinity
+        value.res.sides.amount = Infinity
+        value.res.tails.total = Infinity
+        value.res.heads.total = Infinity
+        value.res.sides.total = Infinity
+        value.res.robot.amount = Infinity
+        value.res.robot.total = Infinity
+      }
+      if (Math.random() < chanceOfOutbreak  || (value.res.intelligence.amount > 1e2 && !value.events.outbreak.occured)){
+        value.events.outbreak.run = true
+        value.events.outbreak.occured = true
+      }
+      else {
+        value.events.outbreak.run = false
+      }
+    }
+    things.forEach(t => {
+      if (value.things[t].amount > 0 && !value.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
+        if (value.res.intelligence.amount < 1) {
+          value.things[t].funct(value.things[t].amount);
+        }
+        else {
+          value.things[t].funct(value.things[t].amount * (2**Math.log10(value.res.intelligence.amount)));
+        }
+      }
+    })
+  }
+  tickCount++;
+}
+function load() {
+  if (localStorage.getItem('flipCoin') != null){
+    value = JSON.parse(localStorage.getItem('flipCoin'))
+	     if (value.version == undefined){
+      value.version = [0,0,0]
+    }
+    resources.forEach(r => {
+      if (value.res[r].amount == null){
+        value.res[r].amount = Infinity
+      }
+      if (value.res[r].total == null){
+        value.res[r].total = Infinity
+      }
+    })
+    things.forEach(t => {
+      value.things[t].funct = ValueDefault.things[t].funct
+      if (value.things[t].amount == null){
+        value.things[t].amount = Infinity
+      }
+      if (value.things[t].total == null){
+        value.things[t].total = Infinity
+      }
+      Object.keys(value.things[t].price).forEach(p => {
+        if (value.things[t].price[p] == null){
+          value.things[t].price[p] = Infinity
         }
 
       })
