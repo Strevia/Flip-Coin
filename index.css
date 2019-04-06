@@ -1,13 +1,259 @@
-button.link { background:none;border:none; text-decoration:underline; color: "#000000"; cursor: pointer
+button.link { 
+	background:none;
+	border:none;
+	text-decoration:underline;
+	color: "#000000"; 
+	cursor: pointer;
  
  }
- footer {
+footer {
 	 
 	 position: fixed;
 	 bottom:15px;
 	 width: 99%;
  }
 body {
-	background-color:#97CCF1 ;
+	background:
+	linear-gradient(27deg, #99cef3 5px, transparent 5px) 0 5px,
+	linear-gradient(207deg, #99cef3 5px, transparent 5px) 10px 0px,
+	linear-gradient(27deg, #a4d9fe 5px, transparent 5px) 0px 10px,
+	linear-gradient(207deg, #a4d9fe 5px, transparent 5px) 10px 5px,
+	linear-gradient(90deg, #9fd4f9 10px, transparent 10px),
+	linear-gradient(#a1d6fb 25%, #9ed3f8 25%, #9ed3f8 50%, transparent 50%, transparent 75%, #a4d9fe 75%, #a4d9fe);
+	background-color: #97CCF1;
+	background-size: 20px 20px;
 }
-.tablinks {}
+p {
+	 border:10px;
+	color:;
+ }
+.tablinks {
+	 margin-top:15px;
+	 margin-bottom:15px;
+	 padding-top:10px;
+	 padding-bottom:10px;
+	 padding-left:8.2%;
+	 padding-right:8.2%;
+	 outline-width:thick;
+	 outline-style:solid;
+	 outline-color:green;
+	 background-color:#32cd32;
+	 
+	}
+.tablinks:hover{
+	cursor: pointer;
+}
+.resorses{
+	outline-style:solid;
+	outline-width:5px;
+	margin:2px;
+	padding:5px;
+	text-align:center;
+}
+.things{
+	outline-style:solid;
+	outline-width:5px;
+	margin:2px;
+	padding:5px;
+	text-align:center;
+}
+.stuffOnRight {
+	float:right;
+	outline-width:5px;
+	outline-style:solid;
+	padding:10px;
+	background-color:#EEE868;
+	position:relative;
+	font-size:125%;	
+	height:57%;
+	line-height:180%;
+	width:100%;
+	
+}
+.MAIN_BUTTON{
+	border:solid;
+    border-color:black;
+    border-width:5px;
+	padding-bottom:4.5%;
+	padding-top:4.5%;
+	font-size:720%;
+	margin-left:10px;
+	min-width:78%;
+	background-color:#A8937D; 
+}
+.MAIN_BUTTON:hover{
+	background-color:#9C8976;
+	cursor: pointer;
+} 
+.MAIN_BUTTON:active{
+	background-color:#918070;
+} 
+.SubMAIN_BUTTON {
+	border:solid;
+    border-color:black;
+    border-width:5px;
+	padding-bottom:2.5%;
+	padding-top:2.5%;
+	font-size:140%;
+	margin-left:10px;
+	min-width:49%;
+	background-color:#f5f5dc;
+}
+.SubMAIN_BUTTON:hover {
+	background-color:#EBEBD2;
+	cursor: pointer;
+}
+.SubMAIN_BUTTON:active{
+	background-color:#E3E1C8;
+}
+.OUTBREAK{
+    border:solid;
+    border-color:black;
+    border-width:5px;
+    float:right;
+	margin-right:29px;
+    font-size:210%;
+    background-color:#BF0A30;
+	max-width:27%;
+	min-width:27%;
+    text-align:center;
+	font-family:sans-serif;
+	padding-bottom:6.2%;
+	padding-top:6.2%;
+	min-height:16%;
+	max-height:16%;
+	
+  }
+.OUTBREAK:hover{
+	cursor:pointer;
+}
+.booze{
+	float:right;
+	border:solid;
+	border-color:black;
+	border-width:5px;
+	padding:2%;
+	margin-right:10px;
+	font-size:130%;
+	margin-top:10px;
+	width:100%;
+	padding-top:13%;
+	padding-bottom:13%;
+}	
+.booze:hover{
+	cursor: pointer;
+}
+.stuffOver-on-the-right-side{
+	float:right;
+	width:18%;
+	margin:10px;
+	
+}
+.stuffOnRight_market {
+	float:right;
+	outline-width:5px;
+	outline-style:solid;
+	padding:10px;
+	background-color:#EEE868;
+	position:relative;
+	font-size:125%;	
+	line-height:180%;
+	width:100%;
+	text-align:center;
+	
+}
+.stuffOver-on-the-right-side_Market{
+	height:70vh;
+	float:right;
+	width:18%;
+	margin:10px;
+	
+}
+.marketDisplay{
+	display:flex;
+	justify-content:center;
+	flex-direction:column;
+	height:40vh;
+}
+.marketSelling{
+	width:96%;
+	text-align:center;
+	line-height:100%;
+	align-self:center;
+	border:solid;
+    border-color:black;
+    border-width:5px;
+	font-size:720%;
+	padding:5%;
+	margin-top:-30px;
+	background-color:#8c5f54;
+	
+}
+.marketSelling:hover{
+	cursor: pointer;
+	background-color:#9c6a5e;
+
+}
+.marketSelling:active{
+	background-color:#a7786c;
+}
+.bottomArea{
+	display:flex;
+	border:;
+	height:38vh;
+	padding:20px;
+	justify-content:space-evenly;
+}
+.book{
+	border:;
+	flex-grow:1;
+	padding:5px;
+}
+.buyBook{
+	border:solid;
+	border-width:5px;
+	height:100%;
+	width:100%;
+	font-size:200%;
+	background-color:#548c5f; 
+}
+.buyBook:hover{
+	cursor:pointer;
+	background-color:#5e9c6a;
+}
+.buyBook:active{
+	background-color:#6ca778;
+}
+.singularityBox{
+	visibility:;
+	border:;
+	flex-grow:1.5;
+	display:flex;
+	justify-content:space-between;
+	flex-direction:;
+	text-align:center;
+	padding:5px;
+	
+}
+.singularity{
+	align-self:;
+	border:solid;
+	border-width:5px;
+	width:49%;
+	font-size:230%;
+	background-color:#5f548c;
+
+}
+.singularity:hover{
+	cursor:pointer;
+	background-color:#6a5e9c;
+}
+.singularityText{
+	border:solid;
+	border-width:5px;
+	width:49%;
+	line-height:200%;
+	font-size:125%;
+	background-color:#EEE868;
+	padding-top:3%;
+}
