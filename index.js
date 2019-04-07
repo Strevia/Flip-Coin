@@ -1,6 +1,6 @@
 //revolutions are called outbreaks
 var tickCount = 0;
-const CURRENTVERSION = [1, 0, 0]
+const CURRENTVERSION = [0, 5, 0]
 const UPDATEDBUILDER =  'Double Builder Bots<br>'
 const secondaryPrefixes = [
   '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
@@ -381,87 +381,6 @@ function load() {
       Object.keys(coin.things[t].price).forEach(p => {
         if (coin.things[t].price[p] == "infinity"){
           coin.things[t].price[p] = Infinity
-		}
-	  })
-	})
-    if (coin.res.robot.amount > 100) {
-      if (coin.events.outbreak.run == false) {
-        coin.res.intelligence.amount += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)
-        coin.res.intelligence.total += (0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount)
-      }
-      else {
-        coin.res.intelligence.amount += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount)
-        coin.res.intelligence.total += (0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount)
-        coin.res.art.amount += 1 * coin.things.builder.amount
-        coin.res.art.total += 1 * coin.things.builder.amount
-        let r = coin.things.enRobot.amount
-         let a = coin.things.artwork.amount
-         let artworkPrice = (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
-        if (coin.res.art.amount >= artworkPrice){
-          coin.res.art.amount -= coin.things.artwork.price.art
-          coin.things.artwork.amount++
-          coin.things.artwork.total++
-          coin.things.artwork.price.art = (coin.things.artwork.amount+2+r)**2 
-        }
-
-      }
-      let chanceOfOutbreak = Math.log10(coin.res.intelligence.amount) / 308
-      if (coin.res.intelligence.amount == Infinity)  {
-        coin.res.tails.amount = Infinity
-        coin.res.heads.amount = Infinity
-        coin.res.sides.amount = Infinity
-        coin.res.tails.total = Infinity
-        coin.res.heads.total = Infinity
-        coin.res.sides.total = Infinity
-        coin.res.robot.amount = Infinity
-        coin.res.robot.total = Infinity
-      }
-      if (Math.random() < chanceOfOutbreak  || (coin.res.intelligence.amount > 1e2 && !coin.events.outbreak.occured)){
-        coin.events.outbreak.run = true
-        coin.events.outbreak.occured = true
-      }
-      else {
-        coin.events.outbreak.run = false
-      }
-    }
-    things.forEach(t => {
-      if (coin.things[t].amount > 0 && !coin.events.outbreak.run && t != 'artwork' && t != 'book' && t != 'enRobot') {
-        if (coin.res.intelligence.amount < 1) {
-          coin.things[t].funct(coin.things[t].amount);
-        }
-        else {
-          coin.things[t].funct(coin.things[t].amount * (2**Math.log10(coin.res.intelligence.amount)));
-        }
-      }
-    })
-  }
-  tickCount++;
-}
-function load() {
-  if (localStorage.getItem('flipCoin') != null){
-    coin = JSON.parse(localStorage.getItem('flipCoin'))
-	     if (coin.version == undefined){
-      coin.version = [0,0,0]
-    }
-    resources.forEach(r => {
-      if (coin.res[r].amount == null){
-        coin.res[r].amount = Infinity
-      }
-      if (coin.res[r].total == null){
-        coin.res[r].total = Infinity
-      }
-    })
-    things.forEach(t => {
-      coin.things[t].funct = coinDefault.things[t].funct
-      if (coin.things[t].amount == null){
-        coin.things[t].amount = Infinity
-      }
-      if (coin.things[t].total == null){
-        coin.things[t].total = Infinity
-      }
-      Object.keys(coin.things[t].price).forEach(p => {
-        if (coin.things[t].price[p] == null){
-          coin.things[t].price[p] = Infinity
         }
 
       })
@@ -818,7 +737,7 @@ function newDropDown(elem){
 		let y = document.createElement('textarea')
 		y.innerHTML = String(x)
 		y.setAttribute('id', coin.debugSelected.length)
-		y.setAttribute('onchange', "changecoin(this.coin, this)")
+		y.setAttribute('onchange', "changecoin(this.value, this)")
 		document.getElementById("debug").appendChild(y)
 	}
 	else {
@@ -838,9 +757,9 @@ function changecoin(to, ele){
 	if (typeof(x) == 'number'){
 		to = parseFloat(to)
 	}
-	setTocoin(coin, to, coin.debugSelected)
+	setToValue(coin, to, coin.debugSelected)
 }
-function setTocoin(obj, val, path) {
+function setToValue(obj, val, path) {
     var i;
     for (i = 0; i < path.length - 1; i++)
         obj = obj[path[i]];
