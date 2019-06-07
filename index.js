@@ -129,7 +129,8 @@ UIUpdate = [
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
   ['market selling', 'coin.things.artwork.total > 0', '$', false],
-  ['singularityBox', 'coin.res.creat.amount > 0', '', false]
+  ['singularityBox', 'coin.res.creat.amount > 0', '', false],
+  ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false] 
 ]
 function updateUI() {
 	if (coin.debug){
@@ -281,6 +282,7 @@ function onTick() {
   save();
   if (tickCount % 20 === 19) {
 	  if (coin.things.battery.amount > 0){
+		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*2
 		  coin.things.battery.amount--
 	  }
 	  if (coin.res.artwork.total > 0){
@@ -772,6 +774,15 @@ function sacrifice(){
 	coin.sacrifice.total++
 	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
 	coin.events.outbreak.run = true}
+}
+function burnBatt(){
+	things.forEach(t => {
+      if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
+          coin.things[t].funct(coin.things[t].amount * (2**Math.log10(coin.res.intelligence.amount)*Math.log2(coin.things.battery.amount)*2));
+      }
+    })
+	coin.things.battery.amount = 0
+	
 }
 function artworkPrice(a, r){
 	return (1/6)*(1 + r)*(24 + 6*a**2 + 13*r +2*r**2+6*a*(4 + r))
