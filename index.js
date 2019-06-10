@@ -18,68 +18,48 @@ resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat',
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery']
 both = ['robot', 'artwork']
 events = ['outbreak']
-resources.forEach(resor => coinDefault.res[resor] = {
-  amount: 0,
-  total: 0,
-});
-things.forEach(thing => coinDefault.things[thing] = {
-  amount: 0,
-  total: 0,
-  funct: place
-});
+function Resource(name){
+    this.amount = 0
+    this.total = 0
+    coinDefault.res[name] = this
+}
+function Thing(name, p = {}, inc = 1, f = place, t = ""){
+    this.amount = 0
+    this.total = 0
+    this.increase = inc
+    this.funct = f
+    this.price = p
+    this.text = t
+    coinDefault.things[name] = this
+}
 coinDefault.events.outbreak = {
   run: false,
   occured: false,
 }
-coinDefault.things.robot.text = "Buy Coin Flipping Robot"
-coinDefault.things.robot.price = {
+resources.forEach(res => {
+    new Resource(res)
+});
+new Thing('robot', {
   heads: 1,
   tails: 1,
   sides: 1
-}
-coinDefault.robotTab = "Robots"
-coinDefault.marketTab = "Market"
-coinDefault.outbreakText = "A revolution is occuring!"
-coinDefault.headsToTails = "5 Heads -> 1 Tails"
-coinDefault.tailsToHeads = "5 Tails -> 1 Heads"
-coinDefault.things.robot.funct = flipCoin
-coinDefault.things.robot.total = 0
-coinDefault.things.robot.increase = 1
-coinDefault.things.builder = {
-  amount: 0,
-  text: "Buy Builder Bot",
-  price: {
+}, 1, flipCoin, "Buy Coin Flipping Robot")
+new Thing('builder', {
     heads: 100,
     tails: 100,
     robot: 10
-  },
-  funct: buyRobot,
-  total: 0,
-  increase: 10
-}
-coinDefault.things.artwork = {
-  amount: 0,
-  total: 0,
-  price: {
+  }, 10, buyRobot, "Buy Builder Bot")
+new Thing('artwork', {
     art: 4
-  },
-  funct: place,
-}
-coinDefault.things.book = {
-  amount: 0,
-  total: 0,
-  price: {
+  }, 1)
+new Thing('book', {
     money: 10,
-  },
-  increase: 10
-}
-coinDefault.things.enRobot = {
-  amount: 0,
-  total: 0,
-  price: {
-    heads: 1e300
-  },
-}
+  }, 10)
+new Thing('enRobot')
+new Thing('battery')
+coinDefault.robotTab = "Robots"
+coinDefault.marketTab = "Market"
+coinDefault.outbreakText = "A revolution is occuring!"
 coinDefault.market = {
 	selling: 1,
 	display: "Artwork selling for"
@@ -89,15 +69,6 @@ coinDefault.sell = {
 }
 coinDefault.sacrifice = {
 	amount: 0.1,
-	total: 0
-}
-coinDefault.things.battery = {
-	price: {
-		sides: 1
-	},
-	display: '',
-	increase: 1,
-	amount: 0,
 	total: 0
 }
 coinDefault.notation = 0
@@ -125,7 +96,7 @@ UIUpdate = [
   ['market range', 'coin.debug', '', false],
   ['singularity', 'coin.res.creat.amount > 0', '', false],
   ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
-  ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
+  ['things battery text', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
   ['market selling', 'coin.things.artwork.total > 0', '$', false],
@@ -201,7 +172,7 @@ function updateBatteries(){
 	if (current > coin.things.battery.price.sides){
 		coin.things.battery.price.sides = current
 	}
-	coin.things.battery.display = "Spend " + format(coin.things.battery.price.sides) + " sides to get 120 batteries"
+	coin.things.battery.text = "Spend " + format(coin.things.battery.price.sides) + " sides to get 120 batteries"
 }
 function gainResources(outb){
 	if (!outb){
