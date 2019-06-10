@@ -18,15 +18,6 @@ resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat',
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery']
 both = ['robot', 'artwork']
 events = ['outbreak']
-//resources.forEach(resor => coinDefault.res[resor] = {
-  //amount: 0,
-  //total: 0,
-//});
-//things.forEach(thing => coinDefault.things[thing] = {
-  //amount: 0,
-  //total: 0,
-  //funct: place
-//});
 function Resource(name){
     this.amount = 0
     this.total = 0
@@ -747,7 +738,7 @@ function setToValue(obj, val, path) {
     obj[path[i]] = val;
 }
 function sacrifice(){
-	if (!coin.events.outbreak.run && coin.res.intelligence.amount < Infinity && coin.things.battery.amount < 1){
+	if (!coin.events.outbreak.run && coin.res.intelligence.amount < Infinity && coin.things.battery.amount < 1 && coin.things.robot.amount > 100){
 	coin.res.robot.amount *= 1-coin.sacrifice.amount
 	coin.sacrifice.total++
 	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
