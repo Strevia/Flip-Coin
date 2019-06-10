@@ -56,7 +56,7 @@ new Thing('book', {
     money: 10,
   }, 10)
 new Thing('enRobot')
-new Thing('battery')
+new Thing('battery', {sides: 0})
 coinDefault.robotTab = "Robots"
 coinDefault.marketTab = "Market"
 coinDefault.outbreakText = "A revolution is occuring!"
