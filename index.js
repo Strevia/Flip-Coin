@@ -657,7 +657,7 @@ function sellArtwork(times){
 	}
 }
 function singularity(){
-	if (coin.res.creat.amount > 25 && confirm("Are you sure? This will reset almost everything.")){
+	if (confirm("Are you sure? This will reset almost everything.")){
 	let c = coin.res.creat.amount
 	let amount = Math.floor(c/25)
 	let er = coin.things.enRobot.amount
