@@ -282,7 +282,7 @@ function onTick() {
   save();
   if (tickCount % 20 === 19) {
 	  if (coin.things.battery.amount > 0){
-		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*2
+		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
 		  coin.things.battery.amount--
 	  }
 	  if (coin.res.artwork.total > 0){
