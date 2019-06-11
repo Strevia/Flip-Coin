@@ -123,13 +123,13 @@ UIUpdate = [
   ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
   ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
   ['market range', 'coin.debug', '', false],
-  ['singularity', 'coin.res.creat.amount > 0', '', false],
+  ['singularity', 'coin.things.book.amount > 0', '', false],
   ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
   ['market selling', 'coin.things.artwork.total > 0', '$', false],
-  ['singularityBox', 'coin.res.creat.amount > 0', '', false],
+  ['singularityBox', 'coin.things.book.amount > 0', '', false],
   ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false] 
 ]
 function updateUI() {
@@ -689,7 +689,7 @@ function sellArtwork(times){
 function singularity(){
 	if (confirm("Are you sure? This will reset almost everything.")){
 	let c = coin.res.creat.amount
-	let amount = Math.floor(c/25)
+	let amount = Math.floor(c/10)
 	let er = coin.things.enRobot.amount
 	let intel = 10**(coin.things.book.amount+2)
 	let b = coin.things.book
