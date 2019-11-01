@@ -305,7 +305,7 @@ function onTick() {
 		coin.events.outbreak.run = false
 	}
   }
-  if (coin.res.creat.amount > 0){
+  if (coin.things.book.amount > 0){
 		updateSingularityBox()
 	}
   tickCount++;
