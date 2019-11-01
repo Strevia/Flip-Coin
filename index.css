@@ -118,14 +118,47 @@ p {
 	min-width:27%;
     text-align:center;
 	font-family:sans-serif;
-	padding-bottom:6.2%;
-	padding-top:6.2%;
+	padding-bottom:5.4%;
+	padding-top:5.4%;
 	min-height:16%;
-	max-height:16%;
-	
+	max-height:16%;	
   }
 .OUTBREAK:hover{
 	cursor:pointer;
+}
+.OUTBREAK1{
+    border:solid;
+    border-color:black;
+    border-width:5px;
+    float:right;
+	margin-right:29px;
+    font-size:210%;
+    background-color:#BF0A30;
+	max-width:27%;
+	min-width:27%;
+    text-align:center;
+	font-family:sans-serif;
+	padding-bottom:6.85%;
+	padding-top:6.85%;
+	min-height:16%;
+	max-height:16%;	
+  }
+.burn{
+    border:solid;
+    border-color:black;
+    border-width:5px;
+    float:right;
+	margin-right:29px;
+    font-size:210%;
+    background-color:#ff0033;
+	max-width:27%;
+	min-width:27%;
+    text-align:center;
+	font-family:sans-serif;
+	padding-bottom:5.4%;
+	padding-top:5.4%;
+	min-height:16%;
+	max-height:16%;
 }
 .booze{
 	float:right;
