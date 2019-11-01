@@ -289,7 +289,7 @@ function onTick() {
 	gainResources(coin.events.outbreak.run)
     if (coin.res.robot.amount > 100) {
       let chanceOfOutbreak = coin.res.intelligence.amount / 1024
-      if (coin.res.robots.amount == Infinity)  {
+      if (coin.res.robot.amount == Infinity)  {
         infinity()
       }
       if ((Math.random() < chanceOfOutbreak && coin.things.battery.amount < 1)  || (coin.res.intelligence.amount > 2 && !coin.events.outbreak.occured)){
