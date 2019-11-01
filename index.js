@@ -433,6 +433,8 @@ function load() {
   coin.singularity = ""
   coin.sacrificeText = ""
   coin.market.display = "Artwork selling for"
+  if (coin.tab){
+document.getElementById(coin.tab+"Tab").click()}
   requestInterval(onTick, 50)
 }
 function save(){
@@ -616,6 +618,7 @@ function importt(){
   }
 }
 function openTab(evt, tabName) {
+	coin.tab = tabName
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -827,5 +830,4 @@ function addIntel(a){
 	}
 }
 document.addEventListener('keydown', doc_keyDown, false);
-document.getElementsByClassName("tablinks")[0].click()
 load();
