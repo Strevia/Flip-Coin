@@ -100,6 +100,7 @@ coinDefault.things.battery = {
 	amount: 0,
 	total: 0
 }
+coinDefault.tab = "robot"
 coinDefault.notation = 0
 UIUpdate = [
   ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false],
@@ -435,6 +436,9 @@ function load() {
   coin.market.display = "Artwork selling for"
   if (coin.tab){
 document.getElementById(coin.tab+"Tab").click()}
+else {
+	coin.tab="robot"
+}
   requestInterval(onTick, 50)
 }
 function save(){
@@ -704,6 +708,7 @@ function singularity(){
 	coin.things.book.price = coinDefault.things.book.price
 	coin.notation = notation
 	localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
+	coin.tab="robot"
 	window.location.reload(false)
 	}
 }
