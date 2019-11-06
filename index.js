@@ -287,8 +287,7 @@ function onTick() {
 	  if (coin.res.artwork.total > 0){
 		  coin.market.selling = marketPrice()
 	  }
-	gainResources(coin.events.outbreak.run)
-    if (coin.res.robot.amount > 100) {
+	if (coin.res.robot.amount > 100) {
       let chanceOfOutbreak = coin.res.intelligence.amount / 1024
       if (coin.res.robot.amount == Infinity)  {
         infinity()
@@ -304,6 +303,7 @@ function onTick() {
 	else {
 		coin.events.outbreak.run = false
 	}
+	gainResources(coin.events.outbreak.run)
   }
   if (coin.things.book.amount > 0){
 		updateSingularityBox()
