@@ -643,7 +643,8 @@ function doc_keyDown(e) {
 		break;
 	case 'd':
 	case 'D':
-		buy('battery', 1)
+	if (coin.events.outbreak.occured){
+	buy('battery', 1)}
 		break;
 	}
 }
