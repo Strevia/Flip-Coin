@@ -115,8 +115,8 @@ UIUpdate = [
   ['res art amount', 'coin.res.art.total > 0', 'Art: ', false],
   ['things artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
   ['things artwork price', 'coin.things.artwork.total > 0', 'Next artwork at ', false],
-  ['robotTab', 'coin.things.artwork.total > 0', '', true],
-  ['marketTab', 'coin.things.artwork.total > 0', '', true],
+  ['robotTab', 'coin.things.artwork.total > 0 || coin.things.books.total > 0', '', true],
+  ['marketTab', 'coin.things.artwork.total > 0 || coin.things.books.total > 0', '', true],
   ['res artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
   ['res money amount', 'coin.res.money.total > 0', 'Money: $', false],
   ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
@@ -778,7 +778,7 @@ function sacrifice(){
 	coin.res.robot.amount *= 1-coin.sacrifice.amount
 	coin.sacrifice.total++
 	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
-	coin.events.outbreak.run = true}
+	onOutbreak()}
 }
 function burnBatt(){
 	things.forEach(t => {
