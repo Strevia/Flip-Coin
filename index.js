@@ -130,7 +130,7 @@ UIUpdate = [
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
   ['market selling', 'coin.things.artwork.total > 0', '$', false],
-  ['singularityBox', 'coin.things.book.total > 0', '', false],
+  ['singularityBox', 'coin.things.book.amount > 0', '', false],
   ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
   ['things enRobot price', 'coin.things.book.total > 0', 'Buy an Enlightened Robot<br>', false]
 ]
@@ -281,12 +281,6 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
-	if (coin.things.builder.amount == 0){
-		UPDATEDBUILDER = "Buy Builder Bot<br>"
-		}
-		else {
-			UPDATEDBUILDER = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
-		}
 	UIUpdate[5][2] = UPDATEDBUILDER
 	  if (coin.things.battery.amount > 0){
 		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
@@ -313,18 +307,19 @@ function onTick() {
 	}
 	gainResources(coin.events.outbreak.run)
   }
-  if (coin.things.book.total > 0){
+  if (coin.things.book.amount > 0){
 		updateSingularityBox()
 	}
   tickCount++;
 }
 function updateSingularityBox(){
-		let sing = ""
-		sing += 'Keeping ' + format((coin.things.book.amount+2)) + ' intelligence from books<br>'
-		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money<br>'
-		sing +='NOTE: The price of books resets!'
-		coin.singularity = "Singularity<br>"
-		coin.singularityBox = sing
+	let sing = ""
+        sing += 'Keeping ' + format((coin.things.book.amount+2)) + ' intelligence from books.<br>'
+        //sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money.<br>'
+        sing += '<br>'
+		sing +='Note: The price of books will reset.'
+        coin.singularity = "Singularity<br>"
+        coin.singularityBox = sing
 }
 function load() {
   if (localStorage.getItem('flipCoin') != null){
@@ -332,7 +327,7 @@ function load() {
 	      if (coin.version == undefined){
       coin.version = [0,0,0]
     }
-UPDATEDBUILDER = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+UPDATEDBUILDER = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
   if (coin.version[0] < 1){
 	  try{
 		if (coin.res.creat.total == 0){

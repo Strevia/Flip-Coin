@@ -48,14 +48,12 @@ p {
 	outline-width:5px;
 	margin:2px;
 	padding:5px;
-	text-align:center;
 }
 .things{
 	outline-style:solid;
 	outline-width:5px;
 	margin:2px;
 	padding:5px;
-	text-align:center;
 }
 .stuffOnRight {
 	float:right;
@@ -68,6 +66,8 @@ p {
 	height:57%;
 	line-height:180%;
 	width:100%;
+	text-align:center;
+
 	
 }
 .MAIN_BUTTON{
@@ -90,7 +90,6 @@ p {
 } 
 .SubMAIN_BUTTON {
 	border:solid;
-    border-color:black;
     border-width:5px;
 	padding-bottom:2.5%;
 	padding-top:2.5%;
@@ -184,32 +183,26 @@ p {
 }
 .stuffOnRight_market {
 	float:right;
-	outline-width:5px;
+	outline-width:0px;
 	outline-style:solid;
-	padding:10px;
-	background-color:#EEE868;
 	position:relative;
-	font-size:125%;	
-	line-height:180%;
 	width:100%;
 	text-align:center;
-	
 }
 .stuffOver-on-the-right-side_Market{
-	height:70vh;
 	float:right;
 	width:18%;
 	margin:10px;
-	
 }
 .marketDisplay{
 	display:flex;
 	justify-content:center;
 	flex-direction:column;
-	height:40vh;
+	margin-left:10px;
+	min-width:78%;
 }
 .marketSelling{
-	width:96%;
+	width:97%;
 	text-align:center;
 	line-height:100%;
 	align-self:center;
@@ -218,7 +211,6 @@ p {
     border-width:5px;
 	font-size:720%;
 	padding:5%;
-	margin-top:-30px;
 	background-color:#8c5f54;
 	
 }
@@ -232,15 +224,20 @@ p {
 }
 .bottomArea{
 	display:flex;
-	border:;
-	height:38vh;
-	padding:20px;
+	min-height:230px;
+	width:78%;
 	justify-content:space-evenly;
+	margin-left:10px;
 }
-.book{
+.bookStuff{
+	visibility:;
 	border:;
-	flex-grow:1;
-	padding:5px;
+	flex-grow:1.5;
+	display:flex;
+	justify-content:space-between;
+	flex-direction:;
+	text-align:center;
+	padding:2.5px;
 }
 .buyBook{
 	border:solid;
@@ -248,14 +245,24 @@ p {
 	height:100%;
 	width:100%;
 	font-size:200%;
-	background-color:#548c5f; 
+	background-color:#f5f5dc; 
+	margin:2.5px;
 }
 .buyBook:hover{
 	cursor:pointer;
-	background-color:#5e9c6a;
+	background-color:#EBEBD2;
 }
 .buyBook:active{
-	background-color:#6ca778;
+	background-color:#E3E1C8;
+}
+.enRobots{
+	border:solid;
+	border-width:5px;
+	height:100%;
+	width:100%;
+	font-size:200%;
+	background-color:#f5f5dc; 
+	margin:2.5px;
 }
 .singularityBox{
 	visibility:;
@@ -265,17 +272,29 @@ p {
 	justify-content:space-between;
 	flex-direction:;
 	text-align:center;
-	padding:5px;
-	
+	padding:2.5px;
+}
+.marketBox{
+	border:solid;
+	border-width:5px;
+	line-height:200%;
+	background-color:#EEE868;
+	padding:10px;
+	margin-top:5px;
+	margin-bottom:25px;
+	font-size:135%;	
+	text-align:center;
+
 }
 .singularity{
 	align-self:;
 	border:solid;
 	border-width:5px;
-	width:49%;
 	font-size:230%;
 	background-color:#5f548c;
-
+	margin:2.5px;
+	width:100%;
+	height:100%;
 }
 .singularity:hover{
 	cursor:pointer;
@@ -284,9 +303,10 @@ p {
 .singularityText{
 	border:solid;
 	border-width:5px;
-	width:49%;
-	line-height:200%;
-	font-size:125%;
-	background-color:#EEE868;
-	padding-top:3%;
+	line-height:150%;
+	font-size:135%;
+	background-color:#5f548c;	
+	padding:10px;
+	padding-top:25px;
+	padding-bottom:25px;
 }
