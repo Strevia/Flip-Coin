@@ -329,7 +329,7 @@ function load() {
 	      if (coin.version == undefined){
       coin.version = [0,0,0]
     }
-UPDATEDBUILDER = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+UPDATEDBUILDER = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
   if (coin.version[0] < 1){
 	  try{
 		if (coin.res.creat.total == 0){
