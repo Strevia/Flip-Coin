@@ -284,6 +284,9 @@ function onTick() {
 	if (coin.things.builder.amount == 0){
 		UPDATEDBUILDER = "Buy Builder Bot<br>"
 		}
+		else {
+			UPDATEDBUILDER = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+		}
 	UIUpdate[5][2] = UPDATEDBUILDER
 	  if (coin.things.battery.amount > 0){
 		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
