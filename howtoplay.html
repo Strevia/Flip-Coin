@@ -10,7 +10,7 @@
  <body>
  <h1> How To Play </h1>
  <b>Q: What do I do?</b><br>
- Flip a coin.<br>
+ Flip a coin. In general, it should be obvious the next thing to do; however, if you are still confused, continue!<br>
  <b>Q: What are sides?</b><br>
  Sides allow you to buy robots.<br>
  <b>Q: What are robots?</b><br>
@@ -18,9 +18,9 @@
  <b>Q: What are builders?</b><br>
  Builders, to start, will each build one robot. If all of them cannot build, no robots will be built.<br>
  <b>Q: What is intelligence?</b><br>
- Intelligence is gained after you reach 100 robots. Each robot gives 0.001 intelligence. Intelligence improves the chance of a revolution, and provides a multiplier to robots built and coins flipped. The bonus is 2^log(intelligence)<br>
+ Intelligence is gained after you reach 100 robots. Intelligence is logarithmic, meaning each intelligence is 10x as hard to get as the last. However, they boost robots and builders.<br>
  <b>Q: What is a revolution?</b><br>
- Revolutions have a chance of happening after you get intelligence. The chance of a revolution is log(intelligence) / 308. During a revolution, robots and builders refuse to flip coins and build more robots. However, robots will generate 100 times as much intelligence, and each builder will generate 1 Art.<br>
+ Revolutions have a chance of happening after you get intelligence. The chance of a revolution increases with more intelligence. During a revolution, robots and builders refuse to flip coins and build more robots. However, robots will generate 100 times as much intelligence, and log2(builders) each get 1 Art.<br>
  <b>Q: What is art?</b><br>
  Art on its own does not do anything, however at certain intervals (4, 9, 16, 25, etc.) they will make an artwork.<br>
  <b>Q: What is artwork?</b><br>
@@ -30,13 +30,13 @@ In Javascript floats can only store values up to 2^1024, or around 100CM in in-g
 <b>Q: What is the market?</b><br>
 The market is where you sell your artwork. You can sell your artwork to get money. The selling price for artwork fluctuates between 0.5x normal price and 1.5x normal price.<br>
 <b>Q: What is creativity?</b><br>
-Each artwork sold grants 1 creativity. The base price of artwork sold is log2(creativity), or 1, whichever is bigger. Creativity also controls when you can singularity.<br>
+Each artwork sold grants 1 creativity. The base price of artwork sold is log2(creativity), or 1, whichever is bigger.<br>
 <b>Q: What is money?</b><br>
 Money is gained by selling artwork, and is used to buy books.<br>
 <b>Q: What are books?</b><br>
 Books are made with money, and allow you to keep intelligence when you singularity.<br>
 <b>Q: What is a singularity?</b><br>
-Singularities are this game's prestige. When you singularity, you must destroy all of your robots, builders, heads, tails, and sides, as well as lose most of your intelligence. However, you will gain enlightened robots based on your creativity. Enlightened robots each get 1 more artwork per revolution, and make you have to make an extra artwork per revolution. Books allow you to keep some of your intelligence (10^books+2) when you singularity, but are destroyed when you do.
+Singularities are this game's prestige. When you singularity, you must destroy all of your robots, builders, heads, tails, and sides, as well as lose most of your intelligence. However, each book provides you with an additional intelligence. Also, the price of books reset when you singularity. Every 10 creativity allows you to make one enlightened robot, multiplying art production and allowing you to make 1 more art per revolution.
 </body>
 
 </head>
