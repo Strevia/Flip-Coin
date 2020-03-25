@@ -318,7 +318,7 @@ function onTick() {
 function updateSingularityBox(){
 		let sing = ""
 		sing += 'Keeping ' + format((coin.things.book.amount+2)) + ' intelligence from books<br>'
-		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
+		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money<br>'
 		sing +='NOTE: The price of books resets!'
 		coin.singularity = "Singularity<br>"
 		coin.singularityBox = sing
