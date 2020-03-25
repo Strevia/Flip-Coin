@@ -281,6 +281,9 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
+	if (coin.things.builders.amount == 0){
+		UPDATEDBUILDER = "Buy Builder Bot"
+		}
 	UIUpdate[5][2] = UPDATEDBUILDER
 	  if (coin.things.battery.amount > 0){
 		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
