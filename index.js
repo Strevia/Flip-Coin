@@ -282,7 +282,7 @@ function onTick() {
   save();
   if (tickCount % 20 === 19) {
 	if (coin.things.builder.amount == 0){
-		UPDATEDBUILDER = "Buy Builder Bot"
+		UPDATEDBUILDER = "Buy Builder Bot<br>"
 		}
 	UIUpdate[5][2] = UPDATEDBUILDER
 	  if (coin.things.battery.amount > 0){
