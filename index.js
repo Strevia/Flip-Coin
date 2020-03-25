@@ -281,7 +281,7 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
-	if (coin.things.builders.amount == 0){
+	if (coin.things.builder.amount == 0){
 		UPDATEDBUILDER = "Buy Builder Bot"
 		}
 	UIUpdate[5][2] = UPDATEDBUILDER
@@ -316,13 +316,10 @@ function onTick() {
   tickCount++;
 }
 function updateSingularityBox(){
-	let c = coin.res.creat.amount
 		let sing = ""
-		let amount = Math.floor(c/25)
-		sing += 'Create ' + format(amount) + ' enlightened robots<br>'
-		sing += 'Using ' + format(amount*25) + ' creativity<br>'
 		sing += 'Keeping ' + format((coin.things.book.amount+2)) + ' intelligence from books<br>'
 		sing += 'Sacrificing heads, tails, sides, robots, builders, art, artwork, creativity, and money'
+		sing +='NOTE: The price of books resets!'
 		coin.singularity = "Singularity<br>"
 		coin.singularityBox = sing
 }
