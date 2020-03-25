@@ -778,7 +778,7 @@ function sacrifice(){
 	coin.res.robot.amount *= 1-coin.sacrifice.amount
 	coin.sacrifice.total++
 	coin.sacrifice.amount = 1 - 0.9*0.9**(coin.sacrifice.total)
-	coin.events.outbreak.run = true}
+	onOutbreak()}
 }
 function burnBatt(){
 	things.forEach(t => {
