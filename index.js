@@ -694,14 +694,11 @@ function sellArtwork(times){
 function singularity(){
 	if (confirm("Are you sure? This will reset almost everything.")){
 	let c = coin.res.creat.amount
-	let amount = Math.floor(c/10)
 	let er = coin.things.enRobot.amount
 	let intel = (coin.things.book.amount+2)
 	let b = coin.things.book
 	let notation = coin.notation
 	coin = deepCopy(coinDefault)
-	coin.things.enRobot.amount = er + amount
-	coin.things.enRobot.total = er + amount
 	coin.res.intelligence.amount = intel
 	coin.res.intelligence.total = intel
 	coin.things.book = b
