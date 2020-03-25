@@ -79,7 +79,7 @@ coinDefault.things.enRobot = {
   price: {
     book: 2
   },
-	increase: 1
+	increase: '2'
 }
 coinDefault.market = {
 	selling: 1,
@@ -519,7 +519,11 @@ function buy(item, times, actualBuy = true) {
         coin.res[r].amount = 0
       }
 	  if (times != Infinity){
+		if (typeof(coin.things[item].increase) == 'number'){
 		coin.things[item].price[r] *= (coin.things[item].increase) ** times
+		} else {
+			coin.things[item].price[r] += parseFloat(coin.things[item].increase) * times
+		}
 	  }
     })
     try {
