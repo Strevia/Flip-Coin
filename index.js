@@ -1,7 +1,6 @@
 //revolutions are called outbreaks
 var tickCount = 0;
 const CURRENTVERSION = [0, 5, 0]
-const UPDATEDBUILDER =  'Double Builder Bots<br>'
 const secondaryPrefixes = [
   '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
 ]
@@ -16,7 +15,7 @@ var coinDefault = {
 coinDefault.version =  CURRENTVERSION
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery']
-both = ['robot', 'artwork']
+both = ['robot', 'artwork', 'book']
 events = ['outbreak']
 resources.forEach(resor => coinDefault.res[resor] = {
   amount: 0,
@@ -77,8 +76,9 @@ coinDefault.things.enRobot = {
   amount: 0,
   total: 0,
   price: {
-    heads: 1e300
+    book: 2
   },
+	increase: '2'
 }
 coinDefault.market = {
 	selling: 1,
@@ -115,8 +115,8 @@ UIUpdate = [
   ['res art amount', 'coin.res.art.total > 0', 'Art: ', false],
   ['things artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
   ['things artwork price', 'coin.things.artwork.total > 0', 'Next artwork at ', false],
-  ['robotTab', 'coin.things.artwork.total > 0', '', true],
-  ['marketTab', 'coin.things.artwork.total > 0', '', true],
+  ['robotTab', 'coin.things.artwork.total > 0 || coin.things.book.total > 0', '', true],
+  ['marketTab', 'coin.things.artwork.total > 0 || coin.things.book.total > 0', '', true],
   ['res artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
   ['res money amount', 'coin.res.money.total > 0', 'Money: $', false],
   ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
@@ -124,14 +124,15 @@ UIUpdate = [
   ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
   ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
   ['market range', 'coin.debug', '', false],
-  ['singularity', 'coin.things.book.amount > 0', '', false],
+  ['singularity', 'coin.things.book.total > 0', '', false],
   ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
   ['market selling', 'coin.things.artwork.total > 0', '$', false],
   ['singularityBox', 'coin.things.book.amount > 0', '', false],
-  ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false] 
+  ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
+  ['things enRobot price', 'coin.things.book.total > 0', 'Buy an Enlightened Robot<br>', false]
 ]
 function updateUI() {
 	if (coin.debug){
@@ -280,6 +281,7 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
+	UIUpdate[5][2] = UPDATEDBUILDER
 	  if (coin.things.battery.amount > 0){
 		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
 		  coin.things.battery.amount--
@@ -327,6 +329,7 @@ function load() {
 	      if (coin.version == undefined){
       coin.version = [0,0,0]
     }
+UPDATEDBUILDER = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
   if (coin.version[0] < 1){
 	  try{
 		if (coin.res.creat.total == 0){
@@ -400,6 +403,9 @@ function load() {
       coin.things.enRobot = deepCopy(coinDefault.things.enRobot)
       coin.things.book = deepCopy(coinDefault.things.book)
     }
+if (coin.things.enRobot.price.heads == 1e300){
+	coin.things.enRobot = deepCopy(coinDefault.things.enRobot)
+}
     coin.version = CURRENTVERSION
     if (updated){
       console.log('Updated to v' + String(coin.version[0] + '.' + String(coin.version[1] + '.' + String(coin.version[2]))))
@@ -515,7 +521,14 @@ function buy(item, times, actualBuy = true) {
         coin.res[r].amount = 0
       }
 	  if (times != Infinity){
+		if (typeof(coin.things[item].increase) == 'number'){
 		coin.things[item].price[r] *= (coin.things[item].increase) ** times
+		} else {
+			coin.things[item].price[r] += parseFloat(coin.things[item].increase) * times
+			if (item == 'enRobot'){
+				UPDATEDBUILDER = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+			}
+		}
 	  }
     })
     try {
@@ -529,8 +542,8 @@ function buy(item, times, actualBuy = true) {
       }
       else {
         if (coin.things.builder.amount > 0) {
-          coin.things.builder.amount *= 2
-          coin.things.builder.total *= 2
+          coin.things.builder.amount *= 2 + (coin.things.enRobot.amount * 0.1)
+          coin.things.builder.total *= 2 + (coin.things.enRobot.amount * 0.1)
         }
         else {
           coin.things[item].amount += times
@@ -694,16 +707,14 @@ function sellArtwork(times){
 function singularity(){
 	if (confirm("Are you sure? This will reset almost everything.")){
 	let c = coin.res.creat.amount
-	let amount = Math.floor(c/10)
-	let er = coin.things.enRobot.amount
+	let er = coin.things.enRobot
 	let intel = (coin.things.book.amount+2)
 	let b = coin.things.book
 	let notation = coin.notation
 	coin = deepCopy(coinDefault)
-	coin.things.enRobot.amount = er + amount
-	coin.things.enRobot.total = er + amount
 	coin.res.intelligence.amount = intel
 	coin.res.intelligence.total = intel
+	coin.things.enRobot = er
 	coin.things.book = b
 	coin.things.book.price = coinDefault.things.book.price
 	coin.notation = notation
