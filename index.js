@@ -16,7 +16,7 @@ var coinDefault = {
 coinDefault.version =  CURRENTVERSION
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery']
-both = ['robot', 'artwork']
+both = ['robot', 'artwork', 'book']
 events = ['outbreak']
 resources.forEach(resor => coinDefault.res[resor] = {
   amount: 0,
@@ -77,8 +77,9 @@ coinDefault.things.enRobot = {
   amount: 0,
   total: 0,
   price: {
-    heads: 1e300
+    book: 2
   },
+	increase: 1
 }
 coinDefault.market = {
 	selling: 1,
@@ -115,8 +116,8 @@ UIUpdate = [
   ['res art amount', 'coin.res.art.total > 0', 'Art: ', false],
   ['things artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
   ['things artwork price', 'coin.things.artwork.total > 0', 'Next artwork at ', false],
-  ['robotTab', 'coin.things.artwork.total > 0 || coin.things.books.total > 0', '', true],
-  ['marketTab', 'coin.things.artwork.total > 0 || coin.things.books.total > 0', '', true],
+  ['robotTab', 'coin.things.artwork.total > 0 || coin.things.book.total > 0', '', true],
+  ['marketTab', 'coin.things.artwork.total > 0 || coin.things.book.total > 0', '', true],
   ['res artwork amount', 'coin.things.artwork.total > 0', 'Artwork: ', false],
   ['res money amount', 'coin.res.money.total > 0', 'Money: $', false],
   ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
@@ -400,6 +401,9 @@ function load() {
       coin.things.enRobot = deepCopy(coinDefault.things.enRobot)
       coin.things.book = deepCopy(coinDefault.things.book)
     }
+if (coin.things.enRobot.price.heads == 1e300){
+	coin.things.enRobot = deepCopy(coinDefault.things.enRobot)
+}
     coin.version = CURRENTVERSION
     if (updated){
       console.log('Updated to v' + String(coin.version[0] + '.' + String(coin.version[1] + '.' + String(coin.version[2]))))
