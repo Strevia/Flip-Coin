@@ -377,7 +377,7 @@ try {
 		coin.market.range = ''
 	}
     resources.forEach(r => {
-	if (typeof(coin.res[r]=="undefined")){
+	if (typeof(coin.res[r])=="undefined"){
 		coin.res[r] = coinDefault.res[r]
 	}
       if (coin.res[r].amount == "infinity"){
@@ -388,7 +388,7 @@ try {
       }
     })
     things.forEach(t => {
-	if (typeof(coin.things[t]=="undefined")){
+	if (typeof(coin.things[t])=="undefined"){
 		coin.things[t] = coinDefault.things[t]
 	}
       coin.things[t].funct = coinDefault.things[t].funct
