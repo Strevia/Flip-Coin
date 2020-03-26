@@ -211,8 +211,8 @@ function gainResources(outb){
 	if (!outb){
 		if (coin.res.robot.amount > 100) {
 	addIntel((0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount));
-	coin.resources.unrest.amount += coin.resources.intelligence.amount/2;
-	coin.resources.unrest.amount += coin.resources.intelligence.amount/2}
+	coin.res.unrest.amount += coin.res.intelligence.amount/2;
+	coin.res.unrest.amount += coin.res.intelligence.amount/2}
 	things.forEach(t => {
       if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
         if (coin.res.intelligence.amount < 0) {
