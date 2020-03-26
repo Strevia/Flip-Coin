@@ -285,7 +285,8 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
-	UIUpdate[5][2] = UPDATEDBUILDER
+	if (coin.things.builder.amount > 0){
+	UIUpdate[5][2] = UPDATEDBUILDER}
 	  if (coin.things.battery.amount > 0){
 		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
 		  coin.things.battery.amount--
@@ -427,7 +428,7 @@ if (coin.things.enRobot.price.heads == 1e300){
     }
 	if (coin.things.builder.amount > 0){
 		UIUpdate[5][2] = UPDATEDBUILDER
-		//coin.things.builder.text = UPDATEDBUILDER
+		coin.things.builder.text = UPDATEDBUILDER
 	}
 	  		  both.forEach(b => {
 	  coin.res[b] = coin.things[b]
