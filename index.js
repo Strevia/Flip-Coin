@@ -13,7 +13,7 @@ var coinDefault = {
   events: {}
 }
 coinDefault.version =  CURRENTVERSION
-resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork'],
+resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork', 'unrest'],
 things = ['robot', 'builder', 'artwork', 'book', 'enRobot', 'battery']
 both = ['robot', 'artwork', 'book']
 events = ['outbreak']
@@ -132,7 +132,8 @@ UIUpdate = [
   ['market selling', 'coin.things.artwork.total > 0', '$', false],
   ['singularityBox', 'coin.things.book.amount > 0', '', false],
   ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
-  ['things enRobot price', 'coin.things.book.total > 0', 'Buy an Enlightened Robot<br>', false]
+  ['things enRobot price', 'coin.things.book.total > 0', 'Buy an Enlightened Robot<br>', false],
+  ['res unrest amount', 'coin.debug', "UNREST: ", false],
 ]
 function updateUI() {
 	if (coin.debug){
@@ -209,7 +210,9 @@ function updateBatteries(){
 function gainResources(outb){
 	if (!outb){
 		if (coin.res.robot.amount > 100) {
-	addIntel((0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount));}
+	addIntel((0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount));
+	coin.resources.unrest.amount += coin.resources.intelligence.amount/2;
+	coin.resources.unrest.amount += coin.resources.intelligence.amount/2}
 	things.forEach(t => {
       if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
         if (coin.res.intelligence.amount < 0) {
@@ -238,6 +241,7 @@ function updateSacrificeText(){
 	}
 }
 function onOutbreak(){
+	coin.res.unrest.amount = 0;
 	addIntel(0.1 * coin.res.robot.amount  * 2**coin.things.artwork.amount);
         coin.res.art.amount += (Math.log2(coin.things.builder.amount || 1) * (coin.things.enRobot.amount + 1)) || 1
         coin.res.art.total += (Math.log2(coin.things.builder.amount || 1) * (coin.things.enRobot.amount + 1)) || 1
@@ -290,7 +294,7 @@ function onTick() {
 		  coin.market.selling = marketPrice()
 	  }
 	if (coin.res.robot.amount > 100) {
-      let chanceOfOutbreak = coin.res.intelligence.amount / 1024
+      let chanceOfOutbreak = coin.res.unrest.amount / 1024
       if (coin.res.robot.amount == Infinity)  {
         infinity()
       }
@@ -361,10 +365,20 @@ UPDATEDBUILDER = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<
 	  coin.notation = 0
 	  coin.notationDisplay = "Standard"
   }
+try {
+			if (coin.things.battery.total == coinDefault.things.battery.total){
+		coin.things.battery = deepCopy(coinDefault.things.battery)}
+		}
+		catch{
+			coin.things.battery = deepCopy(coinDefault.things.battery)
+		}
 		coin.debug = false
 		coin.market.range = ''
 	}
     resources.forEach(r => {
+	if (typeof(coin.res[r]=="undefined")){
+		coin.res[r] = coinDefault.res[r]
+	}
       if (coin.res[r].amount == "infinity"){
         coin.res[r].amount = Infinity
       }
@@ -373,6 +387,9 @@ UPDATEDBUILDER = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<
       }
     })
     things.forEach(t => {
+	if (typeof(coin.things[t]=="undefined")){
+		coin.things[t] = coinDefault.things[t]
+	}
       coin.things[t].funct = coinDefault.things[t].funct
       if (coin.things[t].amount == "infinity"){
         coin.things[t].amount = Infinity
@@ -410,7 +427,7 @@ if (coin.things.enRobot.price.heads == 1e300){
     }
 	if (coin.things.builder.amount > 0){
 		UIUpdate[5][2] = UPDATEDBUILDER
-		coin.things.builder.text = UPDATEDBUILDER
+		//coin.things.builder.text = UPDATEDBUILDER
 	}
 	  		  both.forEach(b => {
 	  coin.res[b] = coin.things[b]
