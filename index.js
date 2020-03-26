@@ -130,7 +130,7 @@ UIUpdate = [
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
   ['market selling', 'coin.things.artwork.total > 0', '$', false],
-  ['singularityBox', 'coin.things.book.amount > 0', '', false],
+  ['singularityBox', 'coin.things.book.total > 0', '', false],
   ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
   ['things enRobot price', 'coin.things.book.total > 0', 'Buy an Enlightened Robot<br>', false],
   ['res unrest amount', 'coin.debug', "UNREST: ", false],
@@ -312,7 +312,7 @@ function onTick() {
 	}
 	gainResources(coin.events.outbreak.run)
   }
-  if (coin.things.book.amount > 0){
+  if (coin.things.book.total > 0){
 		updateSingularityBox()
 	}
   tickCount++;
