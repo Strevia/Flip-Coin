@@ -27,37 +27,17 @@
 			id="marketTab">Market</button>
 	</div>
 	<div id="robot" class="tabcontent">
-<div class="stuffOver-on-the-right-side">	
-	<div class="stuffOnRight">
-			<p class="resorses">
-				<span id="res heads amount" title='Heads is one of the things a coin can land on when you flip it. You can use heads to get robots and builders. And yes, I copy and pasted the one from tails because I can.'></span>
-				<span id="res tails amount" title='Tails is one of the things a coin can land on when you flip it. You can use tails to get robots and builders. And yes, I copy and pasted the one from heads because I can.'></span>
-				<span id="res sides amount" title="Sometimes when you flip a coin it will land on its side. Why? Who knows? Just know there's a 10% chance this'll happen. The only person who likes these is Craig to trade for robots."></span> <span
-					id="res intelligence amount"></span> <span id="res art amount" title="Looks like your robots have revolted and made an art. Is that good? What does art do? You'll have to wait and see."></span>
-			</p>
-			<p></p>
-			<p class="things">
-				<span id="things robot amount"></span> <span
-					id="things enRobot amount"></span>
-					<span id="things builder amount"></span>
-					<span id="things artwork amount"></span>
-					<span id="things battery amount" title="You got some batteries! These are making your robots drunk. They are so happy they will not revolt, but robots and builders are 1.5x more effective."></span>
-				
-			</p>
-			
-		</div>
-		<button id="things battery display" onclick="buyBattery()" title="Hotkey is D. Spend some sides to get batteries. They will make your robots satisfied, so they will not revolt. However, they boost production by 1.5x." class="booze"></button>
-</div>
-		<p>
-			<button id="flip" title = "Hotkey is F. Flip a coin. What idiot would name an entire game around that concept?" onclick="flipCoin(1)" class="MAIN_BUTTON">Flip
-				Coin 
-</button>
-		</p>
-	
 		<button id="outbreakText" class="OUTBREAK1" title = "If you somehow held your mouse over this long enough, it probably means you've reached Infinite intelligence. If so, good job, but if not, forget what I just said."></button>
 		<button id="sacrificeText" onclick = "sacrifice()" class="OUTBREAK" title ="Hotkey is /. Sacrifice some robots, making them sad. This will make them angry and guarentee a revolution. Each time you do it they will get more tolerant, though, up to 100% of your robots. Resets on singularity."></span>
         <button id="things battery burn" class="burn" onclick="burnBatt()"></button>
 		<p>
+			<button id='things robot price' class="prices SubMAIN_BUTTON" onclick='buy("robot", 1)' title="Hotkey is R. By combining a head, a tail, and a side, you miraculously make something that an unsuspecting human is willing to trade a robot for."></button>
+		</p>
+		<p>
+			<button id='things builder price' title= 'Hotkey is B. Buy a builder to build more robots, or if you have more than one double your builders. Though they still need to trade with Craig, they will do it automatically.' class="prices SubMAIN_BUTTON" onclick='buy("builder", 1)'></button>
+		</p>
+	</div>
+	<div id="market" class="tabcontent">
 			<button id='things robot price' class="prices SubMAIN_BUTTON" onclick='buy("robot", 1)' title="Hotkey is R. By combining a head, a tail, and a side, you miraculously
  make something that an unsuspecting human is willing to trade a robot for."></button>
 		</p>
@@ -70,7 +50,7 @@
 	</div>
 						<span id="res unrest amount"></span>
 	<div id="market" class="tabcontent">
-        
+      
 		<div class="stuffOver-on-the-right-side_Market">
 			<div class="stuffOnRight_market">
 				<span id='things artwork price' title="When you reach this number you'll get a new artwork. You can only make artwork on a revolution."></span>
@@ -102,8 +82,7 @@
 </body>
 <footer align="center">
 	<button class="link">
-		<a href="changelog.html"
-			style="color: #000000; text-decoration: underline;" target="_blank">Changelog</a>
+		<a href="changelog.html" style="color: #000000; text-decoration: underline;" target="_blank">Changelog</a>
 	</button>
 	|
 	<button class="link" onclick="wipe()">Wipe</button>
@@ -113,13 +92,14 @@
 	<button class="link" onclick="importt()">Import</button>
 	|
 	<button class="link">
-		<a href="howtoplay.html"
-			style="color: #000000; text-decoration: underline;" target="_blank">How
-			to Play</a></button>
+		<a href="howtoplay.html" style="color: #000000; text-decoration: underline;" target="_blank">How to Play</a>
+	</button>
 	|
-	<button class = "link" onclick="toggleNotation()" id="notationDisplay"></button> | <button class="link">
-		<a href="https://discord.gg/82MYUZ7"
-			style="color: #000000; text-decoration: underline;" target="_blank">Discord</a></button>
+	<button class = "link" onclick="toggleNotation()" id="notationDisplay"></button> 
+	|
+	<button class="link">
+		<a href="https://discord.gg/82MYUZ7" style="color: #000000; text-decoration: underline;" target="_blank">Discord</a>
+	</button>
 	<!--<button class = "link" onclick = "darkTheme()">Dark Theme</button><br>-->
 </footer>
 
