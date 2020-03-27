@@ -108,7 +108,7 @@ UIUpdate = [
   ['res sides amount', 'coin.res.sides.total > 0', 'Sides: ', false],
   ['things robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping Robot<br>', false],
   ['things robot amount', 'coin.things.robot.total > 0', 'Robots: ', false],
-  ['things builder price', 'coin.things.robot.total > 1', 'Buy Builder Bot<br>', false],
+  ['things builder price', 'coin.things.robot.total > 1', 'coin.things.builder.text', false],
   ['things builder amount', 'coin.things.builder.amount > 0 ', 'Builders: ', false],
   ['res intelligence amount', 'coin.res.intelligence.total > 0', 'Intelligence: ', false],
   ['outbreakText', 'coin.events.outbreak.run', '', false],
@@ -174,6 +174,10 @@ function updateUI() {
       else if (typeof y == 'number') {
         y = format(y)
       }
+		try {
+			element[2] = eval(element[2])
+		}
+		catch(err){}
       tempEl.innerHTML = element[2] + String(y)
 			  
     } else {
@@ -285,8 +289,12 @@ function onTick() {
   updateUI();
   save();
   if (tickCount % 20 === 19) {
-	if (coin.things.builder.amount > 0){
-	UIUpdate[5][2] = UPDATEDBUILDER}
+	if (coin.things.builder.amount < 1){
+		coin.things.builder.text = "Buy Builder Bot<br>"
+	}
+	else {
+		coin.things.builder.text = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+	}
 	  if (coin.things.battery.amount > 0){
 		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
 		  coin.things.battery.amount--
@@ -332,7 +340,7 @@ function load() {
 	      if (coin.version == undefined){
       coin.version = [0,0,0]
     }
-UPDATEDBUILDER = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+coin.things.builder.text = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
   if (coin.version[0] < 1){
 	  try{
 		if (coin.res.creat.total == 0){
@@ -426,10 +434,6 @@ if (coin.things.enRobot.price.heads == 1e300){
     if (updated){
       console.log('Updated to v' + String(coin.version[0] + '.' + String(coin.version[1] + '.' + String(coin.version[2]))))
     }
-	if (coin.things.builder.amount > 0){
-		UIUpdate[5][2] = UPDATEDBUILDER
-		coin.things.builder.text = UPDATEDBUILDER
-	}
 	  		  both.forEach(b => {
 	  coin.res[b] = coin.things[b]
   });
@@ -542,7 +546,7 @@ function buy(item, times, actualBuy = true) {
 		} else {
 			coin.things[item].price[r] += parseFloat(coin.things[item].increase) * times
 			if (item == 'enRobot'){
-				UPDATEDBUILDER = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+				coin.things.builder.text = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
 			}
 		}
 	  }
@@ -564,8 +568,6 @@ function buy(item, times, actualBuy = true) {
         else {
           coin.things[item].amount += times
           coin.things[item].total += times
-          coin.things.builder.text = UPDATEDBUILDER
-		  UIUpdate[5][2] = UPDATEDBUILDER
         }
       }
     }
