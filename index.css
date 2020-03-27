@@ -90,7 +90,7 @@ p {
 } 
 .SubMAIN_BUTTON {
 	border:solid;
-    border-width:5px;
+	border-width:5px;
 	padding-bottom:2.5%;
 	padding-top:2.5%;
 	font-size:140%;
@@ -207,8 +207,8 @@ p {
 	line-height:100%;
 	align-self:center;
 	border:solid;
-    border-color:black;
-    border-width:5px;
+	border-color:black;
+	border-width:5px;
 	font-size:600%;
 	padding:5%;
 	background-color:#8c5f54;
@@ -264,6 +264,13 @@ p {
 	background-color:#f5f5dc; 
 	margin:2.5px;
 }
+.enRobots:hover{
+	cursor:pointer;
+	background-color:#EBEBD2;
+}
+.enRobots:active{
+	background-color:#E3E1C8;
+}	
 .singularityBox{
 	visibility:;
 	border:;
