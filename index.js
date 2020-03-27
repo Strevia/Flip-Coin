@@ -216,7 +216,7 @@ function gainResources(outb){
 		if (coin.res.robot.amount > 100) {
 	addIntel((0.001 * coin.res.robot.amount * 2**coin.things.artwork.amount));
 	coin.res.unrest.amount += coin.res.intelligence.amount/2;
-	coin.res.unrest.amount += coin.res.intelligence.amount/2}
+	coin.res.unrest.total += coin.res.intelligence.amount/2}
 	things.forEach(t => {
       if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
         if (coin.res.intelligence.amount < 0) {
@@ -293,7 +293,7 @@ function onTick() {
 		coin.things.builder.text = "Buy Builder Bot<br>"
 	}
 	else {
-		coin.things.builder.text = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+		coin.things.builder.text = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
 	}
 	  if (coin.things.battery.amount > 0){
 		  coin.things.battery.burn = Math.log2(coin.things.battery.amount)*4
@@ -545,7 +545,7 @@ function buy(item, times, actualBuy = true) {
 		} else {
 			coin.things[item].price[r] += parseFloat(coin.things[item].increase) * times
 			if (item == 'enRobot'){
-				coin.things.builder.text = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+				coin.things.builder.text = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
 			}
 		}
 	  }
