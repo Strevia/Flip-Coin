@@ -129,7 +129,7 @@ UIUpdate = [
   ['things battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
   ['things battery amount', 'coin.things.battery.total  > 0', 'Batteries: ', false],
   ['notationDisplay', 'true', 'Current Notation: ', true],
-  ['market selling', 'coin.things.artwork.total > 0', '$', false],
+  ['market selling', 'coin.things.artwork.total > 0', 'Sell Artwork For $', false],
   ['singularityBox', 'coin.things.book.total > 0', '', false],
   ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
   ['things enRobot price', 'coin.things.book.total > 0', 'Buy an Enlightened Robot<br>', false],
@@ -175,7 +175,7 @@ function updateUI() {
         y = format(y)
       }
 		try {
-			element[2] = eval(element[2])
+			element[2] = eval(element[2]) || ''
 		}
 		catch(err){}
       tempEl.innerHTML = element[2] + String(y)
@@ -340,7 +340,6 @@ function load() {
 	      if (coin.version == undefined){
       coin.version = [0,0,0]
     }
-coin.things.builder.text = String(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
   if (coin.version[0] < 1){
 	  try{
 		if (coin.res.creat.total == 0){
