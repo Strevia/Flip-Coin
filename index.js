@@ -155,6 +155,7 @@ function updateUI() {
         let x = element[0].split(' ')
         let tempEl = document.getElementById(element[0])
         if (eval(element[1])) {
+			element = deepCopy(element)
             if (!element[3]) {
                 tempEl.style.display = 'block';
             } else {
@@ -176,6 +177,7 @@ function updateUI() {
             }
             if (element[2].includes('coin.')) {
                 try {
+					console.log(element)
                     element[2] = eval(element[2]) || ''
                 } catch (err) {}
             }
@@ -295,7 +297,7 @@ function onTick() {
     updateUI();
     save();
     if (tickCount % 20 === 19) {
-        if (coin.things.builder.amount < 1) {
+        if (coin.things.builder.amount == 0) {
             coin.things.builder.text = "Buy Builder Bot<br>"
         } else {
             coin.things.builder.text = format(2 + coin.things.enRobot.amount * 0.1) + 'x Builder Bots<br>'
