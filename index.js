@@ -177,7 +177,6 @@ function updateUI() {
             }
             if (element[2].includes('coin.')) {
                 try {
-					console.log(element)
                     element[2] = eval(element[2]) || ''
                 } catch (err) {}
             }
