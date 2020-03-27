@@ -608,7 +608,9 @@ function format(num) {
     }
     if (exp == Infinity) {
         return '∞'
-    } else {
+    } else if (isNaN(exp)){
+		return 'Snap!'
+	} else {
         switch (coin.notation) {
             case 0:
                 let level = Math.floor(exp / 3)
