@@ -134,6 +134,7 @@ UIUpdate = [
   ['things battery burn', 'coin.things.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
   ['things enRobot price', 'coin.things.book.total > 0', 'Buy an Enlightened Robot<br>', false],
   ['res unrest amount', 'coin.debug', "UNREST: ", false],
+  ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false]
 ]
 function updateUI() {
 	if (coin.debug){
@@ -303,11 +304,11 @@ function onTick() {
 		  coin.market.selling = marketPrice()
 	  }
 	if (coin.res.robot.amount > 100) {
-      let chanceOfOutbreak = coin.res.unrest.amount / 1024
+      coin.events.outbreak.chance = coin.res.unrest.amount / 1024
       if (coin.res.robot.amount == Infinity)  {
         infinity()
       }
-      if ((Math.random() < chanceOfOutbreak && coin.things.battery.amount < 1)  || (coin.res.intelligence.amount > 2 && !coin.events.outbreak.occured)){
+      if ((Math.random() < coin.events.outbreak.chance && coin.things.battery.amount < 1)  || (coin.res.intelligence.amount > 2 && !coin.events.outbreak.occured)){
         coin.events.outbreak.run = true
         coin.events.outbreak.occured = true
       }
