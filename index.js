@@ -254,8 +254,8 @@ function updateSacrificeText() {
 function onOutbreak() {
     coin.res.unrest.amount = 0;
     addIntel(0.1 * coin.res.robot.amount * 2 ** coin.things.artwork.amount);
-    coin.res.art.amount += (Math.log2(coin.things.builder.amount || 1) * (coin.things.enRobot.amount + 1)) || 1
-    coin.res.art.total += (Math.log2(coin.things.builder.amount || 1) * (coin.things.enRobot.amount + 1)) || 1
+    coin.res.art.amount += (Math.log2(coin.things.builder.amount + 1) * (coin.things.enRobot.amount + 1)) || 1
+    coin.res.art.total += (Math.log2(coin.things.builder.amount + 1) * (coin.things.enRobot.amount + 1)) || 1
     let a = coin.res.artwork.total
     maxAmount = Math.ceil(maxArtwork(coin.res.art.amount, a))
     if (coin.res.art.amount >= artworkPrice(a, maxAmount + 1)) {
