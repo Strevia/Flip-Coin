@@ -220,7 +220,7 @@ function gainResources(outb) {
     if (!outb) {
         if (coin.res.robot.amount > 100) {
             addIntel((0.001 * coin.res.robot.amount * 2 ** coin.things.artwork.amount));
-            if (coin.things.battery.amount > 0) {
+            if (coin.things.battery.amount <= 0) {
                 coin.res.unrest.amount += coin.res.intelligence.amount / 2;
                 coin.res.unrest.total += coin.res.intelligence.amount / 2
             }
