@@ -175,10 +175,12 @@ function updateUI() {
       else if (typeof y == 'number') {
         y = format(y)
       }
-		try {
-			element[2] = eval(element[2]) || ''
+		if (element[2].includes('coin.')){
+			try {
+				element[2] = eval(element[2]) || ''
+			}
+			catch(err){}
 		}
-		catch(err){}
       tempEl.innerHTML = element[2] + String(y)
 			  
     } else {
