@@ -136,6 +136,15 @@ UIUpdate = [
     ['res unrest amount', 'coin.debug', "UNREST: ", false],
     ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false]
 ]
+HOTKEYS = {
+	F: "flip",
+	R: "things robot price",
+	B: "things builder price",
+	S: "market selling",
+	W: "things book price",
+	C: "sacrificeText",
+	D: "things battery display"
+}
 
 function updateUI() {
     if (coin.debug) {
@@ -701,37 +710,13 @@ function marketPrice() {
 }
 
 function doc_keyDown(e) {
-    switch (String.fromCharCode(e.keyCode)) {
-        case 'f':
-        case 'F':
-            flipCoin(1)
-            break;
-        case 'r':
-        case 'R':
-            document.getElementById("things robot price").click()
-            break;
-        case 'b':
-        case 'B':
-            document.getElementById("things builder price").click()
-            break;
-        case 's':
-        case 'S':
-            document.getElementById("market selling").click()
-            break;
-        case 'w':
-        case 'W':
-            buy('book', 1)
-            break;
-        case '¿':
-            sacrifice()
-            break;
-        case 'd':
-        case 'D':
-			if (document.getElementById('things battery display'.style.display) == 'block'){
-            	buy('battery', 1)
-			}
-            break;
-    }
+	keyPressed = String.fromCharCode(e.keyCode)
+	actionDone = HOTKEYS[keyPressed]
+	if (actionDone){
+		if (document.getElementById(actionDone).style.display != "none"){
+			document.getElementById(actionDone).click()
+		}
+	}
 }
 
 function sellArtwork(times) {
