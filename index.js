@@ -836,11 +836,13 @@ function sacrifice() {
 }
 
 function burnBatt() {
-    things.forEach(t => {
-        if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
-            coin.things[t].funct(coin.things[t].amount * (2 ** coin.res.intelligence.amount * Math.log2(coin.things.battery.amount) * 4));
-        }
-    })
+	if (coin.things.battery.amount > 0){
+	    things.forEach(t => {
+	        if (coin.things[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
+	            coin.things[t].funct(coin.things[t].amount * (2 ** coin.res.intelligence.amount * Math.log2(coin.things.battery.amount) * 4));
+	        }
+	    })
+	}
     coin.things.battery.amount = 0
 
 }
