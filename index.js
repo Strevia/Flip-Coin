@@ -727,7 +727,9 @@ function doc_keyDown(e) {
             break;
         case 'd':
         case 'D':
-            buy('battery', 1)
+			if (document.getElementById('things battery display'.style.display) == 'block'){
+            	buy('battery', 1)
+			}
             break;
     }
 }
