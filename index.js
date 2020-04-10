@@ -1,6 +1,6 @@
 //revolutions are called outbreaks
 var tickCount = 0;
-const CURRENTVERSION = [0, 5, 0]
+const CURRENTVERSION = [1, 1, 0]
 const secondaryPrefixes = [
     '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
 ]
