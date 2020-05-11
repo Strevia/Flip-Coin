@@ -228,7 +228,8 @@ function updateBatteries() {
 function gainResources(outb) {
     if (!outb) {
         if (coin.res.robot.amount > 100) {
-            addIntel((0.001 * coin.res.robot.amount * 2 ** coin.things.artwork.amount));
+			coin.res.intelligence.amount = addLogs((0.001 * coin.res.robot.amount * 2 ** coin.things.artwork.amount), coin.res.intelligence.amount, 10);
+			coin.res.intelligence.total++
             if (coin.things.battery.amount <= 0) {
                 coin.res.unrest.amount += coin.res.intelligence.amount / 2;
                 coin.res.unrest.total += coin.res.intelligence.amount / 2
@@ -262,7 +263,7 @@ function updateSacrificeText() {
 
 function onOutbreak() {
     coin.res.unrest.amount = 0;
-    addIntel(0.1 * coin.res.robot.amount * 2 ** coin.things.artwork.amount);
+    coin.res.intelligence.amount = addLogs((0.001 * coin.res.robot.amount * 2 ** coin.things.artwork.amount), coin.res.intelligence.amount, 10);
     coin.res.art.amount += (Math.log2(coin.things.builder.amount + 1) * (coin.things.enRobot.amount + 1)) || 1
     coin.res.art.total += (Math.log2(coin.things.builder.amount + 1) * (coin.things.enRobot.amount + 1)) || 1
     let a = coin.res.artwork.total
@@ -273,8 +274,8 @@ function onOutbreak() {
         maxAmount--
     }
     maxAmount++
-    if (maxAmount > coin.things.enRobot.amount + 1) {
-        maxAmount = coin.things.enRobot.amount + 1
+    if (maxAmount > 0 + 1) {
+        maxAmount = 0 + 1
     }
     price = artworkPrice(a, maxAmount - 1)
     if (coin.res.art.amount >= price && maxAmount > 0 && coin.res.art.amount != Infinity) {
@@ -877,13 +878,12 @@ clipboard.on('error', function(e) {
     alert("Error when copying save, please try again later.")
 });
 
-function addIntel(a) {
+function addLogs(a, x, b) {
     if (a != Infinity) {
-        x = coin.res.intelligence.amount
-        a = Math.log10(a)
-        coin.res.intelligence.amount = x + Math.log10(1 + 10 ** (a - x))
-        coin.res.intelligence.total = x + Math.log10(1 + 10 ** (a - x))
+        a = Math.log(a)/Math.log(b)
+        return x + Math.log(1 + b ** (a - x))/Math.log(b)
     }
+	return Infinity
 }
 document.addEventListener('keydown', doc_keyDown, false);
 load();
