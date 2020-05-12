@@ -122,7 +122,7 @@ UIUpdate = [
     ['things enRobot amount', 'coin.things.enRobot.amount > 0', 'Enlightened Robots: ', false],
     ['res creat amount', 'coin.res.creat.total > 0', 'Creativity: ', false],
     ['things book amount', 'coin.things.book.total > 0', 'Books: ', false],
-    ['things book price', 'coin.res.money.total > 0', 'Write Book of Knowledge<br>', false],
+    ['things book price', 'coin.res.money.total > 0 || coin.things.book.price', 'Write Book of Knowledge<br>', false],
     ['market range', 'coin.debug', '', false],
     ['singularity', 'coin.things.book.total > 0', '', false],
     ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.things.battery.amount < 1', '', false],
