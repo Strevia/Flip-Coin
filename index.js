@@ -136,6 +136,27 @@ UIUpdate = [
     ['res unrest amount', 'coin.debug', "UNREST: ", false],
     ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false]
 ]
+RESET = [
+	'res heads',
+	'res tails',
+	'res sides',
+	'events outbreak',
+	'market',
+	'res art',
+	'res artwork',
+	'res creat',
+	'res intelligence',
+	'res money',
+	'res robot',
+	'res sides',
+	'res tails',
+	'res unrest',
+	'sacrifice',
+	'things artwork',
+	'things battery',
+	'things builder',
+	'things robot'
+]
 HOTKEYS = {
 	F: "flip",
 	R: "things robot price",
@@ -334,9 +355,7 @@ function onTick() {
         }
         gainResources(coin.events.outbreak.run)
     }
-    if (coin.things.book.total > 0) {
-        updateSingularityBox()
-    }
+    updateSingularityBox()
     tickCount++;
 }
 
@@ -732,21 +751,10 @@ function sellArtwork(times) {
 
 function singularity() {
     if (confirm("Are you sure? This will reset almost everything.")) {
-        let c = coin.res.creat.amount
-        let er = coin.things.enRobot
-        let intel = (coin.things.book.amount + 2)
-        let b = coin.things.book
-        let notation = coin.notation
-        coin = deepCopy(coinDefault)
-        coin.res.intelligence.amount = intel
-        coin.res.intelligence.total = intel
-        coin.things.enRobot = er
-        coin.things.book = b
-        coin.things.book.price = coinDefault.things.book.price
-        coin.notation = notation
+		RESET.forEach(resetting => {
+			setToDefault(resetting)
+		})
         localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
-        coin.tab = "robot"
-        window.location.reload(false)
     }
 }
 
@@ -812,6 +820,14 @@ function setToValue(obj, val, path) {
         obj = obj[path[i]];
 
     obj[path[i]] = val;
+}
+
+function setToDefault(path){
+	path = path.split(' ')
+	x = deepCopy(coinDefault)
+	for (i = 0; i < path.length; i++)
+        x = x[path[i]];
+	setToValue(coin, x, path)
 }
 
 function sacrifice() {
