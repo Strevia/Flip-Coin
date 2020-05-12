@@ -753,6 +753,11 @@ function singularity() {
 		RESET.forEach(resetting => {
 			setToDefault(resetting)
 		})
+		both.forEach(b => {
+            coin.res[b] = coin.things[b]
+        });
+		coin.res.intelligence.amount = coin.things.book.amount + 2
+		coin.res.intelligence.total = coin.things.book.amount + 2
         localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
     }
 }
