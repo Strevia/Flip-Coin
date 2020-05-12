@@ -155,7 +155,8 @@ RESET = [
 	'things artwork',
 	'things battery',
 	'things builder',
-	'things robot'
+	'things robot',
+	'things book price'
 ]
 HOTKEYS = {
 	F: "flip",
@@ -199,7 +200,7 @@ function updateUI() {
             if (typeof y == "object") {
                 z = Object.keys(y)
                 z.forEach(re => {
-                    a += " " + upperFirst(String(re) + " " + format(String(y[re])));
+                    a += " " + format(String(y[re])) + " " + upperFirst(String(re));
                 })
                 y = a
             } else if (typeof y == 'number') {
