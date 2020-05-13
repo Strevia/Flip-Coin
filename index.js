@@ -821,4 +821,10 @@ function addLogs(a, x, b) {
 	return Infinity
 }
 document.addEventListener('keydown', doc_keyDown, false);
-load();
+try {
+	load();
+}
+catch(err){
+	window.alert("ERROR: " + err + "\nPage will now reload.");
+	window.location.reload(false)
+}
