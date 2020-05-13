@@ -632,11 +632,11 @@ function getRandomArbitrary(min, max) {
 }
 
 function marketPrice() {
-    let c = coin.res.creat.amount
+    let c = 2**(coin.res.creat.amount/2)
     let deviation = getRandomArbitrary(0.5, 1.5)
-    price = Math.sqrt(c) * deviation
+    price = c * deviation
     if (price > 0) {
-        coin.market.range = format(Math.sqrt(c) * 0.5) + ' ' + format(Math.sqrt(c) * 1.5)
+        coin.market.range = format(c * 0.5) + ' ' + format(c * 1.5)
         return price
     } else {
         coin.market.range = '0.500 1.50'
@@ -659,7 +659,7 @@ function sellArtwork(times) {
         coin.res.money.amount += times * coin.market.selling
         coin.res.money.total += times * coin.market.selling
         coin.res.artwork.amount -= times
-        coin.res.creat.amount += times
+        coin.res.creat.amount = addLogs(times, coin.res.creat.amount, 2)
         coin.res.creat.total += times
     }
 }
@@ -818,7 +818,7 @@ function addLogs(a, x, b) {
         a = Math.log(a)/Math.log(b)
         return x + Math.log(1 + b ** (a - x))/Math.log(b)
     }
-	return Infinity
+	return x
 }
 document.addEventListener('keydown', doc_keyDown, false);
 try {
