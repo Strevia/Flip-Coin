@@ -355,6 +355,9 @@ function onTick() {
     }
 	if (tickCount % 20 === 19){
 		coin.productive = Math.floor(coin.res.boredom.amount + 20)
+		if (coin.productive < 1){
+			coin.productive = 1
+		}
 		if (coin.res.enRobot.amount >= 1){
 			coin.res.boredom.amount = addLogs(coin.res.enRobot.amount / 10, coin.res.boredom.amount, 2)
 			coin.res.boredom.total++
@@ -569,15 +572,21 @@ function buyRobot(x) {
 }
 
 function format(num) {
+	if (num < 0){
+		negative = true
+		num = Math.abs(num)
+	} else {
+		negative = false
+	}
     let exp = Math.floor(Math.log10(num))
     var leading
     if (exp <= 2) {
-        return Number.parseFloat(num).toPrecision(3)
+        prefix = Number.parseFloat(num).toPrecision(3)
     }
-    if (exp == Infinity) {
-        return '∞'
+    else if (exp == Infinity) {
+        prefix = '∞'
     } else if (isNaN(exp)){
-		return 'Snap!'
+		prefix = 'Snap!'
 	} else {
         switch (coin.notation) {
             case 0:
@@ -592,6 +601,9 @@ function format(num) {
                 prefix = String(leading) + 'e' + String(exp)
         }
     }
+	if (negative){
+		prefix = '-'+ prefix
+	}
 
     return prefix
 }
