@@ -9,10 +9,12 @@ const primaryPrefixes = [
 ]
 var coinDefault = {
     res: {},
-    events: {}
+    events: {},
+	games: {},
 }
 coinDefault.version = CURRENTVERSION
-resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork', 'unrest', 'builder', 'artwork', 'book', 'enRobot', 'battery'],
+resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork', 'unrest', 'builder', 'artwork', 'book', 'enRobot', 'battery', 'boredom']
+games = ['ttt']
 events = ['outbreak']
 resources.forEach(resor => coinDefault.res[resor] = {
     amount: 0,
@@ -27,6 +29,10 @@ coinDefault.res.robot.price = {
     heads: 1,
     tails: 1,
     sides: 1
+}
+coinDefault.games.ttt = {
+	amount: 0,
+	total: 255168
 }
 coinDefault.robotTab = "Robots"
 coinDefault.marketTab = "Market"
@@ -125,7 +131,9 @@ UIUpdate = [
     ['res battery burn', 'coin.res.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
     ['res enRobot price', 'coin.res.book.total > 0', 'Buy an Enlightened Robot<br>', false],
     ['res unrest amount', 'coin.debug', "UNREST: ", false],
-    ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false]
+    ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false],
+	['res boredom amount', 'true', 'Boredom: ', false],
+	['gamesTab', 'true', '', false],
 ]
 RESET = [
 	'res heads',
@@ -316,7 +324,7 @@ function infinity() {
 function onTick() {
     updateUI();
     save();
-    if (tickCount % 20 === 19) {
+    if (tickCount % coin.productive === coin.productive - 1) {
         if (coin.res.builder.amount == 0) {
             coin.res.builder.text = "Buy Builder Bot<br>"
         } else {
@@ -345,6 +353,13 @@ function onTick() {
         }
         gainResources(coin.events.outbreak.run)
     }
+	if (tickCount % 20 === 19){
+		coin.productive = coin.res.boredom.amount + 20
+		if (coin.res.enRobot.amount >= 1){
+			coin.res.boredom.amount = addLogs(coin.res.enRobot.amount / 10, coin.res.boredom, 2)
+			coin.res.boredom.total++
+		}
+	}
     updateSingularityBox()
     tickCount++;
 }
@@ -379,6 +394,14 @@ function load() {
 				coin.res[r].funct = window[coin.res[r].funct]
 			}
         })
+		if (!coin.games){
+			coin.games = {};
+		}
+		games.forEach(g => {
+            if (typeof(coin.games[g]) == "undefined") {
+                coin.games[g] = coinDefault.games[g]
+            }
+		})
         let updated = false
         if (coin.version[2] != CURRENTVERSION[2]) {
             coin.version[2] = CURRENTVERSION[2]
@@ -410,6 +433,7 @@ function load() {
     }
     coin.robotTab = "Robots"
     coin.marketTab = "Market"
+	coin.gamesTab = "Games"
     coin.singularity = ""
     coin.sacrificeText = ""
     coin.market.display = "Artwork selling for"
