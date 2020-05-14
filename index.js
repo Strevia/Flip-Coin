@@ -354,7 +354,7 @@ function onTick() {
         gainResources(coin.events.outbreak.run)
     }
 	if (tickCount % 20 === 19){
-		coin.productive = coin.res.boredom.amount + 20
+		coin.productive = Math.floor(coin.res.boredom.amount + 20)
 		if (coin.res.enRobot.amount >= 1){
 			coin.res.boredom.amount = addLogs(coin.res.enRobot.amount / 10, coin.res.boredom.amount, 2)
 			coin.res.boredom.total++
