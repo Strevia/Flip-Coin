@@ -805,7 +805,7 @@ function sacrifice() {
 
 function burnBatt() {
 	if (coin.res.battery.amount > 0){
-	    things.forEach(t => {
+	    resources.forEach(t => {
 	        if (coin.res[t].amount > 0 && !coin.events.outbreak.run && (t == 'robot' || t == 'builder')) {
 	            coin.res[t].funct(coin.res[t].amount * (2 ** coin.res.intelligence.amount * Math.log2(coin.res.battery.amount) * 4));
 	        }
