@@ -179,6 +179,11 @@ function updateUI() {
     } else {
         document.getElementById("debug").style.display = "none"
     }
+	if (coin.res.builder.amount == 0) {
+        coin.res.builder.text = "Buy Builder Bot<br>"
+    } else {
+        coin.res.builder.text = format(2 + coin.res.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+    }
     updateSacrificeText()
     updateBatteries()
     document.getElementById('export').setAttribute('data-clipboard-text', utoa(JSON.stringify(coin, replace)))
@@ -343,11 +348,6 @@ function onTick() {
     updateUI();
     save();
     if (tickCount % coin.productive === coin.productive - 1) {
-        if (coin.res.builder.amount == 0) {
-            coin.res.builder.text = "Buy Builder Bot<br>"
-        } else {
-            coin.res.builder.text = format(2 + coin.res.enRobot.amount * 0.1) + 'x Builder Bots<br>'
-        }
         if (coin.res.battery.amount > 0) {
             coin.res.battery.burn = Math.log2(coin.res.battery.amount) * 4
             coin.res.battery.amount--
