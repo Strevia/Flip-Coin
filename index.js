@@ -108,7 +108,7 @@ UIUpdate = [
     ['res builder price', 'coin.res.robot.total > 1', 'coin.res.builder.text', false],
     ['res builder amount', 'coin.res.builder.amount > 0 ', 'Builders: ', false],
     ['res intelligence amount', 'coin.res.intelligence.total > 0', 'Intelligence: ', false],
-    ['outbreakText', 'coin.events.outbreak.run', '', false],
+    ['outbreakText', 'coin.events.outbreak.run', '', true],
     ['res art amount', 'coin.res.art.total > 0', 'Art: ', false],
     ['res artwork amount', 'coin.res.artwork.total > 0', 'Artwork: ', false],
     ['res artwork price', 'coin.res.artwork.total > 0', 'Next artwork at ', false],
@@ -122,13 +122,13 @@ UIUpdate = [
     ['res book price', 'coin.res.money.total > 0 || coin.res.book.price', 'Write Book of Knowledge<br>', false],
     ['market range', 'coin.debug', '', false],
     ['singularity', 'coin.res.book.total > 0', '', false],
-    ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.res.battery.amount < 1', '', false],
+    ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.res.battery.amount < 1', '', true],
     ['res battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
     ['res battery amount', 'coin.res.battery.total  > 0', 'Batteries: ', false],
     ['notationDisplay', 'true', 'Current Notation: ', true],
     ['market selling', 'coin.res.artwork.total > 0', 'Sell Artwork For $', false],
     ['singularityBox', 'coin.res.book.total > 0', '', false],
-    ['res battery burn', 'coin.res.battery.amount > 1', 'Burn all batteries to multiply next second by ', false],
+    ['res battery burn', 'coin.res.battery.amount > 1', 'Burn all batteries to multiply next second by ', true],
     ['res enRobot price', 'coin.res.book.total > 0', 'Buy an Enlightened Robot<br>', false],
     ['res unrest amount', 'coin.debug', "UNREST: ", false],
     ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false],
@@ -189,7 +189,8 @@ function updateUI() {
         if (eval(element[1])) {
 			element = deepCopy(element)
             if (!element[3]) {
-                tempEl.style.display = 'block';
+				tempEl.style.display = "block"
+                tempEl.style.visibility = 'initialr';
             } else {
                 tempEl.style.display = "inline-block"
             }
@@ -215,7 +216,11 @@ function updateUI() {
             tempEl.innerHTML = element[2] + String(y)
 
         } else {
-            tempEl.style.display = 'none';
+			if (!element[3]) {
+                tempEl.style.visibility = 'hidden';
+            } else {
+                tempEl.style.display = "none"
+            }
         }
     });
     let pricesHTML = [].slice.call(document.getElementsByClassName("prices"));
@@ -695,7 +700,7 @@ function doc_keyDown(e) {
 	keyPressed = String.fromCharCode(e.keyCode)
 	actionDone = HOTKEYS[keyPressed]
 	if (actionDone){
-		if (document.getElementById(actionDone).style.display != "none"){
+		if (document.getElementById(actionDone).style.visibility != "hidden"){
 			document.getElementById(actionDone).click()
 		}
 	}
