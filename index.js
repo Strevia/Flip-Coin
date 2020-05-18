@@ -191,7 +191,7 @@ function updateUI() {
     UIUpdate.forEach(element => {
         let x = element[0].split(' ')
         let tempEl = document.getElementById(element[0])
-        if (eval(element[1])) {
+        if (eval(element[1]) || tempEl.style.visibility == "visible") {
 			element = deepCopy(element)
             if (!element[3]) {
 				tempEl.style.display = "block"
@@ -222,7 +222,7 @@ function updateUI() {
 
         } else {
 			if (!element[3]) {
-                tempEl.style.visibility = 'hidden';
+                //tempEl.style.visibility = 'hidden';
             } else {
                 tempEl.style.display = "none"
             }
