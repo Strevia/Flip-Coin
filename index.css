@@ -212,6 +212,7 @@ p {
 	font-size:600%;
 	padding:5%;
 	background-color:#8c5f54;
+	visibility: hidden;
 	
 }
 .marketSelling:hover{
