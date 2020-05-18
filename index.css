@@ -48,12 +48,14 @@ p {
 	outline-width:5px;
 	margin:2px;
 	padding:5px;
+    visibility: hidden;
 }
 .things{
 	outline-style:solid;
 	outline-width:5px;
 	margin:2px;
 	padding:5px;
+    visibility: hidden;
 }
 .stuffOnRight {
 	float:right;
@@ -67,8 +69,7 @@ p {
 	line-height:180%;
 	width:100%;
 	text-align:center;
-
-	
+    visibility: hidden;
 }
 .MAIN_BUTTON{
 	border:solid;
@@ -97,6 +98,7 @@ p {
 	margin-left:10px;
 	min-width:49%;
 	background-color:#f5f5dc;
+    visibility: hidden;
 }
 .SubMAIN_BUTTON:hover {
 	background-color:#EBEBD2;
@@ -171,6 +173,7 @@ p {
 	width:100%;
 	padding-top:13%;
 	padding-bottom:13%;
+    visibility: hidden;
 }	
 .booze:hover{
 	cursor: pointer;
@@ -188,6 +191,7 @@ p {
 	position:relative;
 	width:100%;
 	text-align:center;
+    
 }
 .stuffOver-on-the-right-side_Market{
 	float:right;
@@ -200,6 +204,7 @@ p {
 	flex-direction:column;
 	margin-left:10px;
 	min-width:78%;
+    
 }
 .marketSelling{
 	width:97%;
@@ -229,6 +234,7 @@ p {
 	width:78%;
 	justify-content:space-evenly;
 	margin-left:10px;
+    visibility: hidden;
 }
 .bookStuff{
 	visibility:;
@@ -239,6 +245,7 @@ p {
 	flex-direction:;
 	text-align:center;
 	padding:2.5px;
+    visibility: hidden;
 }
 .buyBook{
 	border:solid;
@@ -248,6 +255,7 @@ p {
 	font-size:200%;
 	background-color:#f5f5dc; 
 	margin:2.5px;
+    visibility: hidden;
 }
 .buyBook:hover{
 	cursor:pointer;
@@ -264,6 +272,7 @@ p {
 	font-size:200%;
 	background-color:#f5f5dc; 
 	margin:2.5px;
+    
 }
 .enRobots:hover{
 	cursor:pointer;
@@ -317,4 +326,5 @@ p {
 	padding:10px;
 	padding-top:25px;
 	padding-bottom:25px;
+    visibility: hidden;
 }
