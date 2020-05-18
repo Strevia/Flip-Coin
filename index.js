@@ -133,7 +133,7 @@ UIUpdate = [
     ['res unrest amount', 'coin.debug', "UNREST: ", false],
     ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false],
 	['res boredom amount', 'true', 'Boredom: ', false],
-	['gamesTab', 'true', '', false],
+	['gamesTab', 'true', '', true],
 	['res ingenuity total', 'true', 'Total Inegnuity Earned: ', false],
 	['res ingenuity amount', 'true', 'Ingenuity: ', false],
 	['games ttt amount', 'true', 'Total Positions Solved: ', false],
