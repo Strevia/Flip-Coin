@@ -190,7 +190,7 @@ function updateUI() {
 			element = deepCopy(element)
             if (!element[3]) {
 				tempEl.style.display = "block"
-                tempEl.style.visibility = 'initialr';
+                tempEl.style.visibility = 'visible';
             } else {
                 tempEl.style.display = "inline-block"
             }
