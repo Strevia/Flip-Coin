@@ -13,7 +13,7 @@ var coinDefault = {
 	games: {},
 }
 coinDefault.version = CURRENTVERSION
-resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork', 'unrest', 'builder', 'artwork', 'book', 'enRobot', 'battery', 'boredom']
+resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork', 'unrest', 'builder', 'artwork', 'book', 'enRobot', 'battery', 'boredom', 'ingenuity']
 games = ['ttt']
 events = ['outbreak']
 resources.forEach(resor => coinDefault.res[resor] = {
@@ -134,6 +134,10 @@ UIUpdate = [
     ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false],
 	['res boredom amount', 'true', 'Boredom: ', false],
 	['gamesTab', 'true', '', false],
+	['res ingenuity total', 'true', 'Total Inegnuity Earned: ', false],
+	['res ingenuity amount', 'true', 'Ingenuity: ', false],
+	['games ttt amount', 'true', 'Total Positions Solved: ', false],
+	['games ttt total', 'true', 'Positions Left: ', false],
 ]
 RESET = [
 	'res heads',
@@ -361,6 +365,13 @@ function onTick() {
 		if (coin.res.enRobot.amount >= 1){
 			coin.res.boredom.amount = addLogs(coin.res.enRobot.amount / 10, coin.res.boredom.amount, 2)
 			coin.res.boredom.total++
+			if (document.getElementById("games ttt dump").checked){
+				dumpBored('ttt')
+			}
+			if (coin.res.boredom.amount > coin.res.ingenuity.total + 1){
+				coin.res.ingenuity.total++
+				coin.res.ingenuity.amount++
+			}
 		}
 	}
     updateSingularityBox()
@@ -802,6 +813,13 @@ function burnBatt() {
 	}
     coin.res.battery.amount = 0
 
+}
+
+function dumpBored(game){
+	b = Math.floor(coin.res.boredom.amount);
+	coin.res.boredom.amount -= b
+	coin.games[game].amount += b
+	coin.games[game].total -= b
 }
 
 function artworkPrice(a, r) {
