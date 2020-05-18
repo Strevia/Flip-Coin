@@ -234,6 +234,15 @@ function updateUI() {
         }
 
     })
+	let boxesHTML = [].slice.call(document.getElementsByClassName("boxes"));
+	boxesHTML.forEach(tempEl => {
+		childs = [].slice.call(tempEl.children)
+		childs.forEach(child => {
+			if (child.style.visibility == "visible"){
+				tempEl.style.visibility = "visible"
+			}
+		})
+	})
 }
 
 function updateTooltips() {
