@@ -11,6 +11,7 @@ var coinDefault = {
     res: {},
     events: {},
 	games: {},
+	UI: {},
 }
 coinDefault.version = CURRENTVERSION
 resources = ['heads', 'tails', 'sides', 'robot', 'intelligence', 'art', 'creat', 'money', 'artwork', 'unrest', 'builder', 'artwork', 'book', 'enRobot', 'battery', 'boredom', 'ingenuity']
@@ -139,6 +140,9 @@ UIUpdate = [
 	['games ttt amount', 'true', 'Total Positions Solved: ', false],
 	['games ttt total', 'true', 'Positions Left: ', false],
 ]
+UIUpdate.forEach(update => {
+	coinDefault.UI[update[0]] = false;
+})
 RESET = [
 	'res heads',
 	'res tails',
@@ -191,9 +195,10 @@ function updateUI() {
     UIUpdate.forEach(element => {
         let x = element[0].split(' ')
         let tempEl = document.getElementById(element[0])
-        if (eval(element[1]) || tempEl.style.visibility == "visible") {
+        if (eval(element[1]) || coin.UI[element[0]]) {
 			element = deepCopy(element)
             if (!element[3]) {
+				coin.UI[element[0]] = true
 				tempEl.style.display = "block"
                 tempEl.style.visibility = 'visible';
             } else {
@@ -440,6 +445,9 @@ function load() {
 				coin.res[thing] = deepCopy(coin.things[thing])
 			})
 			delete coin.things
+		}
+		if (!coin.UI){
+			coin.UI = deepCopy(coinDefault.UI)
 		}
         coin.version = CURRENTVERSION
         if (updated) {
