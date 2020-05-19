@@ -892,6 +892,9 @@ clipboard.on('error', function(e) {
 });
 
 function addLogs(a, x, b) {
+	if (a == Infinity){
+		a = 1.797693134862315E+308
+	}
     if (a != Infinity) {
         a = Math.log(a)/Math.log(b)
         return x + Math.log(1 + b ** (a - x))/Math.log(b)
