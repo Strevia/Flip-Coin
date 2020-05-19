@@ -121,7 +121,7 @@ UIUpdate = [
     ['res creat amount', 'coin.res.creat.total > 0', 'Creativity: ', false],
     ['res book amount', 'coin.res.book.total > 0', 'Books: ', false],
     ['res book price', 'coin.res.money.total > 0 || coin.res.book.price', 'Write Book of Knowledge<br>', false],
-    ['market range', 'coin.debug', '', false],
+    ['market range', 'coin.debug', '', true],
     ['singularity', 'coin.res.book.total > 0', '', false],
     ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.res.battery.amount < 1', '', true],
     ['res battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
@@ -131,8 +131,8 @@ UIUpdate = [
     ['singularityBox', 'coin.res.book.total > 0', '', false],
     ['res battery burn', 'coin.res.battery.amount > 1', 'Burn all batteries to multiply next second by ', true],
     ['res enRobot price', 'coin.res.book.total > 0', 'Buy an Enlightened Robot<br>', false],
-    ['res unrest amount', 'coin.debug', "UNREST: ", false],
-    ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', false],
+    ['res unrest amount', 'coin.debug', "UNREST: ", true],
+    ['events outbreak chance', 'coin.debug', 'CHANCE OF OUTBREAK: ', true],
 	['res boredom amount', 'true', 'Boredom: ', false],
 	['gamesTab', 'true', '', true],
 	['res ingenuity total', 'true', 'Total Inegnuity Earned: ', false],
@@ -141,7 +141,9 @@ UIUpdate = [
 	['games ttt total', 'true', 'Positions Left: ', false],
 ]
 UIUpdate.forEach(update => {
-	coinDefault.UI[update[0]] = false;
+	if (!update[3]){
+		coinDefault.UI[update[0]] = false;
+	}
 })
 RESET = [
 	'res heads',
