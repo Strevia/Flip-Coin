@@ -940,7 +940,7 @@ function toggleHold(evt){
 		}
 	})
 }
-document.addEventListener('keydown', doc_keyDown, false);
+document.addEventListener('keyup', doc_keyDown, false);
 try {
 	load();
 }
