@@ -33,7 +33,7 @@ coinDefault.res.robot.price = {
     sides: 1
 }
 coinDefault.games.ttt = {
-	size: 3,
+	size: 2,
 	pieces: 3,
 	amount: 0,
 	total: 0,
@@ -847,8 +847,8 @@ function maxArtwork(p, a) {
 function newGame(game){
 	gameObj = coin.games[game]
 	gameObj.amount = 0
-	gameObj.total = eval(gameObj.formula)
 	gameObj.size += gameObj.inc
+	gameObj.total = eval(gameObj.formula)
 }
 
 function toggleNotation() {
