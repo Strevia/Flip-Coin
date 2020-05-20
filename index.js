@@ -1,5 +1,6 @@
 //revolutions are called outbreaks
 var tickCount = 0;
+var gameLoop;
 const CURRENTVERSION = [1, 1, 0]
 const secondaryPrefixes = [
     '', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'B'
@@ -25,15 +26,20 @@ coinDefault.events.outbreak = {
     run: false,
     occured: false,
 }
-coinDefault.res.robot.text = "Buy Coin Flipping Robot"
+coinDefault.res.robot.text = "Buy Coin Flipping <u>R</u>obot"
 coinDefault.res.robot.price = {
     heads: 1,
     tails: 1,
     sides: 1
 }
 coinDefault.games.ttt = {
+	size: 3,
+	pieces: 3,
 	amount: 0,
-	total: 255168
+	total: 0,
+	inc: 1,
+	formula: "3**(coin.games.ttt.size**2)",
+	complete: 0,
 }
 coinDefault.robotTab = "Robots"
 coinDefault.marketTab = "Market"
@@ -45,7 +51,7 @@ coinDefault.res.robot.total = 0
 coinDefault.res.robot.increase = 1
 coinDefault.res.builder = {
     amount: 0,
-    text: "Buy Builder Bot",
+    text: "Buy <u>B</u>uilder Bot",
     price: {
         heads: 100,
         tails: 100,
@@ -104,7 +110,7 @@ UIUpdate = [
     ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false],
     ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
     ['res sides amount', 'coin.res.sides.total > 0', 'Sides: ', false],
-    ['res robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping Robot<br>', false],
+    ['res robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping <u>R</u>obot<br>', false],
     ['res robot amount', 'coin.res.robot.total > 0', 'Robots: ', false],
     ['res builder price', 'coin.res.robot.total > 1', 'coin.res.builder.text', false],
     ['res builder amount', 'coin.res.builder.amount > 0 ', 'Builders: ', false],
@@ -120,14 +126,14 @@ UIUpdate = [
     ['res enRobot amount', 'coin.res.enRobot.amount > 0', 'Enlightened Robots: ', false],
     ['res creat amount', 'coin.res.creat.total > 0', 'Creativity: ', false],
     ['res book amount', 'coin.res.book.total > 0', 'Books: ', false],
-    ['res book price', 'coin.res.money.total > 0 || coin.res.book.price', 'Write Book of Knowledge<br>', false],
+    ['res book price', 'coin.res.money.total > 0 || coin.res.book.price', '<u>W</u>rite Book of Knowledge<br>', false],
     ['market range', 'coin.debug', '', true],
     ['singularity', 'coin.res.book.total > 0', '', false],
     ['sacrificeText', '!coin.events.outbreak.run && coin.res.robot.amount >= 100 && coin.events.outbreak.occured && coin.res.battery.amount < 1', '', true],
     ['res battery display', "!coin.events.outbreak.run && coin.events.outbreak.occured", '', false],
     ['res battery amount', 'coin.res.battery.total  > 0', 'Batteries: ', false],
     ['notationDisplay', 'true', 'Current Notation: ', true],
-    ['market selling', 'coin.res.artwork.total > 0', 'Sell Artwork For $', false],
+    ['market selling', 'coin.res.artwork.total > 0', '<u>S</u>ell Artwork For $', false],
     ['singularityBox', 'coin.res.book.total > 0', '', false],
     ['res battery burn', 'coin.res.battery.amount > 1', 'Burn all batteries to multiply next second by ', true],
     ['res enRobot price', 'coin.res.book.total > 0', 'Buy an Enlightened Robot<br>', false],
@@ -139,6 +145,7 @@ UIUpdate = [
 	['res ingenuity amount', 'true', 'Ingenuity: ', false],
 	['games ttt amount', 'true', 'Total Positions Solved: ', false],
 	['games ttt total', 'true', 'Positions Left: ', false],
+	['games ttt size', 'true', 'Size: ', false]
 ]
 UIUpdate.forEach(update => {
 	if (!update[3]){
@@ -186,9 +193,9 @@ function updateUI() {
         document.getElementById("debug").style.display = "none"
     }
 	if (coin.res.builder.amount == 0) {
-        coin.res.builder.text = "Buy Builder Bot<br>"
+        coin.res.builder.text = "Buy <u>B</u>uilder Bot<br>"
     } else {
-        coin.res.builder.text = format(2 + coin.res.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+        coin.res.builder.text = format(2 + coin.res.enRobot.amount * 0.1) + 'x <u>B</u>uilder Bots<br>'
     }
     updateSacrificeText()
     updateBatteries()
@@ -271,7 +278,7 @@ function updateBatteries() {
     if (current > coin.res.battery.price.sides) {
         coin.res.battery.price.sides = current
     }
-    coin.res.battery.display = "Spend " + format(coin.res.battery.price.sides) + " sides to get 120 batteries"
+    coin.res.battery.display = "Spen<u>d</u> " + format(coin.res.battery.price.sides) + " sides to get 120 batteries"
 }
 
 function gainResources(outb) {
@@ -305,7 +312,7 @@ function gainResources(outb) {
 function updateSacrificeText() {
     if (coin.res.robot.amount >= 100) {
         let t = ''
-        t += 'Sacrifice ' + format(coin.sacrifice.amount * 100) + '% of robots to trigger a revolution.'
+        t += 'Sa<u>c</u>rifice ' + format(coin.sacrifice.amount * 100) + '% of robots to trigger a revolution.'
         coin.sacrificeText = t
     }
 }
@@ -387,7 +394,7 @@ function onTick() {
 			coin.res.boredom.amount = addLogs(coin.res.enRobot.amount / 10, coin.res.boredom.amount, 2)
 			coin.res.boredom.total++
 			if (document.getElementById("games ttt dump").checked){
-				dumpBored('ttt')
+				dumpBored('ttt', Math.floor(coin.res.boredom.amount))
 			}
 			if (coin.res.boredom.amount > coin.res.ingenuity.total + 1){
 				coin.res.ingenuity.total++
@@ -460,6 +467,9 @@ function load() {
         }
     } else {
         coin = deepCopy(coinDefault);
+		games.forEach(game => {
+			newGame(game)
+		})
     }
     switch (coin.notation) {
         case 1:
@@ -480,36 +490,11 @@ function load() {
     } else {
         coin.tab = "robot"
     }
-    requestInterval(onTick, 50)
+    gameLoop = setInterval(onTick, 50)
 }
 
 function save() {
     localStorage.setItem('flipCoin', JSON.stringify(coin, replace))
-}
-
-function requestInterval(fn, delay) {
-    let requestAnimFrame = (function() {
-            return (
-                window.requestAnimationFrame ||
-                function(callback, element) {
-                    window.setTimeout(callback, 1000 / 60);
-                }
-            );
-        })(),
-        start = Date.now(),
-        handle = {};
-
-    function loop() {
-        handle.coin = requestAnimFrame(loop);
-        let current = Date.now(),
-            delta = current - start;
-        if (delta >= delay) {
-            fn();
-            start = Date.now();
-        }
-    }
-    handle.coin = requestAnimFrame(loop);
-    return handle;
 }
 
 function deepCopy(source) {
@@ -563,7 +548,7 @@ function buy(item, times, actualBuy = true) {
                 } else {
                     coin.res[item].price[r] += parseFloat(coin.res[item].increase) * times
                     if (item == 'enRobot') {
-                        coin.res.builder.text = format(2 + coin.res.enRobot.amount * 0.1) + 'x Builder Bots<br>'
+                        coin.res.builder.text = format(2 + coin.res.enRobot.amount * 0.1) + 'x <u>B</u>uilder Bots<br>'
                     }
                 }
             }
@@ -661,8 +646,8 @@ function place(no) {
 
 function wipe() {
     if (confirm("Are you sure?")) {
-        coin = deepCopy(coinDefault)
-        localStorage.setItem('flipCoin', JSON.stringify(coinDefault, replace))
+		clearInterval(gameLoop)
+        localStorage.removeItem('flipCoin')
         window.location.reload(false)
     }
 }
@@ -839,11 +824,16 @@ function burnBatt() {
 
 }
 
-function dumpBored(game){
-	b = Math.floor(coin.res.boredom.amount);
-	coin.res.boredom.amount -= b
-	coin.games[game].amount += b
-	coin.games[game].total -= b
+function dumpBored(game, bored){
+	if (bored < coin.games[game].total){
+		coin.res.boredom.amount -= bored
+		coin.games[game].amount += bored
+		coin.games[game].total -= bored
+	} else {
+		coin.res.boredom.amount -= coin.games[game].total
+		coin.games[game].complete++
+		newGame(game)
+	}
 }
 
 function artworkPrice(a, r) {
@@ -852,6 +842,13 @@ function artworkPrice(a, r) {
 
 function maxArtwork(p, a) {
     return 1 / (6 * (2 ** (1 / 3))) * ((216 * a ** 3 + 972 * a ** 2 + Math.sqrt((216 * a ** 3 + 972 * a ** 2 + 1404 * a + 648 * p + 648) ** 2 - 108) + 1404 * a + 648 * p + 648) ** (1 / 3)) + 1 / (2 ** (2 / 3) * (216 * a ** 3 + 972 * a ** 2 + Math.sqrt((216 * a ** 3 + 972 * a ** 2 + 1404 * a + 648 * p + 648) ** 2 - 108) + 1404 * a + 648 * p + 648) ** (1 / 3)) + 0.5 * (-2 * a - 5)
+}
+
+function newGame(game){
+	gameObj = coin.games[game]
+	gameObj.amount = 0
+	gameObj.total = eval(gameObj.formula)
+	gameObj.size += gameObj.inc
 }
 
 function toggleNotation() {
