@@ -49,6 +49,7 @@ coinDefault.tailsToHeads = "5 Tails -> 1 Heads"
 coinDefault.res.robot.funct = flipCoin
 coinDefault.res.robot.total = 0
 coinDefault.res.robot.increase = 1
+coinDefault.res.robot.text = "Buy Coin Flipping Robot<br>"
 coinDefault.res.builder = {
     amount: 0,
     text: "Buy <u>B</u>uilder Bot",
@@ -106,11 +107,12 @@ coinDefault.res.battery = {
 }
 coinDefault.tab = "robot"
 coinDefault.notation = 0
+coinDefault.flip = "Flip Coin"
 UIUpdate = [
     ['res heads amount', 'coin.res.heads.total > 0', 'Heads: ', false],
     ['res tails amount', 'coin.res.tails.total > 0', 'Tails: ', false],
     ['res sides amount', 'coin.res.sides.total > 0', 'Sides: ', false],
-    ['res robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'Buy Coin Flipping <u>R</u>obot<br>', false],
+    ['res robot price', 'coin.res.heads.total > 0 && coin.res.tails.total > 0 && coin.res.sides.total > 0', 'coin.res.robot.text', false],
     ['res robot amount', 'coin.res.robot.total > 0', 'Robots: ', false],
     ['res builder price', 'coin.res.robot.total > 1', 'coin.res.builder.text', false],
     ['res builder amount', 'coin.res.builder.amount > 0 ', 'Builders: ', false],
@@ -145,7 +147,8 @@ UIUpdate = [
 	['res ingenuity amount', 'true', 'Ingenuity: ', false],
 	['games ttt amount', 'true', 'Total Positions Solved: ', false],
 	['games ttt total', 'true', 'Positions Left: ', false],
-	['games ttt size', 'true', 'Size: ', false]
+	['games ttt size', 'true', 'Size: ', false],
+	['flip', 'true', '', false]
 ]
 UIUpdate.forEach(update => {
 	if (!update[3]){
@@ -180,6 +183,20 @@ HOTKEYS = {
 	W: "res book price",
 	C: "sacrificeText",
 	D: "res battery display"
+}
+FUNCTIONS = {
+	"flip": {
+		func: "flipCoin(1)",
+		on: false
+	},
+	"res robot price": {
+		func: "buy('robot', 1)",
+		on: false
+	},
+	"res builder price":  {
+		func: "buy('builder', 1)",
+		on: false
+	}
 }
 
 function updateUI() {
@@ -262,6 +279,16 @@ function updateUI() {
 			}
 		})
 	})
+	if (FUNCTIONS["res robot price"].on){
+		coin.res.robot.text = "Buying Coin Flipping Robots<br>"
+	} else {
+		coin.res.robot.text = "Buy Coin Flipping Robots<br>"
+	}
+	if (FUNCTIONS["flip"].on){
+		coin.flip = "Flipping Coins"
+	} else {
+		coin.flip = "Flip Coin"
+	}
 }
 
 function updateTooltips() {
@@ -403,6 +430,11 @@ function onTick() {
 		}
 	}
     updateSingularityBox()
+	Object.keys(FUNCTIONS).forEach(f => {
+		if (FUNCTIONS[f].on){
+			eval(FUNCTIONS[f].func)
+		}
+	})
     tickCount++;
 }
 
@@ -851,6 +883,7 @@ function newGame(game){
 	gameObj.total = eval(gameObj.formula)
 }
 
+
 function toggleNotation() {
     switch (coin.notation) {
         case 0:
@@ -897,6 +930,15 @@ function addLogs(a, x, b) {
         return x + Math.log(1 + b ** (a - x))/Math.log(b)
     }
 	return x
+}
+function toggleHold(evt){
+	going = evt.id
+	FUNCTIONS[going].on = !FUNCTIONS[going].on
+	Object.keys(FUNCTIONS).forEach(f => {
+		if (f != going){
+			FUNCTIONS[f].on = false
+		}
+	})
 }
 document.addEventListener('keydown', doc_keyDown, false);
 try {
