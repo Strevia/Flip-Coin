@@ -209,7 +209,10 @@ function updateUI() {
     } else {
         document.getElementById("debug").style.display = "none"
     }
-	if (coin.res.builder.amount == 0) {
+	if (FUNCTIONS["res builder price"].on){
+		coin.res.builder.text = "Buying Builder Bots<br>"
+	}
+	else if (coin.res.builder.amount == 0) {
         coin.res.builder.text = "Buy <u>B</u>uilder Bot<br>"
     } else {
         coin.res.builder.text = format(2 + coin.res.enRobot.amount * 0.1) + 'x <u>B</u>uilder Bots<br>'
